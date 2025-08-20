@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Byte&Berry — Custom Software for Africa’s Ambition</title>
+  <meta name="description" content="Byte&Berry builds modern websites, apps, and AI‑powered solutions that accelerate African business growth." />
+  <meta property="og:title" content="Byte&Berry — Custom Software for Africa’s Ambition" />
+  <meta property="og:description" content="We design and develop reliable, beautiful, AI‑powered software for African businesses." />
+  <meta property="og:image" content="https://placehold.co/1200x630/0f172a/e2e8f0?text=Byte%26Berry" />
+  <meta property="og:url" content="https://www.byteandberry.site/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#7c3aed" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bb: {
+              bg: '#0b1220',
+              card: '#0f172a',
+              ring: '#7c3aed',
+            },
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(124,58,237,.35), 0 10px 30px -5px rgba(124,58,237,.35)',
+          },
+          backgroundImage: {
+            'bb-grid':
+              'radial-gradient(circle at 1px 1px, rgba(124,58,237,.18) 1px, transparent 1px)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- Animation libs (lightweight) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" defer></script>
+
+  <style>
+    :root { color-scheme: light dark; }
+    html { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body { background: #0b1020; }
+
+    /* Subtle noise overlay */
+    .noise::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 5;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"140\" height=\"140\" viewBox=\"0 0 140 140\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".9\" numOctaves=\"2\" stitchTiles=\"stitch\"/></filter><rect width=\"100%\" height=\"100%\" filter=\"url(%23n)\" opacity=\"0.025\"/></svg>');
+    }
+
+    /* Watermark */
+    .watermark {
+      position: fixed; right: 24px; bottom: 24px; font-size: 11px; letter-spacing: .08em; opacity: .04;
+      color: #e5e7eb; user-select: none; pointer-events: none; z-index: 50;
+    }
+
+    /* Animated gradient blob */
+    .blob {
+      position: absolute; width: 50vmax; height: 50vmax; filter: blur(60px); opacity: .45; mix-blend-mode: screen;
+      background: conic-gradient(from 180deg, #7c3aed, #22d3ee, #a855f7, #7c3aed);
+      animation: spin 30s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(1turn); } }
+
+    /* Card hover */
+    .card { transition: transform .25s ease, box-shadow .25s ease; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px -10px rgba(124,58,237,.4); }
+
+    /* Fancy buttons */
+    .btn-primary { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+    .btn-primary:hover { filter: brightness(1.05); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; border: 1px solid rgba(148,163,184,.3); }
+    .btn-secondary:hover { background: rgba(148,163,184,.1); }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* Page transition */
+    .page-transition-out { animation: fadeOut .25s forwards; }
+    .page-transition-in { animation: fadeIn .25s forwards; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes fadeOut { from { opacity: 1 } to { opacity: 0 } }
+
+    /* Glass */
+    .glass { backdrop-filter: blur(12px); background: linear-gradient(180deg, rgba(15,23,42,.6), rgba(15,23,42,.35)); border: 1px solid rgba(124,58,237,.18); }
+
+    /* Cursor sparkles */
+    .sparkle { position: fixed; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle,#fff 0,#a78bfa 60%,transparent 70%); opacity:.85; }
+
+    /* Chat drawer */
+    .drawer {
+      transform: translateY(120%);
+      transition: transform .35s ease;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      left: 0 !important;
+      right: 0 !important;
+      border-radius: 0 !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+    .drawer.open { transform: translateY(0); }
+
+    /* Chat bubble: make it adapt on mobile */
+    #chat-bubble {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 60;
+      transition: box-shadow .2s;
+    }
+    @media (max-width: 640px) {
+      #chat-bubble {
+        right: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 56px !important;
+        height: 56px !important;
+        min-width: 56px !important;
+        min-height: 56px !important;
+        max-width: 56px !important;
+        max-height: 56px !important;
+        bottom: 1.25rem;
+      }
+    }
+
+   /* Mobile improvements — safer + RTL-friendly */
+@media (max-width: 640px) {
+  /* Safe-area aware spacing */
+  :root {
+    --pad-l: max(1rem, env(safe-area-inset-left));
+    --pad-r: max(1rem, env(safe-area-inset-right));
+  }
+
+  /* Prevent horizontal scroll without killing vertical momentum */
+  html, body {
+    max-inline-size: 100%;
+    overflow-x: clip;           /* safer than hidden for layout/transform */
+  }
+
+  /* Make media fluid */
+  img, video, canvas, svg, iframe {
+    max-inline-size: 100%;
+    block-size: auto;
+    height: auto;
+    display: block;
+  }
+
+  /* Common wide shells (e.g., Tailwind max-w-* utilities, drawers, content areas) */
+  [class*="max-w-"], .drawer, .page-content {
+    inline-size: 100%;          /* use % instead of 100vw to avoid scrollbar math */
+    max-inline-size: 100%;
+    box-sizing: border-box;
+    overflow-x: clip;
+  }
+
+  /* Add horizontal padding only to main sections (avoid touching every .px-*) */
+  header, main, footer, section, .page-content, .container {
+    padding-inline-start: var(--pad-l);
+    padding-inline-end: var(--pad-r);
+  }
+
+  /* Keep long words/URLs from blowing out the layout */
+  * {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Let tables/code scroll horizontally instead of forcing the page to */
+  table, pre, code, .code, .prose pre {
+    display: block;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Respect bottom safe area for fixed/sticky UI (e.g., chat bubbles, banners) */
+  @supports (padding: max(0px)) {
+    .fixed-bottom, [data-fixed-bottom] {
+      padding-block-end: max(0.5rem, env(safe-area-inset-bottom));
+    }
+  }
+}
+  </style>
+
+  <!-- Schema.org: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Byte&Berry",
+    "url": "https://www.byteandberry.site/",
+    "logo": "Logo/Logo.png",
+    "sameAs": [
+      "https://web.facebook.com/p/ByteBerry-61575125536198/"
+    ]
+  }
+  </script>
+</head>
+<body class="noise text-slate-100 bg-[radial-gradient(ellipse_at_top_left,_rgba(124,58,237,.08),transparent_40%),radial-gradient(ellipse_at_bottom_right,_rgba(34,211,238,.08),transparent_40%)] overflow-x-hidden">
+
+  <!-- Watermark (stealth) -->
+  <div class="watermark" aria-hidden="true">developed by Impeldown.dev</div>
+
+  <!-- Top gradient blobs -->
+  <div class="blob -z-10 -top-24 -left-24"></div>
+  <div class="blob -z-10 -bottom-24 -right-24" style="animation-duration: 40s; opacity:.35"></div>
+
+  <!-- Header -->
+  <header id="header" class="sticky top-0 z-40 backdrop-blur-md/0">
+    <nav class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-2 text-2xl font-extrabold tracking-tight">
+        <img src="Logo/Logo.png" alt="Byte&Berry Logo" class="h-9 w-9 rounded-lg border border-white/10 bg-white/10" style="object-fit:contain;" />
+        <span>Byte<span class="text-violet-400">&</span>Berry</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-slate-300">
+        <a class="hover:text-white" href="#home">Home</a>
+        <a class="hover:text-white" href="#services">Services</a>
+        <a class="hover:text-white" href="#about">About</a>
+        <a class="hover:text-white" href="#investors">Investors</a>
+        <a class="hover:text-white" href="#contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" class="hidden sm:inline-flex btn-secondary px-3 py-2 rounded-lg text-sm">Theme</button>
+        <a href="#contact" class="hidden lg:inline-flex btn-primary px-4 py-2 rounded-lg font-semibold shadow-glow">Start Project</a>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg border border-white/10"><i data-feather="menu"></i></button>
+      </div>
+    </nav>
+    <!-- Mobile -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-white/10">
+      <div class="mx-auto max-w-7xl px-6 py-3 flex flex-col gap-2">
+        <a href="#home" class="py-2">Home</a>
+        <a href="#services" class="py-2">Services</a>
+        <a href="#about" class="py-2">About</a>
+        <a href="#investors" class="py-2">Investors</a>
+        <a href="#contact" class="py-2">Contact</a>
+        <a href="#contact" class="mt-2 btn-primary text-center py-2 rounded-lg font-semibold">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main container -->
+  <main id="main-content"></main>
+
+  <!-- Footer -->
+  <footer class="mt-24 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <h3 class="text-xl font-bold">Byte<span class="text-violet-400">&</span>Berry</h3>
+        <p class="mt-3 text-slate-400 text-sm">Powering Africa’s Ambition with AI‑driven, human‑centered software.</p>
+        <div class="flex gap-4 mt-4 text-slate-400">
+          <a class="hover:text-white" href="#" aria-label="Twitter"><i data-feather="twitter"></i></a>
+          <a class="hover:text-white" href="#" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+          <a class="hover:text-white" href="#" aria-label="GitHub"><i data-feather="github"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold uppercase tracking-widest text-sm text-slate-300">Quick Links</h4>
+        <ul class="mt-4 space-y-2 text-slate-400 text-sm">
+          <li><a href="#services" class="hover:text-white">Services & Pricing</a></li>
+          <li><a href="#about" class="hover:text-white">About Us</a></li>
+          <li><a href="#investors" class="hover:text-white">Investor Relations</a></li>
+          <li><a href="#contact" class="hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold uppercase tracking-widest text-sm text-slate-300">Legal</h4>
+        <ul class="mt-4 space-y-2 text-slate-400 text-sm">
+          <li><a href="#legal-privacy" class="hover:text-white">Privacy Policy</a></li>
+          <li><a href="#legal-terms" class="hover:text-white">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold uppercase tracking-widest text-sm text-slate-300">Get in touch</h4>
+        <p class="mt-4 text-slate-400 text-sm">Have a dream app? Let’s build it together.</p>
+        <a href="#contact" class="inline-flex mt-4 btn-primary px-4 py-2 rounded-lg font-semibold shadow-glow">Start Your Project</a>
+      </div>
+    </div>
+    <div class="text-center text-slate-500 text-sm pb-10">© <span id="current-year"></span> Byte&Berry. All rights reserved.</div>
+  </footer>
+
+  <!-- Chat Bubble -->
+  <button id="chat-bubble" class="fixed bottom-6 right-6 w-14 h-14 rounded-full btn-primary shadow-glow flex items-center justify-center">
+    <i data-feather="message-square" class="text-white"></i>
+  </button>
+
+  <!-- AI Drawer -->
+  <section id="chat-drawer" class="drawer fixed left-0 right-0 bottom-0 z-50 w-full sm:max-w-2xl mx-auto">
+    <div class="mx-auto w-full max-w-2xl p-4">
+      <div class="glass rounded-2xl p-4 shadow-xl">
+        <div class="flex items-center justify-between">
+          <h3 class="font-semibold">Byte&Berry Copilot <span class="text-xs text-violet-300">(demo)</span></h3>
+          <button id="drawer-close" class="p-2 rounded-lg hover:bg-white/5"><i data-feather="x"></i></button>
+        </div>
+        <p class="mt-1 text-sm text-slate-400">Plan features, estimate timelines, and get quick answers.</p>
+
+        <div class="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
+          <button class="quick-prompt btn-secondary px-3 py-2 rounded-lg" data-q="Plan a mobile app with logins and payments in 2 months">Plan an app in 2 months</button>
+          <button class="quick-prompt btn-secondary px-3 py-2 rounded-lg" data-q="What stack do you recommend for a 5‑page site with blog?">Pick a web stack</button>
+          <button class="quick-prompt btn-secondary px-3 py-2 rounded-lg" data-q="Estimate a marketplace MVP with chat and listings">Estimate marketplace MVP</button>
+          <button class="quick-prompt btn-secondary px-3 py-2 rounded-lg" data-q="How can we integrate Zambian mobile money?">Zambia mobile money</button>
+        </div>
+
+        <div class="mt-4 flex gap-2">
+          <input id="chat-input" class="flex-1 bg-transparent border border-white/10 rounded-lg px-3 py-2" placeholder="Ask anything about your project…" />
+          <button id="chat-send" class="btn-primary px-4 py-2 rounded-lg font-semibold">Send</button>
+        </div>
+
+        <div id="chat-stream" class="mt-4 space-y-3 max-h-64 overflow-y-auto pr-1"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner" class="fixed bottom-0 inset-x-0 hidden z-40">
+    <div class="mx-auto max-w-7xl m-4 glass rounded-2xl p-4 flex items-center justify-between">
+      <p class="text-sm text-slate-300">We use cookies to improve experience. By staying, you agree to our cookie policy. <a href="#legal-privacy" class="underline decoration-violet-500">Learn more</a>.</p>
+      <button id="accept-cookies" class="btn-primary px-4 py-2 rounded-lg font-semibold">Accept</button>
+    </div>
+  </div>
+
+  <!-- TEMPLATES -->
+  <template id="template-home">
+    <div class="page-content">
+      <!-- HERO -->
+      <section class="relative pt-20 md:pt-28">
+        <div class="absolute inset-0 bg-bb-grid bg-[length:18px_18px] opacity-[0.12] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+            Custom Software to Power
+            <br class="hidden md:block" />
+            <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">Africa’s Ambition</span>
+          </h1>
+          <p class="mt-5 text-lg text-slate-300 max-w-3xl mx-auto">
+            We build beautiful, scalable web & mobile apps — now with AI copilots that automate workflows and delight customers.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact" class="btn-primary px-6 py-3 rounded-xl font-semibold shadow-glow">Start Your Project</a>
+            <a href="#services" class="btn-secondary px-6 py-3 rounded-xl font-semibold">See Pricing</a>
+          </div>
+
+          <!-- Efficiency Engine canvas -->
+          <div class="mt-14 relative mx-auto w-full max-w-4xl h-72 md:h-96 rounded-2xl overflow-hidden border border-white/10">
+            <svg id="efficiency-engine-output" class="w-full h-full"></svg>
+            <div id="engine-fallback" class="absolute inset-0 hidden items-center justify-center">Efficient Network</div>
+            <button id="start-transformation-btn" class="absolute bottom-4 right-4 btn-primary px-4 py-2 rounded-lg font-semibold">Ignite Engine</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES PREVIEW -->
+      <section class="mt-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold">Our Core Services</h2>
+        <p class="text-slate-400 mt-2">Tailored, scalable solutions — infused with AI where it truly helps.</p>
+        <div class="grid md:grid-cols-3 gap-6 mt-8">
+          <div class="card glass rounded-2xl p-6">
+            <div class="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center mb-4"><i data-feather="layout"></i></div>
+            <h3 class="font-semibold text-lg">Web Development</h3>
+            <p class="text-slate-400 mt-1">Fast, responsive sites that convert. Blogs, landing pages, dashboards.</p>
+            <a href="#services" class="inline-flex items-center gap-1 mt-3 text-violet-300">Learn more <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          </div>
+          <div class="card glass rounded-2xl p-6">
+            <div class="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center mb-4"><i data-feather="smartphone"></i></div>
+            <h3 class="font-semibold text-lg">App Development</h3>
+            <p class="text-slate-400 mt-1">iOS & Android apps with offline support and clean UX.</p>
+            <a href="#services" class="inline-flex items-center gap-1 mt-3 text-violet-300">Learn more <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          </div>
+          <div class="card glass rounded-2xl p-6">
+            <div class="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center mb-4"><i data-feather="cpu"></i></div>
+            <h3 class="font-semibold text-lg">AI & Automations</h3>
+            <p class="text-slate-400 mt-1">Chatbots, copilots, document Q&A, and workflow automation.</p>
+            <a href="#services" class="inline-flex items-center gap-1 mt-3 text-violet-300">Learn more <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUST -->
+      <section class="mt-24 px-6 max-w-7xl mx-auto fade-in">
+        <h2 class="text-2xl font-semibold text-center text-slate-200">Trusted by forward‑thinking African teams</h2>
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 items-center opacity-80">
+          <img src="https://placehold.co/150x50/1e293b/e2e8f0?text=Client+A" alt="Golden success" class="mx-auto hover:opacity-100" />
+          <img src="https://placehold.co/150x50/1e293b/e2e8f0?text=Client+B" alt="Broma-Link" class="mx-auto hover:opacity-100" />
+          <img src="https://placehold.co/150x50/1e293b/e2e8f0?text=Client+C" alt="Client C" class="mx-auto hover:opacity-100" />
+          <img src="https://placehold.co/150x50/1e293b/e2e8f0?text=Client+D" alt="Client D" class="mx-auto hover:opacity-100" />
+          <img src="https://placehold.co/150x50/1e293b/e2e8f0?text=Client+E" alt="Client E" class="mx-auto hover:opacity-100 hidden lg:block" />
+        </div>
+      </section>
+
+      <!-- Dual CTA -->
+      <section class="mt-24 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
+        <div class="glass rounded-2xl p-8 text-center">
+          <h3 class="text-2xl font-bold">Have a dream app?</h3>
+          <p class="text-slate-400 mt-1">Let’s turn the idea into a product users love.</p>
+          <a href="#contact" class="inline-flex btn-primary px-5 py-2 rounded-xl font-semibold mt-5">Start Your Project</a>
+        </div>
+        <div class="glass rounded-2xl p-8 text-center">
+          <h3 class="text-2xl font-bold">Investing in African tech?</h3>
+          <p class="text-slate-400 mt-1">Explore our vision and roadmap.</p>
+          <a href="#investors" class="inline-flex btn-secondary px-5 py-2 rounded-xl font-semibold mt-5">See Our Vision</a>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-services">
+    <div class="page-content">
+      <section class="pt-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+          <h1 class="text-4xl md:text-5xl font-extrabold">Services & Pricing</h1>
+          <p class="text-slate-300 mt-3 max-w-3xl mx-auto">Transparent pricing. Premium execution. AI where it actually delivers ROI.</p>
+        </div>
+      </section>
+
+      <!-- AI Project Planner -->
+      <section class="mt-14 px-6">
+        <div class="max-w-5xl mx-auto glass rounded-2xl p-8">
+          <h2 class="text-2xl font-bold text-center">AI Project Planner</h2>
+          <p class="text-center text-slate-400">Answer a few questions. Get a tailored roadmap.</p>
+
+          <div id="ai-planner-form" class="mt-6 grid sm:grid-cols-2 gap-4">
+            <label class="text-sm">1) Primary goal
+              <select id="planner-goal" class="mt-1 w-full bg-transparent border border-white/10 rounded-lg px-3 py-2">
+                <option>Launch a new business website</option>
+                <option>Build a mobile app for my customers</option>
+                <option>Automate internal business processes</option>
+                <option>Create an e-commerce platform</option>
+              </select>
+            </label>
+            <label class="text-sm">2) Budget
+              <select id="planner-budget" class="mt-1 w-full bg-transparent border border-white/10 rounded-lg px-3 py-2">
+                <option>K6,000 - K12,000</option>
+                <option>K12,000 - K20,000</option>
+                <option>K20,000+</option>
+              </select>
+            </label>
+            <label class="text-sm">3) Timeline
+              <select id="planner-timeline" class="mt-1 w-full bg-transparent border border-white/10 rounded-lg px-3 py-2">
+                <option>1-2 Months</option>
+                <option>3-4 Months</option>
+                <option>Flexible</option>
+              </select>
+            </label>
+            <label class="text-sm">4) Must‑have feature
+              <input id="planner-feature" placeholder="e.g., payments, bookings, logins" class="mt-1 w-full bg-transparent border border-white/10 rounded-lg px-3 py-2" />
+            </label>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <button id="generate-roadmap-btn" class="btn-primary px-6 py-3 rounded-xl font-semibold">Generate My Roadmap</button>
+          </div>
+
+          <div id="ai-planner-result" class="mt-8 hidden">
+            <h3 class="text-xl font-bold">Your Recommended Roadmap</h3>
+            <div id="roadmap-content" class="mt-3 p-4 rounded-xl border border-white/10"></div>
+            <div id="roadmap-loader" class="mt-3 hidden">
+              <div class="w-10 h-10 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
+            </div>
+            <a href="#contact" class="inline-flex mt-4 btn-primary px-5 py-2 rounded-xl font-semibold">Discuss Your Roadmap</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Estimator (AI‑assisted) -->
+      <section class="mt-10 px-6">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-semibold text-lg">Web Development</h3>
+            <div class="grid md:grid-cols-3 gap-4 mt-4 text-slate-300">
+              <div class="card rounded-xl p-4 border border-white/10">
+                <div class="text-slate-400 text-sm">Static Website</div>
+                <div class="text-3xl font-extrabold mt-1">K6,000</div>
+                <ul class="text-sm mt-2 space-y-1 text-slate-400">
+                  <li>3–5 pages</li><li>Responsive</li><li>Contact form</li><li>Basic SEO</li>
+                </ul>
+              </div>
+              <div class="card rounded-xl p-4 border border-white/10">
+                <div class="text-slate-400 text-sm">Custom One‑Page</div>
+                <div class="text-3xl font-extrabold mt-1">K12,000</div>
+                <ul class="text-sm mt-2 space-y-1 text-slate-400">
+                  <li>Immersive</li><li>Animations</li><li>Social/WhatsApp</li><li>AI chatbot (optional)</li>
+                </ul>
+              </div>
+              <div class="card rounded-xl p-4 border border-white/10">
+                <div class="text-slate-400 text-sm">Advanced Multi‑Page</div>
+                <div class="text-3xl font-extrabold mt-1">from K18,000</div>
+                <ul class="text-sm mt-2 space-y-1 text-slate-400">
+                  <li>Scalable</li><li>E‑commerce/Auth</li><li>Integrations</li><li>Custom features</li>
+                </ul>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 mt-4">Hosting: K500/month for all plans.</p>
+          </div>
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-semibold text-lg">Application Development</h3>
+            <div class="grid md:grid-cols-2 gap-4 mt-4 text-slate-300">
+              <div class="card rounded-xl p-4 border border-white/10">
+                <div class="text-slate-400 text-sm">Core App</div>
+                <div class="text-3xl font-extrabold mt-1">from K12,000</div>
+                <ul class="text-sm mt-2 space-y-1 text-slate-400">
+                  <li>Focused features</li><li>Bookings/Inventory</li><li>iOS & Android</li>
+                </ul>
+              </div>
+              <div class="card rounded-xl p-4 border border-white/10">
+                <div class="text-slate-400 text-sm">Advanced App</div>
+                <div class="text-3xl font-extrabold mt-1">from K20,000</div>
+                <ul class="text-sm mt-2 space-y-1 text-slate-400">
+                  <li>Auth</li><li>Payments</li><li>Complex logic</li>
+                </ul>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 mt-4">Maintenance & Deployment: K4,000/year.</p>
+
+            <!-- Mini estimator -->
+            <div class="mt-6">
+              <h4 class="font-semibold">Quick Estimate</h4>
+              <div class="mt-2 flex flex-wrap gap-2 text-sm">
+                <label class="flex items-center gap-2"><input type="checkbox" class="est" value="auth" /> Auth</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="est" value="payments" /> Payments</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="est" value="chat" /> Chat</label>
+                <label class="flex items-center gap-2"><input type="checkbox" class="est" value="dash" /> Dashboard</label>
+              </div>
+              <button id="estimate-btn" class="mt-3 btn-secondary px-4 py-2 rounded-lg">Estimate Range</button>
+              <div id="estimate-out" class="mt-2 text-slate-300 text-sm"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="mt-14 px-6">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-center">FAQs</h2>
+          <div id="faq-accordion" class="mt-6 space-y-3"></div>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-about">
+    <div class="page-content">
+      <section class="pt-20 px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">About Byte&Berry</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">We’re a team of builders obsessed with craft, performance, and impact for African businesses.</p>
+      </section>
+      <section class="mt-12 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <div class="glass rounded-2xl p-6">
+          <h2 class="text-2xl font-bold">Our Mission</h2>
+          <p class="text-slate-300 mt-2">Accelerate digital transformation across Africa with robust, user‑centric software and practical AI.</p>
+        </div>
+        <img src="/img/Digitalafrica.png" alt="Digital Africa" class="rounded-2xl border border-white/10" loading="lazy" />
+      </section>
+      <section class="mt-12 px-6 max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-center mb-6">Meet the Team</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="card glass rounded-2xl p-6 text-center">
+            <img class="w-28 h-28 rounded-full mx-auto border border-white/10" src="https://placehold.co/160x160/7c3aed/ffffff?text=CEO" alt="CTO" />
+            <h3 class="mt-3 font-semibold">Simon Mulenga</h3>
+            <p class="text-violet-300 text-sm">Co-founder & Head of Business Development (sales/growth)</p>
+            <p class="text-slate-400 text-sm mt-1">Leads strategy and partnerships.</p>
+          </div>
+          <div class="card glass rounded-2xl p-6 text-center">
+            <img class="w-28 h-28 rounded-full mx-auto border border-white/10" src="https://placehold.co/160x160/7c3aed/ffffff?text=CTO" alt="CTO" />
+            <h3 class="mt-3 font-semibold">Samuel Kamanga</h3>
+            <p class="text-violet-300 text-sm">Co-founder & CTO (Head of Product & Engineering)</p>
+            <p class="text-slate-400 text-sm mt-1">Architects scalable systems.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-investors">
+    <div class="page-content">
+      <section class="pt-20 px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">Investor Relations</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">Invest in the operating system for African SMEs.</p>
+      </section>
+      <section class="mt-12 px-6 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-6 text-center">
+          <div class="glass rounded-2xl p-6"><div class="text-4xl font-extrabold text-violet-300">90%</div><div class="text-slate-400">of businesses are SMEs</div></div>
+          <div class="glass rounded-2xl p-6"><div class="text-4xl font-extrabold text-violet-300">$100B+</div><div class="text-slate-400">SME digitalization market</div></div>
+          <div class="glass rounded-2xl p-6"><div class="text-4xl font-extrabold text-violet-300">40%</div><div class="text-slate-400">YoY tech adoption growth</div></div>
+        </div>
+      </section>
+      <section class="mt-12 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <div class="glass rounded-2xl p-6">
+          <h2 class="text-2xl font-bold">Vision & Roadmap</h2>
+          <p class="text-slate-300 mt-2">Expand services → Launch SaaS verticals → Scale across key African markets within 5 years.</p>
+        </div>
+        <img src="/img/Roadmap.png" alt="Roadmap" class="rounded-2xl border border-white/10" loading="lazy" />
+      </section>
+      <section class="mt-12 px-6 max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold text-center">Request our Pitch Deck</h2>
+        <form id="investor-form" class="glass rounded-2xl p-6 mt-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <input type="text" placeholder="Full Name" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required>
+            <input type="email" placeholder="Email Address" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required>
+          </div>
+          <textarea rows="4" placeholder="Your message (optional)" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 mt-4 w-full"></textarea>
+          <button class="btn-primary px-5 py-2 rounded-xl font-semibold mt-4 w-full">Request Pitch Deck</button>
+          <p id="investor-form-success" class="hidden text-green-400 text-center mt-3">Thanks! We’ll be in touch shortly.</p>
+        </form>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-contact">
+    <div class="page-content">
+      <section class="pt-20 px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">Contact Us</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">Tell us about your vision. We’ll map the shortest path to launch.</p>
+      </section>
+      <section class="mt-12 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+        <div class="glass rounded-2xl p-6">
+          <h2 class="text-xl font-bold">Get in touch</h2>
+          <div class="mt-4 space-y-3">
+            <a href="mailto:hello@byteandberry.com" class="flex items-center gap-3 hover:opacity-100 opacity-90"><i data-feather="mail"></i> hello@byteandberry.com</a>
+            <a href="tel:+260977123456" class="flex items-center gap-3 hover:opacity-100 opacity-90"><i data-feather="phone"></i> +260 977 123 456</a>
+            <a href="https://wa.me/260976580949" class="flex items-center gap-3 hover:opacity-100 opacity-90" target="_blank" rel="noopener"><i data-feather="message-circle"></i> WhatsApp</a>
+          </div>
+        </div>
+        <form id="contact-form" class="glass rounded-2xl p-6">
+          <div class="grid gap-4">
+            <input name="name" placeholder="Full Name" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required />
+            <input name="email" placeholder="Email Address" type="email" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required />
+            <input name="subject" placeholder="Subject" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required />
+            <textarea name="message" rows="5" placeholder="Your Message" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required></textarea>
+          </div>
+          <button class="btn-primary px-5 py-2 rounded-xl font-semibold mt-4 w-full">Send Message</button>
+          <p id="contact-form-success" class="hidden text-green-400 text-center mt-3">Message sent! We’ll get back to you soon.</p>
+        </form>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-legal">
+    <div class="page-content">
+      <section class="pt-20 px-6 text-center">
+        <h1 id="legal-title" class="text-4xl md:text-5xl font-extrabold">Legal</h1>
+      </section>
+      <section class="mt-12 px-6 max-w-4xl mx-auto">
+        <article id="legal-content" class="prose prose-invert"></article>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-404">
+    <div class="page-content">
+      <section class="py-28 text-center">
+        <h1 class="text-7xl font-extrabold text-violet-400">404</h1>
+        <p class="mt-3 text-slate-300">That page went on an adventure.</p>
+        <a href="#home" class="inline-flex btn-primary px-5 py-2 rounded-xl font-semibold mt-6">Go Home</a>
+      </section>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      feather.replace();
+      const main = document.getElementById('main-content');
+      const mobileBtn = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const year = document.getElementById('current-year');
+      const cookieBanner = document.getElementById('cookie-banner');
+      const acceptCookiesBtn = document.getElementById('accept-cookies');
+      const chatBubble = document.getElementById('chat-bubble');
+      const chatDrawer = document.getElementById('chat-drawer');
+      const drawerClose = document.getElementById('drawer-close');
+      const themeToggle = document.getElementById('theme-toggle');
+
+      year.textContent = new Date().getFullYear();
+
+      // Theme toggle (dark by default)
+      const root = document.documentElement;
+      if (!localStorage.getItem('bb-theme')) localStorage.setItem('bb-theme', 'dark');
+      function applyTheme() { const t = localStorage.getItem('bb-theme'); if (t === 'dark') root.classList.add('dark'); else root.classList.remove('dark'); }
+      applyTheme();
+      themeToggle?.addEventListener('click', () => { const t = localStorage.getItem('bb-theme'); localStorage.setItem('bb-theme', t === 'dark' ? 'light' : 'dark'); applyTheme(); });
+
+      // Router
+      const routes = { 'home':'template-home','services':'template-services','about':'template-about','investors':'template-investors','contact':'template-contact','legal-privacy':'template-legal','legal-terms':'template-legal','404':'template-404' };
+      function navigate(hash){
+        main.classList.add('page-transition-out');
+        setTimeout(()=>{
+          const page = (hash.substring(1) || 'home');
+          const tpl = document.getElementById(routes[page] || routes['404']);
+          main.innerHTML = tpl?.innerHTML || '';
+          if(page.startsWith('legal')) loadLegal(page);
+          initPage(page);
+          main.classList.remove('page-transition-out');
+          main.classList.add('page-transition-in');
+          setTimeout(()=> main.classList.remove('page-transition-in'), 250);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+          observeFadeIns();
+          feather.replace();
+        }, 200);
+      }
+      window.addEventListener('hashchange', ()=> navigate(location.hash));
+      navigate(location.hash || '#home');
+
+      document.body.addEventListener('click', (e)=>{
+        const a = e.target.closest('a[href^="#"]');
+        if(a){
+          const page = a.getAttribute('href').substring(1);
+          if(routes[page]){ e.preventDefault(); location.hash = a.getAttribute('href'); mobileMenu?.classList.add('hidden'); }
+        }
+      });
+
+      // Mobile menu
+      mobileBtn?.addEventListener('click', ()=> mobileMenu?.classList.toggle('hidden'));
+
+      // Cookies
+      if(!localStorage.getItem('cookiesAccepted')) cookieBanner.classList.remove('hidden');
+      acceptCookiesBtn?.addEventListener('click', ()=>{ localStorage.setItem('cookiesAccepted','true'); cookieBanner.classList.add('hidden'); });
+
+      // Chat drawer
+      chatBubble.addEventListener('click', ()=> chatDrawer.classList.add('open'));
+      drawerClose.addEventListener('click', ()=> chatDrawer.classList.remove('open'));
+
+      // Sparkle cursor
+      let last = 0; window.addEventListener('pointermove', (e)=>{
+        const now = performance.now(); if(now - last < 20) return; last = now;
+        const s = document.createElement('div'); s.className = 'sparkle'; s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px'; s.style.opacity = .9; document.body.appendChild(s);
+        setTimeout(()=> s.style.opacity = 0, 20);
+        setTimeout(()=> s.remove(), 320);
+      });
+
+      function initPage(page){
+        if(page==='home') initHome();
+        if(page==='services') initServices();
+        if(page==='contact') initForms();
+        if(page==='investors') initForms();
+      }
+
+      function initHome(){ initEngine(); }
+
+      function initServices(){ initPlanner(); initFAQ(); initEstimator(); }
+
+      function initForms(){
+        document.getElementById('contact-form')?.addEventListener('submit', submitForm);
+        document.getElementById('investor-form')?.addEventListener('submit', submitForm);
+      }
+
+      // Efficiency Engine (D3)
+      let svg, width, height, sim, nodes=[], links=[];
+      function initEngine(){
+        const el = document.getElementById('efficiency-engine-output'); if(!el || !d3) return;
+        svg = d3.select(el); width = el.clientWidth; height = el.clientHeight; svg.attr('viewBox',[0,0,width,height]);
+        nodes = Array.from({length:60}, (_,i)=>({id:i, group: Math.floor(Math.random()*6)})); links=[];
+        sim = d3.forceSimulation(nodes)
+          .force('charge', d3.forceManyBody().strength(-30))
+          .force('center', d3.forceCenter(width/2, height/2))
+          .on('tick', ticked);
+        svg.append('g').attr('class','links'); svg.append('g').attr('class','nodes');
+        document.getElementById('start-transformation-btn')?.addEventListener('click', ()=> runEngine(true));
+        runEngine(false);
+      }
+      function runEngine(transform){
+        sim.force('link', null); links=[];
+        nodes.forEach(d=>{ d.fx = transform ? null : Math.random()*width; d.fy = transform ? null : Math.random()*height; });
+        if(transform){ sim.alpha(1).restart(); setTimeout(createLinks, 1200); } else { updateEngine(); }
+      }
+      function createLinks(){
+        links = Array.from({length:80}, ()=>({source: Math.floor(Math.random()*nodes.length), target: Math.floor(Math.random()*nodes.length)}));
+        sim.force('link', d3.forceLink(links).id(d=>d.id).distance(50));
+        sim.force('charge', d3.forceManyBody().strength(-55)); sim.alpha(1).restart();
+      }
+      function ticked(){
+        svg.select('.links').selectAll('line').data(links).join('line')
+          .attr('x1', d=>d.source.x).attr('y1', d=>d.source.y)
+          .attr('x2', d=>d.target.x).attr('y2', d=>d.target.y)
+          .attr('stroke', '#a78bfa').attr('stroke-opacity', .5);
+        svg.select('.nodes').selectAll('circle').data(nodes).join('circle')
+          .attr('r', 4.5).attr('cx', d=>d.x).attr('cy', d=>d.y)
+          .attr('fill', d=> d3.schemeTableau10[d.group%10]).style('filter','url(#glow)');
+      }
+      function updateEngine(){ ticked(); }
+
+      // global defs for glow
+      const defs = d3?.select('body').append('svg').attr('width',0).attr('height',0).append('defs');
+      const filter = defs?.append('filter').attr('id','glow');
+      filter?.append('feGaussianBlur').attr('stdDeviation','2.2').attr('result','coloredBlur');
+      const feMerge = filter?.append('feMerge'); feMerge?.append('feMergeNode').attr('in','coloredBlur'); feMerge?.append('feMergeNode').attr('in','SourceGraphic');
+
+      // Planner (client-side demo; wire to backend for real AI)
+      function initPlanner(){
+        const btn = document.getElementById('generate-roadmap-btn'); if(!btn) return;
+        btn.addEventListener('click', async ()=>{
+          const result = document.getElementById('ai-planner-result');
+          const content = document.getElementById('roadmap-content');
+          const loader = document.getElementById('roadmap-loader');
+          result.classList.remove('hidden'); loader.classList.remove('hidden'); content.innerHTML='';
+          const goal = document.getElementById('planner-goal').value;
+          const budget = document.getElementById('planner-budget').value;
+          const timeline = document.getElementById('planner-timeline').value;
+          const feature = document.getElementById('planner-feature').value || 'core feature';
+
+          // Simulated AI response
+          await new Promise(r=> setTimeout(r, 900));
+          loader.classList.add('hidden');
+          const title = goal.toLowerCase().includes('app') ? 'Core App MVP' : 'Advanced Multi‑Page Website';
+          content.innerHTML = `
+            <div class="space-y-2">
+              <p><strong>Recommended:</strong> ${title}</p>
+              <p class="text-slate-300">Optimized for your budget band <strong>${budget}</strong> and timeline <strong>${timeline}</strong>. We’ll deliver a clean UX with <em>${feature}</em> baked in.</p>
+              <ul class="list-disc pl-5 text-slate-300">
+                <li>Design sprint → clickable prototype</li>
+                <li>Build core features + analytics</li>
+                <li>QA, polish, and launch</li>
+              </ul>
+              <p class="text-slate-400">Next: book a 30‑min call to refine scope.</p>
+            </div>`;
+        });
+      }
+
+      // FAQ
+      function initFAQ(){
+        const el = document.getElementById('faq-accordion'); if(!el) return;
+        const faqs = [
+          { q: 'How long does a project take?', a: 'Static sites: 2–4 weeks. Custom apps: 2–6 months depending on complexity.' },
+          { q: 'Do you support after launch?', a: 'Yes. Hosting (K500/mo) and maintenance plans keep things secure and fast.' },
+          { q: 'Can you integrate local payments?', a: 'We integrate Zambian mobile money and popular gateways for seamless checkout.' },
+          { q: 'What do you need from us?', a: 'Goals, rough features, and any brand assets. We’ll guide the rest.' },
+          { q: 'Do you offer AI-powered features?', a: 'Yes! We build chatbots, copilots, and workflow automations tailored to your business.' },
+          { q: 'Can you redesign my existing website or app?', a: 'Absolutely. We can refresh your design, improve performance, and add new features.' },
+          { q: 'What technologies do you use?', a: 'We use modern stacks like React, Next.js, Node.js, Flutter, and integrate with leading AI APIs.' },
+          { q: 'How do I get started?', a: 'Just contact us or use the AI Project Planner to get a tailored roadmap.' }
+        ];
+        el.innerHTML = faqs.map((f,i)=>`
+          <div class="rounded-xl border border-white/10 overflow-hidden faq-item">
+            <button type="button" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-white/5 faq-question" aria-expanded="false" aria-controls="faq-answer-${i}" id="faq-question-${i}">
+              <span class="font-medium">${f.q}</span>
+              <i data-feather="chevron-down" class="w-4 h-4 transition-transform duration-200"></i>
+            </button>
+            <div id="faq-answer-${i}" class="faq-answer hidden px-4 pb-3 text-slate-300" role="region" aria-labelledby="faq-question-${i}">${f.a}</div>
+          </div>`).join('');
+        feather.replace();
+
+        // FAQ accordion logic
+        el.querySelectorAll('.faq-question').forEach((btn, idx) => {
+          btn.addEventListener('click', () => {
+            const answer = el.querySelector(`#faq-answer-${idx}`);
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            // Close all
+            el.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+            el.querySelectorAll('.faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
+            el.querySelectorAll('.faq-question i').forEach(i => i.style.transform = 'rotate(0deg)');
+            // Open if not already open
+            if (!expanded) {
+              answer.classList.remove('hidden');
+              btn.setAttribute('aria-expanded', 'true');
+              btn.querySelector('i').style.transform = 'rotate(180deg)';
+            }
+          });
+        });
+      }
+
+      // Estimator
+      function initEstimator(){
+        const btn = document.getElementById('estimate-btn'); if(!btn) return;
+        btn.addEventListener('click', ()=>{
+          const opts = Array.from(document.querySelectorAll('.est:checked')).map(i=> i.value);
+          let base = 12000; // base for Core App
+          if(opts.includes('payments')) base += 4000;
+          if(opts.includes('auth')) base += 3000;
+          if(opts.includes('chat')) base += 3500;
+          if(opts.includes('dash')) base += 3000;
+          const low = Math.round(base * .9); const high = Math.round(base * 1.25);
+          document.getElementById('estimate-out').textContent = `Estimated range: K${low.toLocaleString()} – K${high.toLocaleString()} (final quote after scoping)`;
+        });
+      }
+
+      // Forms (fake submit)
+      function submitForm(e){ e.preventDefault(); const ok = document.getElementById(e.target.id + '-success'); e.target.reset(); ok?.classList.remove('hidden'); setTimeout(()=> ok?.classList.add('hidden'), 5000); }
+
+      // Legal
+      function loadLegal(page){
+        const title = document.getElementById('legal-title'); const content = document.getElementById('legal-content');
+        const texts = {
+          'legal-privacy': { title: 'Privacy Policy', text: `<h3>1. Information We Collect</h3><p>Contact details submitted via forms, and minimal analytics/cookies.</p><h3>2. Use of Information</h3><p>To respond to inquiries, deliver services, and improve experience.</p><h3>3. Sharing</h3><p>No selling of personal data. Shared only when legally required.</p>` },
+          'legal-terms': { title: 'Terms of Service', text: `<h3>1. Agreement</h3><p>Using our services means you accept these terms.</p><h3>2. Services</h3><p>Custom software development as scoped per project SOW.</p><h3>3. Liability</h3><p>No consequential damages; capped to fees paid.</p>` },
+        };
+        title.textContent = texts[page].title; content.innerHTML = texts[page].text;
+      }
+
+      // Fade-ins
+      function observeFadeIns(){
+        document.querySelectorAll('.fade-in').forEach((el)=> el.classList.remove('is-visible'));
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+        }, { threshold: .12 });
+        document.querySelectorAll('.fade-in').forEach((el)=> io.observe(el));
+      }
+
+      // Copilot demo
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+      const chatStream = document.getElementById('chat-stream');
+      document.querySelectorAll('.quick-prompt').forEach(btn=> btn.addEventListener('click', ()=> { chatInput.value = btn.dataset.q; chatSend.click(); }));
+      chatSend.addEventListener('click', async ()=>{
+        const q = (chatInput.value||'').trim(); if(!q) return;
+        pushMsg('user', q); chatInput.value='';
+        const id = pushMsg('assistant', '…');
+        try {
+          // Add a system prompt and company info
+          const systemPrompt = `
+You are Byte&Berry Copilot, an expert assistant for Byte&Berry, a Zambian software company.
+Only answer questions about Byte&Berry, its services, pricing, team, mission, and offerings.
+If a question is not about Byte&Berry, politely reply: "I'm here to answer questions about Byte&Berry only."
+Company Info:
+- Byte&Berry builds modern websites, mobile apps, and AI-powered solutions for African businesses.
+- Services: Web development, app development, AI & automations, workflow automation, chatbots.
+- Pricing: Static sites from K6,000, custom apps from K12,000, hosting K500/mo, maintenance K4,000/year.
+- Mission: Accelerate digital transformation across Africa with robust, user-centric software and practical AI.
+- Founders: Simon Mulenga (Head of Business Development), Samuel Kamanga (CTO).
+- Contact: hello@byteandberry.com, +260 977 123 456, https://byteandberry.site/
+`;
+
+          const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer sk-adcaa14028f74c59ac07ca6e85e09aab'
+            },
+            body: JSON.stringify({
+              model: "deepseek-chat",
+              messages: [
+                {role: "system", content: systemPrompt},
+                {role: "user", content: q}
+              ],
+              max_tokens: 256
+            })
+          });
+          const data = await response.json();
+          const answer = data.choices?.[0]?.message?.content || "Sorry, I couldn't get an answer.";
+          updateMsg(id, answer);
+        } catch (e) {
+          updateMsg(id, "Sorry, there was an error connecting to the AI.");
+        }
+      });
+      function pushMsg(role, text){ const el = document.createElement('div'); el.className = role==='user' ? 'text-right' : 'text-left'; el.innerHTML = `<div class="inline-block max-w-[80%] ${role==='user'?'bg-violet-600':'bg-white/5'} px-3 py-2 rounded-xl">${escapeHtml(text)}</div>`; chatStream.appendChild(el); chatStream.scrollTop = chatStream.scrollHeight; return el; }
+      function updateMsg(el, text){ el.innerHTML = `<div class="inline-block max-w-[80%] bg-white/5 px-3 py-2 rounded-xl">${escapeHtml(text)}</div>`; chatStream.scrollTop = chatStream.scrollHeight; }
+      function escapeHtml(s){ return s.replace(/[&<>"]?/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]||c)); }
+    });
+  </script>
+</body>
+</html>
