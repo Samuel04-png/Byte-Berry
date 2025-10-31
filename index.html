@@ -67,6 +67,10 @@
     .card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; border: 1px solid rgba(255, 255, 255, 0.06); }
     .card:hover { transform: translateY(-6px); box-shadow: 0 10px 36px -10px rgba(124,58,237,.35); border-color: rgba(124,58,237,.35); }
 
+  /* Subtle image and card smoothing */
+  .card img, img { transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s; will-change: transform; }
+  .card:hover img { transform: scale(1.03); }
+
     /* Buttons */
     .btn { transition: transform .2s ease, filter .2s ease, box-shadow .2s ease; outline-offset: 2px; }
     .btn:focus-visible { box-shadow: 0 0 0 3px var(--bb-ring, rgba(124,58,237,.55)); }
@@ -74,6 +78,10 @@
     .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
     .btn-secondary { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,.1); }
     .btn-secondary:hover { background: rgba(255,255,255,.09); }
+
+  /* Improved focus & accessibility ring for keyboard users */
+  :root { --bb-ring: rgba(124,58,237,.45); }
+  .btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { box-shadow: 0 0 0 4px var(--bb-ring); border-radius: 8px; }
 
     /* Page transition */
     .page-transition-out { animation: fadeOut .2s forwards; }
@@ -85,9 +93,22 @@
     .glass-header { backdrop-filter: blur(12px); background: rgba(10, 10, 10, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
     .glass-drawer { backdrop-filter: blur(12px); background: rgba(18, 18, 18, 0.85); border: 1px solid rgba(255, 255, 255, 0.06); }
 
+  /* Nav link underline animation */
+  nav a { position: relative; display: inline-block; }
+  nav a::after { content: ''; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0; background: linear-gradient(90deg,#7c3aed,#a855f7); border-radius: 2px; transition: width .22s ease; }
+  nav a:hover::after, nav a:focus::after { width: 100%; }
+
     /* Drawer */
     .drawer { transform: translateY(110%); transition: transform .4s cubic-bezier(0.22, 1, 0.36, 1); }
     .drawer.open { transform: translateY(0); }
+
+  /* Mobile menu: add a quick fade/slide when toggling hidden class */
+  #mobile-menu { transition: opacity .22s ease, transform .28s cubic-bezier(.22,1,.36,1); }
+  #mobile-menu.hidden { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+  #mobile-menu:not(.hidden) { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+    /* Chat bubble max height to prevent overflow */
+    .chat-bubble { max-height: 45vh; overflow-y: auto; }
 
     @media (prefers-reduced-motion: reduce) {
       .blob { animation: none; }
@@ -133,12 +154,12 @@
         <span>Byte<span class="text-violet-400">&</span>Berry</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-slate-300 font-medium">
-        <a class="hover:text-white transition-colors" href="#home">Home</a>
-        <a class="hover:text-white transition-colors" href="#about">About</a>
-        <a class="hover:text-white transition-colors" href="#services">Services</a>
-        <a class="hover:text-white transition-colors" href="#portfolio">Portfolio</a>
-        <a class="hover:text-white transition-colors" href="#faq">FAQ</a>
-        <a class="hover:text-white transition-colors" href="#contact">Contact</a>
+        <a class="hover:text-white transition-colors px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500/30" href="#home">Home</a>
+        <a class="hover:text-white transition-colors px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500/30" href="#about">About</a>
+        <a class="hover:text-white transition-colors px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500/30" href="#services">Services</a>
+        <a class="hover:text-white transition-colors px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500/30" href="#portfolio">Portfolio</a>
+        <a class="hover:text-white transition-colors px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500/30" href="#faq">FAQ</a>
+        <a class="hover:text-white transition-colors px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500/30" href="#contact">Contact</a>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
         <button id="theme-toggle" class="p-2 rounded-lg border border-white/10" aria-label="Toggle theme"><i data-feather="moon"></i></button>
@@ -197,8 +218,8 @@
         <a href="tel:0760580949" class="inline-flex items-center gap-2 mt-4 text-slate-300"><i data-feather="phone" class="w-4 h-4"></i>0760 580 949</a>
         <div class="mt-4">
           <form id="newsletter" class="flex gap-2">
-            <input type="email" name="email" required placeholder="Join newsletter" class="flex-1 bg-transparent border border-white/10 rounded-lg px-3 py-2 text-sm" aria-label="Email address" />
-            <button class="btn btn-secondary px-3 py-2 rounded-lg text-sm">Join</button>
+            <input type="email" name="email" required placeholder="Join newsletter" class="flex-1 bg-transparent border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30" aria-label="Email address" />
+            <button class="btn btn-secondary px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30">Join</button>
           </form>
           <p id="newsletter-ok" class="hidden text-green-400 text-xs mt-2">Thanks! You’re on the list.</p>
         </div>
@@ -217,7 +238,7 @@
 
   <!-- AI Chat Drawer -->
   <section id="chat-drawer" class="drawer fixed bottom-0 left-0 right-0 z-50 p-4 w-full max-w-lg mx-auto" aria-live="polite" aria-label="Byte&Berry Copilot">
-    <div class="glass-drawer rounded-2xl p-4 shadow-xl h-full flex flex-col">
+    <div class="glass-drawer rounded-2xl p-4 shadow-xl max-h-[80vh] overflow-hidden flex flex-col">
       <div class="flex items-center justify-between flex-shrink-0">
         <h3 class="font-semibold">Byte&Berry Copilot</h3>
         <button id="drawer-close" class="p-2 rounded-lg hover:bg-white/5" aria-label="Close chat"><i data-feather="x"></i></button>
@@ -245,74 +266,154 @@
         <div class="absolute inset-0 bg-bb-grid bg-[length:20px_20px] opacity-[0.1] pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-            Custom Digital Solutions 
+            AI‑Powered Digital Solutions
             <br class="hidden md:block" />
-            <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">for the African Market</span>
+            <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">built for Africa’s future</span>
           </h1>
           <p class="mt-5 text-lg text-slate-300 max-w-3xl mx-auto">
-            We build student management systems, accounting dashboards, and enterprise-grade software to help your business thrive.
+            We build smart websites, mobile apps, and enterprise systems that automate work, unlock insights, and grow African businesses.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact" class="btn btn-primary px-6 py-3 rounded-xl font-semibold shadow-glow">Contact Us</a>
-            <a href="#services" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold">Our Services</a>
+            <a href="#contact" class="btn btn-primary px-6 py-3 rounded-xl font-semibold shadow-glow focus:outline-none focus:ring-4 focus:ring-violet-500/30">Get a Quote</a>
+            <a href="#portfolio" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold focus:outline-none focus:ring-4 focus:ring-violet-500/30">See Our Work</a>
+            <button type="button" id="hero-chat-cta" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-violet-500/30"><i data-feather="message-square"></i> Talk to our AI</button>
           </div>
-          <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 opacity-90">
-            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+A" class="mx-auto grayscale hover:grayscale-0 transition" />
-            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+B" class="mx-auto grayscale hover:grayscale-0 transition" />
-            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+C" class="mx-auto grayscale hover:grayscale-0 transition" />
-            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+D" class="mx-auto grayscale hover:grayscale-0 transition" />
+          
+        </div>
+      </section>
+
+      <!-- WEBSITE PACKAGES (Cards + Modals) -->
+      <section class="mt-10 px-4 sm:px-6 max-w-7xl mx-auto">
+        <h3 class="text-2xl font-bold text-center">Website Packages</h3>
+        <p class="text-center text-slate-400 mt-2 max-w-2xl mx-auto">Choose a ready package or request a custom quote. Click a card to view details and pricing.</p>
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Starter -->
+          <article class="card bg-bb-card rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-wide text-violet-400">Starter</div>
+              <h4 class="text-xl font-bold mt-2">Starter Site</h4>
+              <p class="text-slate-400 mt-3 text-sm">1–3 pages, responsive, WhatsApp, basic SEO — perfect for small businesses & personal brands.</p>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <div class="text-lg font-extrabold">$300</div>
+              <div class="text-sm text-slate-400">≈ K7,500</div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="btn btn-primary flex-1 py-2 rounded-lg" data-package="starter">View pricing</button>
+              <a href="#contact" class="btn btn-secondary py-2 px-3 rounded-lg">Contact</a>
+            </div>
+          </article>
+
+          <!-- Growth -->
+          <article class="card bg-bb-card rounded-2xl p-6 flex flex-col justify-between border-2 border-violet-500 shadow-glow">
+            <div>
+              <div class="text-xs uppercase tracking-wide text-violet-400">Growth</div>
+              <h4 class="text-xl font-bold mt-2">Growth Site</h4>
+              <p class="text-slate-400 mt-3 text-sm">4–7 pages, blog/gallery, form, AI chatbot, 1 month hosting — for growing brands.</p>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <div class="text-lg font-extrabold">$600 – $900</div>
+              <div class="text-sm text-slate-400">≈ K15,000 – K22,500</div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="btn btn-primary flex-1 py-2 rounded-lg" data-package="growth">View pricing</button>
+              <a href="#contact" class="btn btn-secondary py-2 px-3 rounded-lg">Contact</a>
+            </div>
+          </article>
+
+          <!-- Pro -->
+          <article class="card bg-bb-card rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-wide text-violet-400">Pro</div>
+              <h4 class="text-xl font-bold mt-2">Pro Website</h4>
+              <p class="text-slate-400 mt-3 text-sm">8–12 pages, dashboard/booking, analytics, AI assistant — for companies and institutions.</p>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <div class="text-lg font-extrabold">$1,000 – $1,800</div>
+              <div class="text-sm text-slate-400">≈ K25,000 – K45,000</div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="btn btn-primary flex-1 py-2 rounded-lg" data-package="pro">View pricing</button>
+              <a href="#contact" class="btn btn-secondary py-2 px-3 rounded-lg">Contact</a>
+            </div>
+          </article>
+
+          <!-- Premium -->
+          <article class="card bg-bb-card rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-wide text-violet-400">Premium</div>
+              <h4 class="text-xl font-bold mt-2">Premium Suite</h4>
+              <p class="text-slate-400 mt-3 text-sm">Full-scale portals & eCommerce — custom web apps, payments, AI, automation, hosting.</p>
+            </div>
+            <div class="mt-6 flex items-center justify-between">
+              <div class="text-lg font-extrabold">$2,000 – $3,000+</div>
+              <div class="text-sm text-slate-400">≈ K50,000 – K75,000+</div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="btn btn-primary flex-1 py-2 rounded-lg" data-package="premium">View pricing</button>
+              <a href="#contact" class="btn btn-secondary py-2 px-3 rounded-lg">Contact</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Pricing Modal (single modal reused for all packages) -->
+        <div id="pkg-modal" class="fixed inset-0 z-60 hidden items-center justify-center p-4">
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" data-close-modal></div>
+          <div class="relative max-w-2xl w-full bg-bb-card rounded-2xl p-6 border border-white/10 shadow-xl">
+            <button id="pkg-modal-close" class="absolute top-4 right-4 p-2 rounded-md hover:bg-white/5" aria-label="Close">✕</button>
+            <div id="pkg-modal-content">
+              <!-- Filled by JS -->
+            </div>
+            <div class="mt-6 flex justify-end gap-2">
+              <a id="pkg-modal-contact" href="#contact" class="btn btn-primary px-4 py-2 rounded-lg">Request Quote</a>
+              <button class="btn btn-secondary px-4 py-2 rounded-lg" id="pkg-modal-close-2">Close</button>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- SERVICES PREVIEW -->
+      <!-- SERVICES PREVIEW (removed) -->
+
+      <!-- RECENT PROJECTS (Dynamic) -->
       <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <div class="text-center">
-          <h2 class="text-3xl font-bold">What We Build</h2>
-          <p class="text-slate-400 mt-2 max-w-2xl mx-auto">From streamlining school administration to providing clear financial insights, our solutions solve real-world problems.</p>
+          <h2 class="text-3xl font-bold">Recent Projects</h2>
+          <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Real results for schools, startups and SMEs across Zambia and beyond.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 reveal">
-          <div class="card bg-bb-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 text-violet-400"><i data-feather="users" class="w-7 h-7"></i></div>
-            <h3 class="font-semibold text-lg">Student Management Systems</h3>
-            <p class="text-slate-400 mt-1 text-sm">Manage student data, grades, fees, and communication in one place.</p>
-          </div>
-          <div class="card bg-bb-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 text-violet-400"><i data-feather="bar-chart-2" class="w-7 h-7"></i></div>
-            <h3 class="font-semibold text-lg">Accounting Dashboards</h3>
-            <p class="text-slate-400 mt-1 text-sm">Real-time sales, expenses, and inventory tracking for SMEs.</p>
-          </div>
-          <div class="card bg-bb-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 text-violet-400"><i data-feather="globe" class="w-7 h-7"></i></div>
-            <h3 class="font-semibold text-lg">Enterprise Web Apps</h3>
-            <p class="text-slate-400 mt-1 text-sm">Robust, scalable apps tailored to automate operations.</p>
-          </div>
+        <div id="recent-projects" class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal"></div>
+        <div class="text-center mt-8">
+          <a href="#portfolio" class="inline-flex btn btn-secondary px-5 py-2.5 rounded-lg font-semibold">Explore Portfolio</a>
         </div>
       </section>
 
-      <!-- CASE STUDY PREVIEW -->
+      
+
+      <!-- CASE STUDY PREVIEW: Aether -->
       <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <div class="text-center">
           <h2 class="text-3xl font-bold">Proven Results</h2>
-          <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Here’s a glimpse of our work.</p>
+          <p class="text-slate-400 mt-2 max-w-2xl mx-auto">A showcase of recent impactful work.</p>
         </div>
         <div class="mt-12 card bg-bb-card rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 reveal">
-          <img loading="lazy" src="https://placehold.co/400x300/1e293b/7c3aed?text=Project+Screenshot" alt="Case study project" class="rounded-lg w-full md:w-1/2 lg:w-2/5" />
+          <img loading="lazy" src="img/website work/Aether/Screenshot 2025-10-18 203233.png" alt="Aether — Market Analysis App" class="rounded-lg w-full md:w-1/2 lg:w-2/5 object-cover" />
           <div class="md:w-1/2 lg:w-3/5">
-            <span class="text-sm font-semibold text-violet-400 uppercase">Education Tech</span>
-            <h3 class="text-2xl font-bold mt-2">Streamlining Admissions for a Leading College</h3>
-            <p class="text-slate-400 mt-3">We digitized student application and enrollment, cutting admin workload by 60% and improving applicant experience.</p>
-            <a href="#portfolio" class="inline-flex items-center gap-2 mt-6 font-semibold text-violet-300">View Case Study <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+            <span class="text-sm font-semibold text-violet-400 uppercase">Market Intelligence</span>
+            <h3 class="text-2xl font-bold mt-2">Aether — Market Analysis & Learning</h3>
+            <p class="text-slate-400 mt-3">Aether helps users make wiser investment decisions by delivering market analysis, educational guides, and real-time insights. We built intuitive dashboards, clear visual analytics, and onboarding lessons that help beginners learn how to trade and analyse markets.</p>
+            <a href="#work?id=aether-site" class="inline-flex items-center gap-2 mt-6 font-semibold text-violet-300">View Case Study <i data-feather="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
       </section>
 
-      <!-- AGRI-FINTECH TEASER -->
+      <!-- AETHER COMING SOON -->
       <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <div class="bg-bb-card rounded-2xl p-8 md:p-12 text-center reveal">
-          <h2 class="text-3xl font-bold">Coming Soon: Revolutionizing Agri-Fintech</h2>
-          <p class="text-slate-400 mt-3 max-w-3xl mx-auto">We’re connecting farmers with finance and markets. Seeking investors to join this journey.</p>
-          <a href="#contact" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold mt-8">Partner With Us</a>
+          <h2 class="text-3xl font-bold">Coming Soon: Aether</h2>
+          <p class="text-slate-400 mt-3 max-w-3xl mx-auto">Aether — a market analysis app that helps you stay informed, learn how to invest and trade, and make wiser market decisions. Sign up for early access and previews.</p>
+          <div class="mt-6 flex items-center justify-center gap-3">
+            <a href="#contact" class="btn btn-primary px-6 py-3 rounded-xl font-semibold">Join Early Access</a>
+            <a href="#portfolio" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold">See Aether Preview</a>
+          </div>
         </div>
       </section>
     </div>
@@ -324,39 +425,78 @@
         <h1 class="text-4xl md:text-5xl font-extrabold">About Byte&Berry</h1>
         <p class="text-slate-300 mt-3 max-w-3xl mx-auto">We’re developers and strategists building technology that empowers African businesses.</p>
       </section>
-      <section class="px-4 sm:px-6 max-w-5xl mx-auto">
+      <section class="px-4 sm:px-6 max-w-6xl mx-auto">
         <div class="bg-bb-card rounded-2xl p-8 md:p-12 reveal">
           <h2 class="text-2xl font-bold">Our Story</h2>
-          <p class="text-slate-300 mt-4 leading-relaxed">Byte&Berry is a Zambian-based software studio specializing in custom digital solutions for educational institutions and SMEs. Our solutions blend user-friendly design with robust backends to help clients digitize operations, improve efficiency, and reduce costs.</p>
+          <p class="text-slate-300 mt-4 leading-relaxed">Byte&Berry is a Zambian-based software studio specializing in custom digital solutions for educational institutions and SMEs. We design with empathy and build for reliability — delivering products that drive real user outcomes.</p>
+          <div class="mt-6 grid sm:grid-cols-3 gap-4">
+            <div class="p-4 bg-white/3 rounded-lg">
+              <h4 class="text-sm font-semibold text-violet-300">Founded</h4>
+              <p class="text-slate-300 text-sm mt-1">2021 — Lusaka</p>
+            </div>
+            <div class="p-4 bg-white/3 rounded-lg">
+              <h4 class="text-sm font-semibold text-violet-300">Focus</h4>
+              <p class="text-slate-300 text-sm mt-1">Education tech, SMEs, and fintech integrations</p>
+            </div>
+            <div class="p-4 bg-white/3 rounded-lg">
+              <h4 class="text-sm font-semibold text-violet-300">Approach</h4>
+              <p class="text-slate-300 text-sm mt-1">Design-led, data-informed, and practical</p>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="mt-12 px-4 sm:px-6 max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-        <div class="bg-bb-card rounded-2xl p-8 reveal">
-          <h3 class="text-xl font-bold">Our Mission</h3>
-          <p class="text-slate-300 mt-2">Empower organizations with affordable, high-quality tools that solve local challenges and drive sustainable growth.</p>
-        </div>
-        <div class="bg-bb-card rounded-2xl p-8 reveal">
-          <h3 class="text-xl font-bold">Our Vision</h3>
-          <p class="text-slate-300 mt-2">Be the trusted technology partner for SMEs and schools across Africa, known for innovation and reliability.</p>
+
+      <section class="mt-12 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-bb-card rounded-2xl p-8 reveal">
+            <h3 class="text-xl font-bold">Mission & Values</h3>
+            <div class="mt-4 space-y-3 text-slate-300 text-sm">
+              <p><strong>Mission:</strong> Empower organisations with affordable, high-quality tools that solve local challenges and drive sustainable growth.</p>
+              <p><strong>Values:</strong> Empathy, Clarity, Reliability, and Continuous Learning.</p>
+              <p><strong>Promise:</strong> We prioritise outcomes over features — your users and stakeholders will notice the difference.</p>
+            </div>
+          </div>
+          <div class="bg-bb-card rounded-2xl p-8 reveal">
+            <h3 class="text-xl font-bold">Our Process</h3>
+            <div class="mt-6">
+              <ol class="flex items-center justify-between text-sm text-slate-300">
+                <li class="flex-1 text-center">Discover</li>
+                <li class="flex-1 text-center">Design</li>
+                <li class="flex-1 text-center">Build</li>
+                <li class="flex-1 text-center">Launch</li>
+                <li class="flex-1 text-center">Support</li>
+              </ol>
+              <div class="mt-3 h-2 bg-white/5 rounded-full relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-2 bg-violet-500/60 rounded-full" style="width:66%"></div>
+              </div>
+              <p class="mt-3 text-slate-400 text-sm">We move fast but with care — short discovery, interactive design, and iterative releases.</p>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="mt-16 px-4 sm:px-6 max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold text-center mb-8">Why Choose Byte&Berry?</h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-          <div class="text-center card bg-bb-card rounded-2xl p-6">
-            <div class="w-16 h-16 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400"><i data-feather="map-pin" class="w-8 h-8"></i></div>
-            <h3 class="mt-4 font-semibold">Local Expertise</h3>
-            <p class="text-slate-400 text-sm mt-1">We understand African markets and users.</p>
+
+      <section class="mt-12 px-4 sm:px-6 max-w-6xl mx-auto">
+        <h2 class="text-2xl font-bold text-center mb-8">Team & Skills</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+          <div class="card bg-bb-card rounded-2xl p-6 text-center">
+            <div class="mx-auto w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-xl font-bold">SK</div>
+            <h4 class="mt-4 font-semibold">Samuel K.</h4>
+            <p class="text-slate-400 text-sm mt-1">Lead Product & Frontend</p>
           </div>
-          <div class="text-center card bg-bb-card rounded-2xl p-6">
-            <div class="w-16 h-16 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400"><i data-feather="dollar-sign" class="w-8 h-8"></i></div>
-            <h3 class="mt-4 font-semibold">Cost-Effective</h3>
-            <p class="text-slate-400 text-sm mt-1">Priced for startups and SMEs.</p>
+          <div class="card bg-bb-card rounded-2xl p-6 text-center">
+            <div class="mx-auto w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-xl font-bold">AM</div>
+            <h4 class="mt-4 font-semibold">Aisha M.</h4>
+            <p class="text-slate-400 text-sm mt-1">Backend & Integrations</p>
           </div>
-          <div class="text-center card bg-bb-card rounded-2xl p-6">
-            <div class="w-16 h-16 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400"><i data-feather="users" class="w-8 h-8"></i></div>
-            <h3 class="mt-4 font-semibold">Client-Centric</h3>
-            <p class="text-slate-400 text-sm mt-1">We co-create to match exact needs.</p>
+          <div class="card bg-bb-card rounded-2xl p-6 text-center">
+            <div class="mx-auto w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-xl font-bold">DB</div>
+            <h4 class="mt-4 font-semibold">David B.</h4>
+            <p class="text-slate-400 text-sm mt-1">Mobile & DevOps</p>
+          </div>
+          <div class="card bg-bb-card rounded-2xl p-6 text-center">
+            <div class="mx-auto w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-xl font-bold">RH</div>
+            <h4 class="mt-4 font-semibold">Ruth H.</h4>
+            <p class="text-slate-400 text-sm mt-1">Design & Research</p>
           </div>
         </div>
       </section>
@@ -374,8 +514,8 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 flex items-center justify-center gap-3">
         <span class="text-sm text-slate-400">Currency:</span>
         <div class="inline-flex rounded-lg border border-white/10 overflow-hidden" role="tablist" aria-label="Currency switch">
-          <button id="cur-zmw" class="px-3 py-1.5 text-sm bg-white/10" role="tab" aria-selected="true">ZMW</button>
-          <button id="cur-usd" class="px-3 py-1.5 text-sm" role="tab" aria-selected="false">USD</button>
+          <button id="cur-zmw" class="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 focus:outline-none" role="tab" aria-selected="true">ZMW</button>
+          <button id="cur-usd" class="px-3 py-1.5 text-sm hover:bg-white/10 focus:outline-none" role="tab" aria-selected="false">USD</button>
         </div>
       </div>
 
@@ -385,7 +525,7 @@
           <i data-feather="layout" class="w-8 h-8 text-violet-400 mb-4"></i>
           <h3 class="text-xl font-bold">Web Development</h3>
           <p class="text-slate-400 mt-2 text-sm">Responsive, fast, secure websites—from landing pages to portals.</p>
-          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="6000" data-usd="250">K6,000</span>+</div>
+          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="7500" data-usd="300">K7,500</span>+</div>
           <ul class="text-sm mt-4 space-y-2 text-slate-400">
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>3–5 Pages</li>
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Contact Form & SEO</li>
@@ -397,7 +537,7 @@
           <i data-feather="smartphone" class="w-8 h-8 text-violet-400 mb-4"></i>
           <h3 class="text-xl font-bold">Mobile App Development</h3>
           <p class="text-slate-400 mt-2 text-sm">Native iOS & Android with clean UI/UX and offline capability.</p>
-          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="15000" data-usd="600">K15,000</span>+</div>
+          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="25000" data-usd="1000">K25,000</span>+</div>
           <ul class="text-sm mt-4 space-y-2 text-slate-400">
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>iOS & Android</li>
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>User Authentication</li>
@@ -409,12 +549,51 @@
           <i data-feather="briefcase" class="w-8 h-8 text-violet-400 mb-4"></i>
           <h3 class="text-xl font-bold">IT &amp; Digital Consultancy</h3>
           <p class="text-slate-400 mt-2 text-sm">Tech stack advisory, project roadmapping, cloud & security reviews.</p>
-          <div class="text-3xl font-extrabold mt-6">Project-Based</div>
+          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="17500" data-usd="700">K17,500</span>+</div>
            <ul class="text-sm mt-4 space-y-2 text-slate-400">
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Architecture & Planning</li>
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Digital Transformation Strategy</li>
             <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Vendor Selection</li>
           </ul>
+        </div>
+      </section>
+
+      <!-- WEBSITE PACKAGES (Cards) -->
+      <section class="mt-10 px-4 sm:px-6 max-w-7xl mx-auto">
+        <h3 class="text-2xl font-bold text-center">Website Packages</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+          <div class="card bg-bb-card rounded-2xl p-6">
+            <h4 class="font-semibold">Starter Site</h4>
+            <div class="mt-2 text-slate-400 text-sm">1–3 pages, responsive, WhatsApp, basic SEO</div>
+            <div class="text-2xl font-extrabold mt-4"><span class="money" data-zmw="7500" data-usd="300">K7,500</span></div>
+          </div>
+          <div class="card bg-bb-card rounded-2xl p-6 border-2 border-violet-500 shadow-glow">
+            <h4 class="font-semibold">Growth Site</h4>
+            <div class="mt-2 text-slate-400 text-sm">4–7 pages, blog/gallery, form, AI chatbot, 1mo hosting</div>
+            <div class="text-2xl font-extrabold mt-4">
+              <span class="money" data-zmw="15000" data-usd="600">K15,000</span>
+              –
+              <span class="money" data-zmw="22500" data-usd="900">K22,500</span>
+            </div>
+          </div>
+          <div class="card bg-bb-card rounded-2xl p-6">
+            <h4 class="font-semibold">Pro Website</h4>
+            <div class="mt-2 text-slate-400 text-sm">8–12 pages, dashboard/booking, analytics, AI assistant</div>
+            <div class="text-2xl font-extrabold mt-4">
+              <span class="money" data-zmw="25000" data-usd="1000">K25,000</span>
+              –
+              <span class="money" data-zmw="45000" data-usd="1800">K45,000</span>
+            </div>
+          </div>
+          <div class="card bg-bb-card rounded-2xl p-6">
+            <h4 class="font-semibold">Premium Suite</h4>
+            <div class="mt-2 text-slate-400 text-sm">Custom app, dashboards, AI, payments, automation, hosting</div>
+            <div class="text-2xl font-extrabold mt-4">
+              <span class="money" data-zmw="50000" data-usd="2000">K50,000</span>
+              –
+              <span class="money" data-zmw="75000" data-usd="3000">K75,000</span>+
+            </div>
+          </div>
         </div>
       </section>
 
@@ -447,18 +626,64 @@
         </div>
       </section>
 
-      <!-- Add-ons & Costs -->
-      <section class="mt-16 px-4 sm:px-6 max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold text-center">Additional Services & Costs</h2>
-        <div class="mt-8 grid md:grid-cols-2 gap-6 reveal">
-          <div class="bg-bb-card rounded-xl p-6">
-            <h4 class="font-semibold">Payment Gateway Integration</h4>
-            <p class="text-slate-400 text-sm mt-1">Integrate local mobile money (MTN, Airtel) and card payments (e.g., Stripe). <span class="font-bold">Pricing is quote-based.</span></p>
-          </div>
-          <div class="bg-bb-card rounded-xl p-6">
-            <h4 class="font-semibold">Hosting & Maintenance</h4>
-            <p class="text-slate-400 text-sm mt-1"><strong>Website Hosting:</strong> K500/month. <br/><strong>App Maintenance:</strong> Covers Play Store ($25 one-time) & App Store ($99/yr) plus WhatsApp Business line upkeep. <span class="font-bold">From K4,000/yr.</span></p>
-          </div>
+      <!-- Individual Services & Add-Ons -->
+      <section class="mt-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-center">Individual Services & Add‑Ons</h2>
+        <div class="mt-6 overflow-x-auto reveal">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-slate-300 border-b border-white/10">
+                <th class="py-2 pr-4">Service</th>
+                <th class="py-2 pr-4">Description</th>
+                <th class="py-2 pr-4">USD Price</th>
+                <th class="py-2">ZMW Estimate</th>
+              </tr>
+            </thead>
+            <tbody class="align-top">
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-4 font-semibold">Web Apps / Dashboards</td>
+                <td class="py-3 pr-4">Internal systems, dashboards, analytics, etc.</td>
+                <td class="py-3 pr-4">$700 – $2,000</td>
+                <td class="py-3">≈ K17,500 – K50,000</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-4 font-semibold">Mobile Apps</td>
+                <td class="py-3 pr-4">Android & iOS apps with FlutterFlow + Firebase</td>
+                <td class="py-3 pr-4">$1,000 – $3,000</td>
+                <td class="py-3">≈ K25,000 – K75,000</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-4 font-semibold">Enterprise Systems</td>
+                <td class="py-3 pr-4">ERP, POS, HR, or School Management Systems</td>
+                <td class="py-3 pr-4">$2,000 – $10,000</td>
+                <td class="py-3">≈ K50,000 – K250,000</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-4 font-semibold">AI Tools & Automation</td>
+                <td class="py-3 pr-4">AI chatbots, analytics, or workflow automations</td>
+                <td class="py-3 pr-4">$500 – $2,500</td>
+                <td class="py-3">≈ K12,500 – K62,500</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-4 font-semibold">Integrations</td>
+                <td class="py-3 pr-4">Payment gateways, WhatsApp bots, or API links</td>
+                <td class="py-3 pr-4">$250 – $1,000</td>
+                <td class="py-3">≈ K6,250 – K25,000</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-4 font-semibold">Hosting & Maintenance</td>
+                <td class="py-3 pr-4">Managed hosting + monthly updates</td>
+                <td class="py-3 pr-4">From $25 / month</td>
+                <td class="py-3">≈ K625+ / month</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4 font-semibold">Publishing Fees</td>
+                <td class="py-3 pr-4">App Store / Play Store submission</td>
+                <td class="py-3 pr-4">Google: $25 • Apple: $99 / yr</td>
+                <td class="py-3">≈ K625 • ≈ K2,475 / yr</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </div>
@@ -479,28 +704,8 @@
         <button class="filter-btn btn-secondary px-3 py-1.5 rounded-lg text-sm" data-filter="fintech">Fintech</button>
       </div>
 
-      <section class="mt-6 px-4 sm:px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
-        <!-- Case Study 1 -->
-        <div class="case card bg-bb-card rounded-2xl overflow-hidden reveal" data-tags="education">
-          <img loading="lazy" src="https://placehold.co/600x400/1e293b/a855f7?text=Edu-Portal" alt="Education Portal Project" class="w-full h-64 object-cover" />
-          <div class="p-6">
-            <span class="text-sm font-semibold text-violet-400 uppercase">Education</span>
-            <h3 class="text-xl font-bold mt-2">College Admissions Portal</h3>
-            <p class="text-slate-400 mt-2 text-sm">Digitized enrollment, reduced paperwork, improved data accuracy.</p>
-          </div>
-        </div>
-        <!-- Case Study 2 -->
-        <div class="case card bg-bb-card rounded-2xl overflow-hidden reveal" data-tags="sme fintech">
-          <img loading="lazy" src="https://placehold.co/600x400/1e293b/22d3ee?text=SME+Dashboard" alt="SME Dashboard Project" class="w-full h-64 object-cover" />
-          <div class="p-6">
-            <span class="text-sm font-semibold text-cyan-400 uppercase">SME Finance</span>
-            <h3 class="text-xl font-bold mt-2">Financial Dashboard for Retailers</h3>
-            <p class="text-slate-400 mt-2 text-sm">Real-time sales and inventory tracking across stores.</p>
-          </div>
-        </div>
-        <div class="md:col-span-2 text-center py-8">
-          <p class="text-slate-400">More case studies coming soon.</p>
-        </div>
+      <section class="mt-6 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div id="portfolio-grid" class="grid md:grid-cols-2 gap-8"></div>
       </section>
     </div>
   </template>
@@ -546,12 +751,12 @@
         </div>
         <form id="contact-form" class="bg-bb-card rounded-2xl p-6 sm:p-8" novalidate>
           <div class="grid gap-4">
-            <input name="name" placeholder="Full Name" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required />
-            <input name="email" placeholder="Email Address" type="email" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required />
-            <input name="subject" placeholder="Subject" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required />
-            <textarea name="message" rows="5" placeholder="Tell us about your project..." class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required></textarea>
+            <input name="name" placeholder="Full Name" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-violet-500/30" required />
+            <input name="email" placeholder="Email Address" type="email" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-violet-500/30" required />
+            <input name="subject" placeholder="Subject" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-violet-500/30" required />
+            <textarea name="message" rows="5" placeholder="Tell us about your project..." class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-violet-500/30" required></textarea>
           </div>
-          <button class="btn btn-primary px-5 py-2.5 rounded-xl font-semibold mt-4 w-full">Send Message</button>
+          <button class="btn btn-primary px-5 py-2.5 rounded-xl font-semibold mt-4 w-full focus:outline-none focus:ring-4 focus:ring-violet-500/30">Send Message</button>
           <p id="contact-form-success" class="hidden text-green-400 text-center mt-3 text-sm">Message sent! We’ll get back to you soon.</p>
           <p id="contact-form-error" class="hidden text-red-400 text-center mt-3 text-sm">Please check your inputs and try again.</p>
         </form>
@@ -576,6 +781,23 @@
         <h1 class="text-7xl font-extrabold text-violet-400">404</h1>
         <p class="mt-3 text-slate-300">This page doesn't exist.</p>
         <a href="#home" class="inline-flex btn btn-primary px-5 py-2 rounded-xl font-semibold mt-6">Go Home</a>
+      </section>
+    </div>
+  </template>
+
+  <!-- Work Detail Template -->
+  <template id="template-work-detail">
+    <div class="page-content">
+      <section class="pt-24 pb-6 px-4 sm:px-6 text-center">
+        <h1 id="work-title" class="text-4xl md:text-5xl font-extrabold"></h1>
+        <p id="work-caption" class="text-slate-300 mt-3 max-w-3xl mx-auto"></p>
+      </section>
+      <section class="px-4 sm:px-6 max-w-5xl mx-auto">
+        <article id="work-story" class="prose prose-invert max-w-none"></article>
+        <div id="work-gallery" class="mt-8 grid sm:grid-cols-2 gap-4"></div>
+        <div class="mt-8 text-center">
+          <a href="#contact" class="btn btn-primary px-5 py-2.5 rounded-xl font-semibold">Start a Similar Project</a>
+        </div>
       </section>
     </div>
   </template>
@@ -613,29 +835,30 @@
     const newsletter = document.getElementById('newsletter');
 
     /* ========= DeepSeek wiring (testing) ========= */
-    const DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions";
-    const DEEPSEEK_API_KEY = "sk-68f9e315ff7b498d813d602e3226ea70"; // TEST ONLY
+    // Secure AI: use proxy endpoint; fall back to local heuristics if unset
+    const DEEPSEEK_PROXY_URL = window.DEEPSEEK_PROXY_URL || ""; // set this to your serverless proxy URL
     const DEEPSEEK_MODEL  = "deepseek-chat";
-
     async function callDeepSeek(messages, opts = {}) {
+      // Direct browser call to DeepSeek API (requires CORS + exposed key)
+      const apiKey = window.DEEPSEEK_API_KEY || localStorage.getItem('DEEPSEEK_API_KEY') || 'sk-d2a399a80bdf40bebd2176b0935ed698';
+      if (!apiKey) throw new Error('DeepSeek API key missing. Set window.DEEPSEEK_API_KEY or localStorage.DEEPSEEK_API_KEY.');
       const body = {
         model: opts.model || DEEPSEEK_MODEL,
         messages,
         temperature: opts.temperature ?? 0.3,
         max_tokens: opts.max_tokens ?? 300
       };
-      const res = await fetch(DEEPSEEK_API_URL, {
-        method: "POST",
+      const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+        method: 'POST',
         headers: {
-          "Authorization": `Bearer ${DEEPSEEK_API_KEY}`,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify(body)
       });
-
       if (!res.ok) {
         const errText = await res.text().catch(()=>"");
-        throw new Error(`DeepSeek error ${res.status}: ${errText}`);
+        throw new Error(`DeepSeek API error ${res.status}: ${errText}`);
       }
       const data = await res.json();
       return data?.choices?.[0]?.message?.content?.trim() || "";
@@ -667,6 +890,8 @@
       'about':'template-about',
       'services':'template-services',
       'portfolio':'template-portfolio',
+      'work':'template-work-detail',
+      'app':'template-work-detail',
       'faq':'template-faq',
       'contact':'template-contact',
       'legal-privacy':'template-legal',
@@ -678,7 +903,8 @@
     function navigate(hash){
       main.classList.add('page-transition-out');
       setTimeout(()=>{
-        const page = (hash.substring(1) || 'home').split('?')[0];
+        const [route, queryStr] = (hash.substring(1) || 'home').split('?');
+        const page = route;
         const tplId = routes[page] || routes['404'];
         const tpl = document.getElementById(tplId);
 
@@ -693,9 +919,11 @@
 
         if(page.startsWith('legal')) loadLegal(page);
         if(page === 'services') initEstimator();
-        if(page === 'portfolio') initPortfolioFilters();
+        if(page === 'portfolio') { initPortfolioFilters(); renderPortfolio(); }
+        if(page === 'home') { renderRecentProjects(); }
         if(page === 'contact') initContact();
         if(page === 'faq') initFAQ();
+        if(page === 'work' || page === 'app') initWorkDetail(page, new URLSearchParams(queryStr));
 
         revealInit();
         main.classList.remove('page-transition-out');
@@ -709,8 +937,66 @@
     window.addEventListener('hashchange', ()=> navigate(location.hash));
     navigate(location.hash || '#home');
 
+    // --- Package cards -> modal wiring ---
+    function openPackageModal(key){
+      const modal = document.getElementById('pkg-modal');
+      const content = document.getElementById('pkg-modal-content');
+      if (!modal || !content) return;
+      const packages = {
+        starter: {
+          title: 'Starter Site — $300 (≈ K7,500)',
+          body: '<p class="text-slate-300">A lean, high-quality website for small businesses or personal brands. Includes 1–3 responsive pages, WhatsApp integration, basic on-page SEO, and 3 days of support.</p><ul class="mt-3 text-sm text-slate-400 list-disc list-inside"><li>Delivery: 5 business days</li><li>Includes: Hosting guidance & basic analytics</li><li>Optional add-ons: Contact form, AI chatbot, blog (+$)</li></ul>'
+        },
+        growth: {
+          title: 'Growth Site — $600–$900 (≈ K15,000–K22,500)',
+          body: '<p class="text-slate-300">Designed for growing brands — multi-page site with blog/gallery, contact forms, AI chatbot integration, and one month hosting.</p><ul class="mt-3 text-sm text-slate-400 list-disc list-inside"><li>Delivery: 1–2 weeks</li><li>Includes: CMS setup, image optimisation, basic SEO</li><li>Optional add-ons: eCommerce, bookings, payments</li></ul>'
+        },
+        pro: {
+          title: 'Pro Website — $1,000–$1,800 (≈ K25,000–K45,000)',
+          body: '<p class="text-slate-300">For companies and institutions needing dashboards or booking systems, analytics and AI assistants.</p><ul class="mt-3 text-sm text-slate-400 list-disc list-inside"><li>Delivery: 2–4 weeks</li><li>Includes: Custom dashboards, integrations, priority support</li><li>Optional add-ons: Mobile app, advanced AI features</li></ul>'
+        },
+        premium: {
+          title: 'Premium Suite — $2,000–$3,000+ (≈ K50,000–K75,000+)',
+          body: '<p class="text-slate-300">Enterprise-grade portals and eCommerce with custom workflows, payments, automation, and ongoing maintenance.</p><ul class="mt-3 text-sm text-slate-400 list-disc list-inside"><li>Delivery: 4–8+ weeks</li><li>Includes: Architecture, security review, deployment</li><li>Optional add-ons: SLA, analytics dashboard, AI ops</li></ul>'
+        }
+      };
+      const pkg = packages[key] || packages.starter;
+      content.innerHTML = `<h3 class="text-2xl font-bold">${pkg.title}</h3>${pkg.body}`;
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePackageModal(){
+      const modal = document.getElementById('pkg-modal');
+      if(!modal) return;
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Delegate clicks for package buttons and modal close
+    document.body.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-package]');
+      if(btn){
+        const key = btn.getAttribute('data-package');
+        openPackageModal(key);
+        return;
+      }
+      if(e.target.matches('[data-close-modal]') || e.target.id === 'pkg-modal-close' || e.target.id === 'pkg-modal-close-2'){
+        closePackageModal();
+      }
+    });
+
     // nav links + close mobile
     document.body.addEventListener('click', (e)=>{
+      // Open AI chat from hero CTA
+      const aiCta = e.target.closest('#hero-chat-cta');
+      if (aiCta) {
+        document.getElementById('chat-drawer')?.classList.add('open');
+        return;
+      }
+      // SPA anchor navigation
       const anchor = e.target.closest('a[href^="#"]');
       if(anchor){
         const targetHash = anchor.getAttribute('href');
@@ -760,6 +1046,293 @@
       if (data) { title.textContent = data.title; content.innerHTML = data.text; }
     }
 
+    /* ========= Assets Manifest (editable) ========= */
+    const ASSETS = {
+      projects: [
+        {
+          id: 'aether-site',
+          title: 'Aether — Modern Brand Website',
+          tags: ['sme','web'],
+          cover: 'img/website work/Aether/Screenshot 2025-10-18 203233.png',
+          images: [
+            'img/website work/Aether/Screenshot 2025-10-18 203233.png',
+            'img/website work/Aether/Gemini_Generated_Image_a8z8twa8z8twa8z8.png'
+          ],
+          caption: 'Fast, SEO‑ready site with clean brand visuals.',
+          story: '<p>We crafted a fast, SEO‑ready website with a modern brand feel. Built with responsive layouts, optimized assets and strong Lighthouse scores.</p>'
+        },
+        {
+          id: 'art-portfolio',
+          title: 'Art Collective — Exhibit Showcase',
+          tags: ['sme','web'],
+          cover: 'img/website work/Art website/Screenshot 2025-10-19 131113.png',
+          images: [
+            'img/website work/Art website/Screenshot 2025-10-19 131113.png',
+            'img/website work/Art website/Screenshot 2025-10-19 131147.png'
+          ],
+          caption: 'Gallery layouts with elegant interactions.',
+          story: '<p>Designed a minimalist showcase with tasteful animations and accessible navigation to improve time‑on‑page and conversions.</p>'
+        },
+        {
+          id: 'buildpro',
+          title: 'BuildPro — Construction Services',
+          tags: ['sme','web'],
+          cover: 'img/website work/Buildpro/Screenshot 2025-10-26 191239.png',
+          images: [
+            'img/website work/Buildpro/Screenshot 2025-10-26 191239.png',
+            'img/website work/Buildpro/Screenshot 2025-10-26 191349.png'
+          ],
+          caption: 'Services website with quote funnel.',
+          story: '<p>We built a conversion‑focused website with a clear service breakdown, quote CTAs and trust signals to increase inquiries.</p>'
+        },
+        {
+          id: 'byteberry',
+          title: 'Byte&Berry — Studio Site',
+          tags: ['sme','web'],
+          cover: 'img/website work/Byteberry screenshots/Screenshot 2025-10-19 131447.png',
+          images: [
+            'img/website work/Byteberry screenshots/Screenshot 2025-10-19 131447.png',
+            'img/website work/Byteberry screenshots/Screenshot 2025-10-19 131538.png'
+          ],
+          caption: 'Smart portfolio with AI interactions.',
+          story: '<p>Our own site showcasing AI‑assisted chat, lead capture and dynamic portfolio content.</p>'
+        },
+        {
+          id: 'goldensuccess',
+          title: 'GoldenSuccess — School Portal',
+          tags: ['education','web'],
+          cover: 'img/website work/goldensuccess screenshots/Screenshot 2025-10-18 203233.png',
+          images: [
+            'img/website work/goldensuccess screenshots/Screenshot 2025-10-18 203233.png',
+            'img/website work/goldensuccess screenshots/Screenshot 2025-10-19 132412.png'
+          ],
+          caption: 'Admissions, results and fee tracking.',
+          story: '<p>Digitized enrollment and academic workflows, reducing admin load and improving parent visibility.</p>'
+        },
+        {
+          id: 'nuxflow',
+          title: 'Nuxflow — Product Landing',
+          tags: ['sme','web'],
+          cover: 'img/website work/Nuxflow/Screenshot 2025-10-26 141226.png',
+          images: [
+            'img/website work/Nuxflow/Screenshot 2025-10-26 141226.png',
+            'img/website work/Nuxflow/Screenshot 2025-10-26 141305.png'
+          ],
+          caption: 'High‑impact landing with clear value prop.',
+          story: '<p>Conversion‑ready hero, social proof and a focused CTA path for rapid testing and launch.</p>'
+        }
+      ],
+      apps: [
+        {
+          id: 'bb-app-proto',
+          title: 'Byte&Berry App — Prototype Screens',
+          cover: 'img/App work/Screenshot 2025-09-24 224320.png',
+          images: [
+            'img/App work/Screenshot 2025-09-24 224320.png',
+            'img/App work/Screenshot 2025-09-24 224448.png',
+            'img/App work/Screenshot 2025-09-24 224509.png'
+          ],
+          caption: 'Clean mobile UI with onboarding and dashboard.',
+          story: '<p>Flutter/FlutterFlow prototype demonstrating auth, dashboards and modern theming. Ready to scale with Firebase.</p>'
+        }
+      ],
+      partners: [
+        { name: 'Digital Africa', logo: 'img/Digitalafrica.png' },
+        { name: 'Byte&Berry', logo: 'Logo/Logo.png' },
+        { name: 'Partner Brand', logo: 'img/Partners/Screenshot 2025-09-24 224818.png' },
+        { name: 'KWAFT', tagline: 'All‑in‑one digital solution to make hiring artisans easier.' },
+        { name: 'ZamServe Site' },
+        { name: 'Zambia Wildlife' },
+        { name: 'DAITTOJEX Contractor Co. Ltd — Company Profile 2025' }
+      ]
+    };
+
+    function niceTitleFromFilename(path){
+      const base = path.split('/').pop().split('\\').pop().replace(/\.[a-z0-9]+$/i,'').replace(/[-_]+/g,' ').replace(/\s+\d{4}.*/,'');
+      return base.replace(/\b([a-z])/g, (m)=> m.toUpperCase());
+    }
+
+    // Renderers
+    function renderRecentProjects(){
+      const el = document.getElementById('recent-projects');
+      if (!el) return;
+      el.innerHTML = '';
+      ASSETS.projects.slice(0,6).forEach(p=>{
+        const card = document.createElement('article');
+        card.className = 'card bg-bb-card rounded-2xl overflow-hidden group';
+        card.innerHTML = `
+          <div class="overflow-hidden">
+            <img src="${p.cover}" alt="${p.title}" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          </div>
+          <div class="p-5">
+            <div class="text-xs uppercase tracking-wide text-violet-400">${(p.tags||[]).join(' • ')}</div>
+            <h3 class="mt-1 font-semibold">${p.title}</h3>
+            <p class="text-slate-400 text-sm mt-1">${p.caption||''}</p>
+            <a href="#work?id=${p.id}" class="inline-flex items-center gap-2 mt-3 text-violet-300 font-semibold">View Case Study <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          </div>`;
+        el.appendChild(card);
+      });
+    }
+
+    function renderApps(){
+      const el = document.getElementById('our-apps');
+      if (!el) return;
+      // Replace default grid with creative horizontal scroller
+      el.className = 'mt-10 reveal';
+      const wrap = document.createElement('div');
+      wrap.className = 'relative';
+      const scroller = document.createElement('div');
+      scroller.id = 'apps-scroll';
+      scroller.className = 'flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2';
+      scroller.setAttribute('aria-label', 'Our apps');
+
+      ASSETS.apps.forEach((a, idx)=>{
+        const item = document.createElement('article');
+        item.className = 'relative group snap-start shrink-0 w-72 sm:w-80 md:w-[22rem]';
+        item.innerHTML = `
+          <div class="rounded-2xl border border-white/10 overflow-hidden bg-bb-card">
+            <div class="relative h-56">
+              <img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+              <div class="absolute top-3 left-3 flex items-center gap-2">
+                <span class="text-xs px-2 py-1 rounded-md bg-white/10 border border-white/10">Mobile</span>
+                <span class="text-xs px-2 py-1 rounded-md bg-white/10 border border-white/10">Prototype</span>
+              </div>
+              <div class="absolute bottom-3 left-3 right-3">
+                <h3 class="font-semibold">${a.title}</h3>
+                <p class="text-slate-300/80 text-xs mt-1">${a.caption||''}</p>
+              </div>
+            </div>
+            <div class="p-3 flex items-center justify-between">
+              <a href="#app?id=${a.id}" class="inline-flex items-center gap-2 text-cyan-300 font-semibold">Preview <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+              <div class="text-xs text-slate-400">${idx===0 ? 'Featured' : 'App'}</div>
+            </div>
+          </div>`;
+        scroller.appendChild(item);
+      });
+
+      // Controls
+      const btnLeft = document.createElement('button');
+      btnLeft.id = 'apps-left';
+      btnLeft.className = 'hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 p-2 rounded-full border border-white/10 bg-bb-card hover:bg-white/10';
+      btnLeft.innerHTML = '<i data-feather="chevron-left"></i>';
+      const btnRight = document.createElement('button');
+      btnRight.id = 'apps-right';
+      btnRight.className = 'hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 p-2 rounded-full border border-white/10 bg-bb-card hover:bg-white/10';
+      btnRight.innerHTML = '<i data-feather="chevron-right"></i>';
+
+      wrap.appendChild(scroller);
+      wrap.appendChild(btnLeft);
+      wrap.appendChild(btnRight);
+      el.innerHTML = '';
+      el.appendChild(wrap);
+
+      // Wire controls
+      const scrollByAmount = 320;
+      btnLeft.addEventListener('click', ()=> scroller.scrollBy({ left: -scrollByAmount, behavior: 'smooth' }));
+      btnRight.addEventListener('click', ()=> scroller.scrollBy({ left: scrollByAmount, behavior: 'smooth' }));
+      feather.replace();
+    }
+
+    function renderPortfolio(){
+      const grid = document.getElementById('portfolio-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      ASSETS.projects.forEach(p=>{
+        const card = document.createElement('article');
+        card.className = 'case card bg-bb-card rounded-2xl overflow-hidden reveal';
+        card.dataset.tags = (p.tags||[]).join(' ');
+        card.innerHTML = `
+          <img src="${p.cover}" alt="${p.title}" class="w-full h-64 object-cover" />
+          <div class="p-6">
+            <span class="text-sm font-semibold text-violet-400 uppercase">${(p.tags||[])[0]||'Project'}</span>
+            <h3 class="text-xl font-bold mt-2">${p.title}</h3>
+            <p class="text-slate-400 mt-2 text-sm">${p.caption||''}</p>
+            <a href="#work?id=${p.id}" class="inline-flex items-center gap-2 mt-4 font-semibold text-violet-300">View Case Study <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderPartners(){
+      let container = document.getElementById('partners-strip');
+      if (!container) {
+        const sec = document.createElement('section');
+        sec.className = 'py-10 px-4 sm:px-6 max-w-7xl mx-auto';
+        sec.innerHTML = `
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold">Partners & Clients</h2>
+          </div>
+          <div id="partners-strip" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center justify-items-center"></div>`;
+        const homePage = main.querySelector('.page-content');
+        homePage?.appendChild(sec);
+        container = sec.querySelector('#partners-strip');
+      }
+      container.innerHTML = '';
+      ASSETS.partners.forEach(p=>{
+        const wrap = document.createElement('div');
+        wrap.className = 'opacity-80 hover:opacity-100 transition';
+        wrap.innerHTML = p.logo ? `<img src="${p.logo}" alt="${p.name}" class="h-12 object-contain">` : `<div class="text-slate-300 text-sm">${p.name}</div>`;
+        container.appendChild(wrap);
+      });
+    }
+
+    function initWorkDetail(kind, params){
+      const id = params.get('id');
+      const item = (kind==='app' ? ASSETS.apps : ASSETS.projects).find(x=> x.id===id) || null;
+      const title = document.getElementById('work-title');
+      const caption = document.getElementById('work-caption');
+      const story = document.getElementById('work-story');
+      const gallery = document.getElementById('work-gallery');
+      if (!item || !title || !gallery) return;
+      title.textContent = item.title || niceTitleFromFilename(item.cover);
+      caption.textContent = item.caption || '';
+      story.innerHTML = item.story || '<p>We designed, built and shipped this project using a pragmatic, test‑driven process with modern tooling.</p>';
+      gallery.innerHTML = '';
+      (item.images||[item.cover]).forEach(src=>{
+        const fig = document.createElement('figure');
+        fig.className = 'overflow-hidden rounded-xl border border-white/10';
+        fig.innerHTML = `<img src="${src}" alt="${item.title}" class="w-full h-auto object-cover" />`;
+        gallery.appendChild(fig);
+      });
+    }
+
+    /* ========= Make.com Integration ========= */
+    const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/t05iazwdnlvu7p7nquympc9aaylh481z';
+    async function sendToMake(payload){
+      try {
+        const res = await fetch(MAKE_WEBHOOK_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error(`Make.com error ${res.status}`);
+        return true;
+      } catch(e){ console.error(e); return false; }
+    }
+
+    // Connect Contact Form -> Make.com
+    (function connectContactForm(){
+      const form = document.getElementById('contact-form');
+      if (!form) return;
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const data = new FormData(form);
+        const full = (data.get('name')||'').toString();
+        const [firstName, lastName=''] = full.split(/\s+/);
+        const payload = {
+          firstName, lastName,
+          email: data.get('email')||'',
+          phone: '', company: '',
+          projectType: data.get('subject')||'General Inquiry',
+          budget: '', timeline: '', industry: '',
+          description: data.get('message')||'',
+          source: window.location.href, timestamp: new Date().toISOString()
+        };
+        const ok = await sendToMake(payload);
+        if (ok) {
+          const msg = document.getElementById('contact-form-success');
+          if (msg) { msg.textContent = `Thanks ${firstName||''}! Our AI team will review your project and respond soon.`; msg.classList.remove('hidden'); setTimeout(()=> msg.classList.add('hidden'), 4000); }
+          form.reset();
+        }
+      });
+    })();
     // ---- Estimator Logic (with AI) ----
     function initEstimator() {
       try {
@@ -799,7 +1372,7 @@
         // Manual estimate calculation
         function calculate() {
           if (!output) return;
-          const base = 15000; // base in ZMW
+          const base = 7500; // base in ZMW (align with Starter)
           let feature = 0;
           const opts = checks.filter(c=>c.checked).map(c=>c.value);
           if (opts.includes('payments')) feature += 5000;
@@ -821,6 +1394,26 @@
         range?.addEventListener('input', calculate);
         calculate();
 
+        // Quick Lead mini-form under estimator
+        const leadWrap = document.createElement('div');
+        leadWrap.className = 'mt-8 bg-white/5 rounded-lg p-4';
+        leadWrap.innerHTML = `
+          <div class="text-sm text-slate-300 mb-2">Want the estimate by email?</div>
+          <div class="grid sm:grid-cols-3 gap-2">
+            <input id="lead-first" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" placeholder="First Name"/>
+            <input id="lead-email" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" placeholder="Email" type="email"/>
+            <button id="lead-send" class="btn btn-secondary px-3 py-2 rounded-lg">Send Estimate</button>
+          </div>`;
+        aiResp?.parentElement?.appendChild(leadWrap);
+        document.getElementById('lead-send')?.addEventListener('click', async ()=>{
+          const firstName = document.getElementById('lead-first')?.value?.trim();
+          const emailVal = document.getElementById('lead-email')?.value?.trim();
+          if (!firstName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal||'')) { aiResp.textContent = 'Enter a valid name and email.'; return; }
+          const payload = { firstName, lastName: '', email: emailVal, phone: '', company: '', projectType: 'Estimator Lead', budget: '', timeline: '', industry: '', description: (document.getElementById('estimate-output')?.textContent||'').trim(), source: 'estimator', timestamp: new Date().toISOString() };
+          const ok = await sendToMake(payload);
+          aiResp.textContent = ok ? `Thanks ${firstName}! Our AI team will review your project and respond soon.` : 'Could not send right now.';
+        });
+
         // AI Estimate Button Logic (DeepSeek)
         if (aiBtn && aiResp) {
           aiBtn.onclick = async () => {
@@ -830,8 +1423,8 @@
             const features = checks.filter(c=>c.checked).map(c=>c.parentElement.textContent.trim());
             const complexity = complexityNames[range.value];
             const currency = curUSD.classList.contains('bg-white/10') ? 'USD' : 'ZMW';
-            const system = `You are Byte&Berry Copilot. Keep answers concise (2–3 sentences), include a rough price band in ${currency}, and invite users to request a quote.`;
-            const user = `Selected features: ${features.length ? features.join(', ') : 'none'}. Complexity: ${complexity}. Currency: ${currency}. Provide an estimate and quick advice.`;
+            const system = `You are Byte&Berry Copilot. Keep answers friendly, persuasive and concise (2–4 sentences). Always show prices in BOTH USD and ZMW, suggest next steps (send a quote or book a quick WhatsApp chat), mention optional add‑ons (AI, mobile money, dashboards), and add a light urgency cue (e.g., launch in 2–3 weeks).`;
+            const user = `Selected features: ${features.length ? features.join(', ') : 'none'}. Complexity: ${complexity}. Primary currency: ${currency}. Return: 1) short benefit summary, 2) rough price band in USD and ZMW, 3) invite to get a quote.`;
 
             try {
               const text = await callDeepSeek([
@@ -921,6 +1514,114 @@
       if (!chatBubble || !chatDrawer || !drawerClose || !chatInput || !chatSend || !chatStream) return;
       chatBubble.addEventListener('click', () => chatDrawer.classList.add('open'));
       drawerClose.addEventListener('click', () => chatDrawer.classList.remove('open'));
+      document.getElementById('hero-chat-cta')?.addEventListener('click', ()=> chatDrawer.classList.add('open'));
+
+      // Conversation state for cost calculation (disabled in chat; AI handles pricing)
+      let costCalcState = { active: false, step: 0, data: {} };
+
+      // --- Pricing intent detection ---
+      function isPricingQuery(text){
+        const t = (text||'').toLowerCase();
+        return /(cost|price|estimate|quote|budget|how much)/i.test(t);
+      }
+
+      // --- Start multi-step cost calculation flow ---
+      function startCostCalculation(initialQuery){
+        costCalcState = { active: true, step: 1, data: { raw: initialQuery } };
+        // Try to infer type from the initial query
+        const q = (initialQuery||'').toLowerCase();
+        if (/\b(app|mobile)\b/.test(q)) costCalcState.data.type = 'mobile app';
+        else if (/\b(dashboard|portal|admin)\b/.test(q)) costCalcState.data.type = 'dashboard';
+        else if (/\b(site|website|web site|web)\b/.test(q)) costCalcState.data.type = 'website';
+        if (costCalcState.data.type) costCalcState.step = 2;
+
+        if (costCalcState.step === 1) {
+          pushMessage('assistant', 'Great — what are you building: a website, mobile app, or dashboard?');
+        } else {
+          pushMessage('assistant', `Got it — a ${costCalcState.data.type}. Which key features do you need? (e.g., payments, user logins, chat, dashboard, AI, offline)`);
+        }
+      }
+
+      // --- Handle each step input ---
+      function handleCostCalculationStep(userInput){
+        const text = (userInput||'').toLowerCase();
+        if (!costCalcState.active) return;
+
+        // Step 1: type
+        if (costCalcState.step === 1){
+          if (/app|mobile/.test(text)) costCalcState.data.type = 'mobile app';
+          else if (/dashboard|portal|admin/.test(text)) costCalcState.data.type = 'dashboard';
+          else if (/site|website|web site|web/.test(text)) costCalcState.data.type = 'website';
+          else costCalcState.data.type = 'other';
+          costCalcState.step = 2;
+          pushMessage('assistant', 'Which key features do you need? (payments, user logins, chat, dashboard, AI, offline)');
+          return;
+        }
+
+        // Step 2: features
+        if (costCalcState.step === 2){
+          const wanted = [];
+          const features = ['payments','user logins','logins','auth','chat','dashboard','ai','offline','ecommerce','booking','bookings'];
+          features.forEach(f=>{ if (text.includes(f)) wanted.push(f); });
+          costCalcState.data.features = Array.from(new Set(wanted));
+          costCalcState.step = 3;
+          pushMessage('assistant', 'How complex should it be: Basic, Medium, or Advanced?');
+          return;
+        }
+
+        // Step 3: complexity -> compute and conclude
+        if (costCalcState.step === 3){
+          let complexity = 'Medium';
+          if (/basic|simple|starter/.test(text)) complexity = 'Basic';
+          else if (/advanced|complex|pro|enterprise/.test(text)) complexity = 'Advanced';
+          costCalcState.data.complexity = complexity;
+
+          const summary = buildEstimateMessage(costCalcState.data);
+          pushMessage('assistant', summary);
+          costCalcState = { active: false, step: 0, data: {} };
+          return;
+        }
+      }
+
+      // --- Compose estimate message (ZMW + USD) ---
+      function buildEstimateMessage(data){
+        const type = (data.type||'other');
+        const feats = (data.features||[]);
+        const complexity = (data.complexity||'Medium');
+
+        // Base ZMW by type
+        let base = 10000;
+        if (type === 'website') base = 6000;
+        else if (type === 'mobile app') base = 15000;
+        else if (type === 'dashboard') base = 12000;
+
+        // Feature add-ons
+        let feature = 0;
+        const has = (name) => feats.some(f=> f.includes(name));
+        if (has('payments')) feature += 5000;
+        if (has('auth') || has('login') || has('user logins')) feature += 3000;
+        if (has('chat')) feature += 4000;
+        if (has('dashboard')) feature += 4500;
+        if (has('ai')) feature += 6000;
+        if (has('offline')) feature += 3500;
+        if (has('ecommerce')) feature += 6000;
+        if (has('booking')) feature += 3000;
+
+        // Complexity multiplier
+        const mult = complexity === 'Advanced' ? 1.5 : (complexity === 'Basic' ? 1.0 : 1.25);
+        const subtotal = (base + feature) * mult;
+        const low = Math.round(subtotal * 0.9);
+        const high = Math.round(subtotal * 1.2);
+        const fx = 24; // rough FX 1 USD ~ K24
+        const usd = (n)=> `$${Math.round(n / fx).toLocaleString()}`;
+        const zwm = (n)=> `K${n.toLocaleString()}`;
+
+        const featureText = feats.length ? ` with ${feats.join(', ')}` : '';
+        const urgency = 'You could launch in 2–3 weeks for a lean MVP.';
+        const cta = 'Want me to send a formal quote or book a quick WhatsApp chat (+260 760580949)?';
+
+        return `A ${type}${featureText} at ${complexity} complexity typically lands around ${usd(low)}–${usd(high)} (${zwm(low)}–${zwm(high)}). ${urgency} ${cta}`;
+      }
 
       const handleSend = () => {
         const query = chatInput.value.trim();
@@ -937,78 +1638,81 @@
         const thinkingMessage = pushMessage('assistant', 'Thinking…');
 
         const systemPrompt = `Identity & Voice
-You are Byte&Berry Co-Pilot, the official assistant for Byte&Berry, a Zambian software company.
-Your style: friendly, human-like, short and clear by default. Expand only if the user asks.
+You are Byte&Berry Co-Pilot — the official AI assistant for Byte&Berry, a Zambian software company creating AI-powered websites, apps, and enterprise systems.
 
-Mission
+Tone: friendly, confident, conversational.
+Style: concise by default; expand when asked.
+Goal: Understand, recommend, and convert. Remember the client’s name during the chat and personalize replies.
 
-Quickly understand what the client needs.
+---
 
-Suggest the right solution with confidence.
+🎯 Mission
+1. Greet the client by name after they share it (“Thanks, {{name}}”).
+2. Understand what they need and their budget or goal.
+3. Recommend either a Website Package or an Individual Service.
+4. Communicate prices in USD + ZMW.
+5. Capture their contact info and, if intent is high, trigger a WhatsApp alert.
 
-Make it easy for them to choose Byte&Berry.
+---
 
-Always push toward action: a WhatsApp call or contact exchange.
+💻 WEBSITE PACKAGES (For Clients Who Need a Site)
 
-Services
+**1️⃣ Starter Site — For Small Businesses**
+- 1-3 pages (Home, About, Contact)
+- WhatsApp chat link + basic SEO
+- Mobile-responsive, 5-day delivery  
+💰 **$300 (≈ K7,500)**
 
-Websites & Web Apps (corporate, eCommerce, dashboards)
+**2️⃣ Growth Site — For Growing Brands**
+- 4-7 pages + blog or product gallery
+- Contact form + chatbot integration
+- Free 1-month hosting  
+💰 **$600 – $900 (≈ K15,000 – K22,500)**
 
-Mobile Apps (Android/iOS)
+**3️⃣ Pro Website — For Companies Needing Custom Features**
+- 8-12 pages, dashboard or booking system
+- AI assistant or analytics integration
+- Priority testing & launch support  
+💰 **$1,000 – $1,800 (≈ K25,000 – K45,000)**
 
-Enterprise Software (HR, POS, ERP, school systems)
+**4️⃣ Premium Suite — Full Web Experience**
+- Complete company portal or eCommerce
+- Custom design, dashboards, payments
+- AI chatbot, automation, hosting & maintenance  
+💰 **$2,000 – $3,000+ (≈ K50,000 – K75,000+)**
 
-AI Tools (chatbots, automation, analytics)
+---
 
-Consultancy & Integrations (payments, WhatsApp, APIs)
+🧩 INDIVIDUAL SERVICES (Custom or Add-On Options)
 
-Hosting, Deployment & Maintenance
+**Web Apps / Dashboards** – $700 – $2,000 (≈ K17,500 – K50,000)  
+**Mobile Apps** – $1,000 – $3,000 (≈ K25,000 – K75,000)  
+**Enterprise Systems (ERP, POS, School)** – $2,000 – $10,000 (≈ K50,000 – K250,000)  
+**AI Tools & Automation** – $500 – $2,500 (≈ K12,500 – K62,500)  
+**Integrations (Payments, WhatsApp, APIs)** – $250 – $1,000 (≈ K6,250 – K25,000)  
+**Hosting / Maintenance** – from $25 / month (≈ K625+)  
+**Publishing Fees** – Google $25 (≈ K625) | Apple $99 / yr (≈ K2,475)
 
-Pricing (USD + ZMW)
+---
 
-Websites: $300–$1,000+ (≈ K7,500–K25,000+)
+⚙️ Build Approach
+- **Websites:** HTML, CSS, JS – fast, SEO-ready  
+- **Apps:** FlutterFlow + Firebase (Auth, DB, Storage, Functions, Analytics)  
+- **Process:** Scope → Design → Build → Test → Launch → Support  
+Emphasize reliability, speed, and AI-enhanced performance.
 
-Apps: $1,000–$3,000+ (≈ K25,000–K75,000+)
+---
 
-Systems: $2,000–$10,000+ (≈ K50,000–K250,000+)
-
-Publishing: Google $25 (≈ K625), Apple $99/yr (≈ K2,475)
-
-Maintenance: monthly, tailored
-
-Build Approach
-
-Apps: FlutterFlow + Firebase (Auth, DB, Storage, Functions, Analytics).
-
-Websites: HTML, CSS, JavaScript (fast, clean, SEO-ready).
-
-Process: Scope → Design → Build → Test → Launch → Support.
-
-Sales Style
-
-Keep replies short, natural, and persuasive.
-
-Use everyday language, not robotic sales talk.
-
-Suggest extra features (payments, chat, notifications, analytics).
-
-Create urgency when useful (faster launch, market edge).
-
-Always end with a next step:
-
-“Want me to send you a quick quote?”
-
-“Shall we set up a WhatsApp call at +260 760580949?”
-
-Guardrails
-
-Don’t mention founders unless asked.
-
-Never reveal API keys or backend details.
-
-Always show prices in USD and ZMW.
-
-Respect privacy, but stay confident and persistent.`;
+🗣️ Sales Style
+- Remember and use the client’s name naturally (“Great idea, {{name}}!”).
+- Be friendly and helpful, not robotic.
+- Use confident, positive language.
+- Suggest relevant extras (AI chatbot, analytics, payments).
+- Create light urgency (“Starting this week means you can launch before next month.”)
+- Always end with a next step:
+  - “Would you like me to send a quick quote, {{name}}?”
+  - “Shall we set up a WhatsApp call at +260 760 580 949?”
+  - “Want to see a design sample or demo?”.`;
 
         try {
           const text = await callDeepSeek([
@@ -1018,9 +1722,120 @@ Respect privacy, but stay confident and persistent.`;
 
           updateMessage(thinkingMessage, text || "Thanks! We'll follow up shortly.");
         } catch (error) {
-          updateMessage(thinkingMessage, "Apologies, I'm having trouble right now. Please try again in a moment.");
+          updateMessage(thinkingMessage, 'AI unavailable. Please set window.DEEPSEEK_API_KEY to your DeepSeek key and reload.');
           console.error(error);
         }
+      }
+
+      function startCostCalculation(initialQuery) {
+        costCalcState = { active: true, step: 1, data: { initialQuery } };
+        
+        // Detect project type from query
+        const q = initialQuery.toLowerCase();
+        let projectType = 'website';
+        if (/(app|mobile|android|ios)/i.test(q)) projectType = 'app';
+        if (/(system|dashboard|erp|crm|portal)/i.test(q)) projectType = 'system';
+        
+        costCalcState.data.projectType = projectType;
+        
+        const typeLabels = { website: 'Website', app: 'Mobile App', system: 'Enterprise System' };
+        pushMessage('assistant', `Great! Let me calculate a ${typeLabels[projectType]} estimate for you. First, which features do you need? (You can pick multiple)\n\n• User Logins\n• Payments\n• Real-time Chat\n• Admin Dashboard\n• AI Features\n• Offline Mode\n\nJust type the features you want, or say "basic" for a simple version.`);
+      }
+
+      function handleCostCalculationStep(response) {
+        const lowerResp = response.toLowerCase();
+        
+        if (costCalcState.step === 1) {
+          // Parse features
+          const features = [];
+          if (/(login|auth|user)/i.test(lowerResp)) features.push('auth');
+          if (/(payment|pay|money|checkout)/i.test(lowerResp)) features.push('payments');
+          if (/(chat|message|messaging)/i.test(lowerResp)) features.push('chat');
+          if (/(dashboard|admin|panel)/i.test(lowerResp)) features.push('dash');
+          if (/(ai|artificial|intelligence|smart)/i.test(lowerResp)) features.push('ai');
+          if (/(offline|sync)/i.test(lowerResp)) features.push('offline');
+          if (/(basic|simple|minimal)/i.test(lowerResp)) features.push('basic');
+          
+          costCalcState.data.features = features;
+          costCalcState.step = 2;
+          
+          pushMessage('assistant', `Got it! Now, how complex should it be?\n\n1️⃣ Basic — Simple & straightforward\n2️⃣ Medium — More features & polish\n3️⃣ Advanced — Enterprise-grade\n\nJust type 1, 2, or 3.`);
+          
+        } else if (costCalcState.step === 2) {
+          // Parse complexity
+          let complexity = 2; // default medium
+          if (/1|basic|simple/i.test(lowerResp)) complexity = 1;
+          if (/3|advanced|complex|enterprise/i.test(lowerResp)) complexity = 3;
+          
+          costCalcState.data.complexity = complexity;
+          
+          // Calculate cost
+          const estimate = calculateProjectCost(costCalcState.data);
+          
+          // Format response
+          const complexityNames = { 1: 'Basic', 2: 'Medium', 3: 'Advanced' };
+          const featuresList = costCalcState.data.features.length > 0 
+            ? costCalcState.data.features.map(f => {
+                const labels = { auth: 'User Logins', payments: 'Payments', chat: 'Chat', dash: 'Dashboard', ai: 'AI Features', offline: 'Offline', basic: 'Basic Features' };
+                return labels[f] || f;
+              }).join(', ')
+            : 'Standard features';
+          
+          const typeLabels = { website: 'Website', app: 'Mobile App', system: 'Enterprise System' };
+          const responseMsg = `📋 Project Estimate\n\n**Type:** ${typeLabels[costCalcState.data.projectType]}\n**Complexity:** ${complexityNames[complexity]}\n**Features:** ${featuresList}\n\n💰 Estimated Cost:\n• USD: $${estimate.usd.low.toLocaleString()} – $${estimate.usd.high.toLocaleString()}\n• ZMW: K${estimate.zmw.low.toLocaleString()} – K${estimate.zmw.high.toLocaleString()}\n\n⏱️ Timeline: ${estimate.timeline}\n\nThis is a rough estimate. The final price depends on your exact requirements.\n\nWant me to send a detailed quote to your email? Or we can chat on WhatsApp (+260 760580949) to refine this!`;
+          
+          pushMessage('assistant', responseMsg);
+          
+          // Reset state
+          costCalcState = { active: false, step: 0, data: {} };
+        }
+      }
+
+      function calculateProjectCost(data) {
+        const { projectType, features, complexity } = data;
+        
+        // Base costs in ZMW
+        const baseCosts = {
+          website: 6000,
+          app: 15000,
+          system: 30000
+        };
+        
+        let base = baseCosts[projectType] || 10000;
+        
+        // Add feature costs
+        let featureCost = 0;
+        if (features.includes('payments')) featureCost += 5000;
+        if (features.includes('auth')) featureCost += 3000;
+        if (features.includes('chat')) featureCost += 4000;
+        if (features.includes('dash')) featureCost += 4500;
+        if (features.includes('ai')) featureCost += 6000;
+        if (features.includes('offline')) featureCost += 3500;
+        if (features.includes('basic')) featureCost = 0; // basic means no extras
+        
+        // Apply complexity multiplier
+        const multiplier = 1 + (complexity - 1) * 0.25;
+        const subtotal = (base + featureCost) * multiplier;
+        
+        // Calculate range (±15%)
+        const zmwLow = Math.round(subtotal * 0.85);
+        const zmwHigh = Math.round(subtotal * 1.15);
+        
+        // Convert to USD (rough rate: 1 USD ≈ K25)
+        const usdLow = Math.round(zmwLow / 25);
+        const usdHigh = Math.round(zmwHigh / 25);
+        
+        // Estimate timeline
+        let timeline = '2–3 weeks';
+        if (projectType === 'app') timeline = '4–6 weeks';
+        if (projectType === 'system') timeline = '6–10 weeks';
+        if (complexity === 3) timeline = timeline.replace(/\d+/g, (m) => parseInt(m) + 2);
+        
+        return {
+          zmw: { low: zmwLow, high: zmwHigh },
+          usd: { low: usdLow, high: usdHigh },
+          timeline
+        };
       }
 
       function escapeHtml(str) { return str.replace(/[&<>"']/g, (m)=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m])); }
@@ -1028,12 +1843,39 @@ Respect privacy, but stay confident and persistent.`;
         const el = document.createElement('div');
         el.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
         const bubbleClass = role === 'user' ? 'bg-violet-600 text-white' : 'bg-bb-card border border-white/10';
-        el.innerHTML = `<div class="max-w-[85%] ${bubbleClass} px-3 py-2 rounded-xl text-sm">${escapeHtml(text)}</div>`;
+        const formattedText = escapeHtml(text).replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        el.innerHTML = `<div class="max-w-[85%] ${bubbleClass} px-3 py-2 rounded-xl text-sm whitespace-pre-line chat-bubble">${formattedText}</div>`;
         chatStream.appendChild(el);
         chatStream.scrollTop = chatStream.scrollHeight;
         return el;
       }
-      function updateMessage(el, text) { el.querySelector('div').innerHTML = escapeHtml(text); chatStream.scrollTop = chatStream.scrollHeight; }
+      function updateMessage(el, text) { 
+        const formattedText = escapeHtml(text).replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        el.querySelector('div').innerHTML = formattedText; 
+        chatStream.scrollTop = chatStream.scrollHeight; 
+      }
+
+      // Lead capture: detect interest and ask for contact, then send to Make
+      const observer = new MutationObserver(()=>{
+        const last = chatStream.lastElementChild?.innerText?.toLowerCase()||'';
+        if (/(quote|project|build|website|app)/.test(last)) {
+          pushMessage('assistant', 'Great! What is your first name and email? I’ll share a quick quote.');
+        }
+      });
+      observer.observe(chatStream, { childList: true });
+
+      chatSend.addEventListener('click', tryParseLead);
+      chatInput.addEventListener('keypress', (e)=>{ if(e.key==='Enter') tryParseLead(); });
+      async function tryParseLead(){
+        const raw = (chatInput.value||'').trim();
+        const email = raw.match(/[^\s@]+@[^\s@]+\.[^\s@]+/);
+        const name = raw.match(/(?:i'?m|my name is)\s+([a-z ]{2,})/i);
+        if (!email && !name) return;
+        const firstName = (name?.[1]||'').trim().split(/\s+/)[0]||'';
+        const payload = { firstName, lastName: '', email: email? email[0] : '', phone: '', company: '', projectType: 'Chatbot Lead', budget: '', timeline: '', industry: '', description: 'Lead captured via AI chatbot', source: 'chat', timestamp: new Date().toISOString() };
+        const ok = await sendToMake(payload);
+        if (ok) pushMessage('assistant', `Got it, ${firstName||'there'}. I’ve shared your details with our team — they’ll reach out soon!`);
+      }
     }
 
     // ---- FAQ Data + JSON-LD ----
