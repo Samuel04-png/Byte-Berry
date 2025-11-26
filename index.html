@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Byte&Berry — Custom Software for Africa’s Ambition</title>
+  <meta name="description" content="Byte&Berry is a Zambian-based software development startup specializing in custom digital solutions for educational institutions and small-to-medium enterprises." />
+  <meta property="og:title" content="Byte&Berry — Custom Software for Africa’s Ambition" />
+  <meta property="og:description" content="We build student management systems, accounting dashboards, and enterprise-grade web applications tailored to the African market." />
+  <meta property="og:image" content="https://placehold.co/1200x630/0f172a/e2e8f0?text=Byte%26Berry" />
+  <meta property="og:url" content="https://www.byteandberry.site/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#7c3aed" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bb: {
+              bg: '#0A0A0A',
+              card: '#121212',
+              primary: '#7c3aed',
+              secondary: '#a855f7',
+              ring: 'rgba(124,58,237,.45)'
+            },
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(124,58,237,.35), 0 12px 40px -8px rgba(124,58,237,.35)',
+          },
+          backgroundImage: {
+            'bb-grid': 'radial-gradient(circle at 1px 1px, rgba(124,58,237,.08) 1px, transparent 1px)'
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    :root { color-scheme: dark; }
+    html { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body { background-color: #0A0A0A; }
+
+    /* Prevent horizontal scroll */
+    html, body { max-width: 100%; overflow-x: hidden; }
+    *, *::before, *::after { box-sizing: border-box; }
+    img, video, canvas { max-width: 100%; height: auto; display: block; }
+    [class*="translate-x"], [class*="-translate-x"], [class*="space-x"] { will-change: transform; }
+
+    /* Noise overlay */
+    .noise::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.015"/></svg>'); }
+
+    /* Animated gradient blob */
+    .blob { position: fixed; width: 50vmax; height: 50vmax; filter: blur(80px); opacity: .15; background: conic-gradient(from 180deg, #7c3aed, #22d3ee, #a855f7, #7c3aed); animation: spin 30s linear infinite; z-index: -1; }
+    @keyframes spin { to { transform: rotate(1turn); } }
+
+    /* Card hover effect */
+    .card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; border: 1px solid rgba(255, 255, 255, 0.06); }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 10px 36px -10px rgba(124,58,237,.35); border-color: rgba(124,58,237,.35); }
+
+    /* Buttons */
+    .btn { transition: transform .2s ease, filter .2s ease, box-shadow .2s ease; outline-offset: 2px; }
+    .btn:focus-visible { box-shadow: 0 0 0 3px var(--bb-ring, rgba(124,58,237,.55)); }
+    .btn-primary { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+    .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    .btn-secondary { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,.1); }
+    .btn-secondary:hover { background: rgba(255,255,255,.09); }
+
+    /* Page transition */
+    .page-transition-out { animation: fadeOut .2s forwards; }
+    .page-transition-in { animation: fadeIn .25s forwards; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes fadeOut { from { opacity: 1 } to { opacity: 0 } }
+
+    /* Glass effect */
+    .glass-header { backdrop-filter: blur(12px); background: rgba(10, 10, 10, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .glass-drawer { backdrop-filter: blur(12px); background: rgba(18, 18, 18, 0.85); border: 1px solid rgba(255, 255, 255, 0.06); }
+
+    /* Drawer */
+    .drawer { transform: translateY(110%); transition: transform .4s cubic-bezier(0.22, 1, 0.36, 1); }
+    .drawer.open { transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .blob { animation: none; }
+      .card, .btn { transition: none; }
+      .page-transition-in, .page-transition-out { animation: none; }
+    }
+  </style>
+
+  <!-- Schema.org: Organization + FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Byte&Berry",
+    "url": "https://www.byteandberry.site/",
+    "logo": "https://raw.githubusercontent.com/Samuel-Kamanga/Byte-and-Berry-Website/main/Logo/Logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+260760580949",
+      "contactType": "customer support",
+      "areaServed": "ZM"
+    }],
+    "sameAs": [
+      "https://web.facebook.com/p/ByteBerry-61575125536198/"
+    ]
+  }
+  </script>
+  <script type="application/ld+json" id="faq-jsonld"></script>
+</head>
+<body class="noise text-slate-200 bg-bb-bg" data-theme="dark">
+  <!-- Background Blobs -->
+  <div class="blob top-0 left-0"></div>
+  <div class="blob bottom-0 right-0" style="animation-duration: 40s; opacity:.1"></div>
+
+  <!-- Skip link for a11y -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-black/80 text-white px-3 py-2 rounded">Skip to content</a>
+
+  <!-- Header -->
+  <header id="header" class="sticky top-0 z-50 glass-header">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between" aria-label="Main">
+      <a href="#home" class="flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight" aria-label="Byte and Berry home">
+        <img src="Logo/Logo.png" alt="Byte&Berry Logo" class="h-8 w-8 sm:h-9 sm:w-9 rounded-lg object-contain" />
+        <span>Byte<span class="text-violet-400">&</span>Berry</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-slate-300 font-medium">
+        <a class="hover:text-white transition-colors" href="#home">Home</a>
+        <a class="hover:text-white transition-colors" href="#about">About</a>
+        <a class="hover:text-white transition-colors" href="#services">Services</a>
+        <a class="hover:text-white transition-colors" href="#portfolio">Portfolio</a>
+        <a class="hover:text-white transition-colors" href="#faq">FAQ</a>
+        <a class="hover:text-white transition-colors" href="#contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="theme-toggle" class="p-2 rounded-lg border border-white/10" aria-label="Toggle theme"><i data-feather="moon"></i></button>
+        <a href="#contact" class="hidden lg:inline-flex btn btn-primary px-4 sm:px-5 py-2.5 rounded-lg font-semibold shadow-glow text-sm">Request Quote</a>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg border border-white/10" aria-expanded="false" aria-controls="mobile-menu"><i data-feather="menu"></i></button>
+      </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-white/10" role="dialog" aria-label="Mobile Navigation">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 py-4 grid gap-2">
+        <a href="#home" class="py-2">Home</a>
+        <a href="#about" class="py-2">About</a>
+        <a href="#services" class="py-2">Services</a>
+        <a href="#portfolio" class="py-2">Portfolio</a>
+        <a href="#faq" class="py-2">FAQ</a>
+        <a href="#contact" class="py-2">Contact</a>
+        <a href="#contact" class="mt-2 btn btn-primary text-center py-2.5 rounded-lg font-semibold">Request Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content"></main>
+
+  <!-- Footer -->
+  <footer class="mt-24 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-lg sm:text-xl font-bold">Byte<span class="text-violet-400">&</span>Berry</h3>
+        <p class="mt-3 text-slate-400 text-sm">Digitizing operations, improving efficiency, and reducing costs for the African market.</p>
+        <div class="flex gap-4 mt-4 text-slate-400">
+          <a class="hover:text-white" href="https://web.facebook.com/p/ByteBerry-61575125536198/" aria-label="Facebook" target="_blank" rel="noopener"><i data-feather="facebook"></i></a>
+          <a class="hover:text-white" href="#" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+          <a class="hover:text-white" href="#" aria-label="GitHub"><i data-feather="github"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold uppercase tracking-widest text-xs text-slate-300">Navigate</h4>
+        <ul class="mt-4 space-y-2 text-slate-400 text-sm">
+          <li><a href="#about" class="hover:text-white">About Us</a></li>
+          <li><a href="#services" class="hover:text-white">Services & Pricing</a></li>
+          <li><a href="#portfolio" class="hover:text-white">Case Studies</a></li>
+          <li><a href="#contact" class="hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold uppercase tracking-widest text-xs text-slate-300">Legal</h4>
+        <ul class="mt-4 space-y-2 text-slate-400 text-sm">
+          <li><a href="#legal-privacy" class="hover:text-white">Privacy Policy</a></li>
+          <li><a href="#legal-terms" class="hover:text-white">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold uppercase tracking-widest text-xs text-slate-300">Get in touch</h4>
+        <p class="mt-4 text-slate-400 text-sm">Have a project in mind? Let’s build it together.</p>
+        <a href="tel:0760580949" class="inline-flex items-center gap-2 mt-4 text-slate-300"><i data-feather="phone" class="w-4 h-4"></i>0760 580 949</a>
+        <div class="mt-4">
+          <form id="newsletter" class="flex gap-2">
+            <input type="email" name="email" required placeholder="Join newsletter" class="flex-1 bg-transparent border border-white/10 rounded-lg px-3 py-2 text-sm" aria-label="Email address" />
+            <button class="btn btn-secondary px-3 py-2 rounded-lg text-sm">Join</button>
+          </form>
+          <p id="newsletter-ok" class="hidden text-green-400 text-xs mt-2">Thanks! You’re on the list.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-slate-500 text-sm pb-10">© <span id="current-year"></span> Byte&Berry. All rights reserved.</div>
+  </footer>
+
+  <!-- Persistent CTAs -->
+  <a href="https://wa.me/260760580949?text=Hi%20Byte%26Berry%2C%20I%27d%20like%20a%20quote" target="_blank" rel="noopener" class="fixed bottom-24 right-6 z-50 rounded-full p-3 border border-white/10 bg-bb-card hover:bg-white/10" aria-label="WhatsApp">
+    <i data-feather="message-circle"></i>
+  </a>
+  <button id="chat-bubble" class="fixed bottom-6 right-6 w-14 h-14 rounded-full btn btn-primary shadow-glow flex items-center justify-center z-50" aria-haspopup="dialog" aria-controls="chat-drawer">
+    <i data-feather="message-square" class="text-white"></i>
+  </button>
+
+  <!-- AI Chat Drawer -->
+  <section id="chat-drawer" class="drawer fixed bottom-0 left-0 right-0 z-50 p-4 w-full max-w-lg mx-auto" aria-live="polite" aria-label="Byte&Berry Copilot">
+    <div class="glass-drawer rounded-2xl p-4 shadow-xl h-full flex flex-col">
+      <div class="flex items-center justify-between flex-shrink-0">
+        <h3 class="font-semibold">Byte&Berry Copilot</h3>
+        <button id="drawer-close" class="p-2 rounded-lg hover:bg-white/5" aria-label="Close chat"><i data-feather="x"></i></button>
+      </div>
+      <p class="mt-1 text-sm text-slate-400 flex-shrink-0">Ask about our services, pricing, or your project ideas.</p>
+      <div id="chat-stream" class="mt-4 flex-grow space-y-4 overflow-y-auto pr-2"></div>
+      <div class="mt-4 flex-shrink-0">
+        <div class="grid sm:grid-cols-2 gap-2 text-sm">
+          <button class="quick-prompt btn-secondary px-3 py-2 rounded-lg text-left" data-prompt="What's the price for a 5-page website?">Price for a 5-page site?</button>
+          <button class="quick-prompt btn-secondary px-3 py-2 rounded-lg text-left" data-prompt="Can you build an app with mobile money payments?">Build an app with payments?</button>
+        </div>
+        <div class="mt-2 flex gap-2">
+          <input id="chat-input" class="flex-1 bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" placeholder="Ask anything..." />
+          <button id="chat-send" class="btn btn-primary px-4 py-2 rounded-lg font-semibold">Send</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEMPLATES ============ -->
+  <template id="template-home">
+    <div class="page-content">
+      <!-- HERO -->
+      <section class="relative pt-24 md:pt-32 pb-16">
+        <div class="absolute inset-0 bg-bb-grid bg-[length:20px_20px] opacity-[0.1] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+            Custom Digital Solutions 
+            <br class="hidden md:block" />
+            <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">for the African Market</span>
+          </h1>
+          <p class="mt-5 text-lg text-slate-300 max-w-3xl mx-auto">
+            We build student management systems, accounting dashboards, and enterprise-grade software to help your business thrive.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact" class="btn btn-primary px-6 py-3 rounded-xl font-semibold shadow-glow">Contact Us</a>
+            <a href="#services" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold">Our Services</a>
+          </div>
+          <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 opacity-90">
+            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+A" class="mx-auto grayscale hover:grayscale-0 transition" />
+            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+B" class="mx-auto grayscale hover:grayscale-0 transition" />
+            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+C" class="mx-auto grayscale hover:grayscale-0 transition" />
+            <img loading="lazy" alt="Client logo" src="https://placehold.co/140x48/111/aaa?text=Client+D" class="mx-auto grayscale hover:grayscale-0 transition" />
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES PREVIEW -->
+      <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">What We Build</h2>
+          <p class="text-slate-400 mt-2 max-w-2xl mx-auto">From streamlining school administration to providing clear financial insights, our solutions solve real-world problems.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 reveal">
+          <div class="card bg-bb-card rounded-2xl p-6">
+            <div class="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 text-violet-400"><i data-feather="users" class="w-7 h-7"></i></div>
+            <h3 class="font-semibold text-lg">Student Management Systems</h3>
+            <p class="text-slate-400 mt-1 text-sm">Manage student data, grades, fees, and communication in one place.</p>
+          </div>
+          <div class="card bg-bb-card rounded-2xl p-6">
+            <div class="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 text-violet-400"><i data-feather="bar-chart-2" class="w-7 h-7"></i></div>
+            <h3 class="font-semibold text-lg">Accounting Dashboards</h3>
+            <p class="text-slate-400 mt-1 text-sm">Real-time sales, expenses, and inventory tracking for SMEs.</p>
+          </div>
+          <div class="card bg-bb-card rounded-2xl p-6">
+            <div class="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 text-violet-400"><i data-feather="globe" class="w-7 h-7"></i></div>
+            <h3 class="font-semibold text-lg">Enterprise Web Apps</h3>
+            <p class="text-slate-400 mt-1 text-sm">Robust, scalable apps tailored to automate operations.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CASE STUDY PREVIEW -->
+      <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Proven Results</h2>
+          <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Here’s a glimpse of our work.</p>
+        </div>
+        <div class="mt-12 card bg-bb-card rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 reveal">
+          <img loading="lazy" src="https://placehold.co/400x300/1e293b/7c3aed?text=Project+Screenshot" alt="Case study project" class="rounded-lg w-full md:w-1/2 lg:w-2/5" />
+          <div class="md:w-1/2 lg:w-3/5">
+            <span class="text-sm font-semibold text-violet-400 uppercase">Education Tech</span>
+            <h3 class="text-2xl font-bold mt-2">Streamlining Admissions for a Leading College</h3>
+            <p class="text-slate-400 mt-3">We digitized student application and enrollment, cutting admin workload by 60% and improving applicant experience.</p>
+            <a href="#portfolio" class="inline-flex items-center gap-2 mt-6 font-semibold text-violet-300">View Case Study <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- AGRI-FINTECH TEASER -->
+      <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="bg-bb-card rounded-2xl p-8 md:p-12 text-center reveal">
+          <h2 class="text-3xl font-bold">Coming Soon: Revolutionizing Agri-Fintech</h2>
+          <p class="text-slate-400 mt-3 max-w-3xl mx-auto">We’re connecting farmers with finance and markets. Seeking investors to join this journey.</p>
+          <a href="#contact" class="btn btn-secondary px-6 py-3 rounded-xl font-semibold mt-8">Partner With Us</a>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-about">
+    <div class="page-content">
+      <section class="pt-24 pb-12 px-4 sm:px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">About Byte&Berry</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">We’re developers and strategists building technology that empowers African businesses.</p>
+      </section>
+      <section class="px-4 sm:px-6 max-w-5xl mx-auto">
+        <div class="bg-bb-card rounded-2xl p-8 md:p-12 reveal">
+          <h2 class="text-2xl font-bold">Our Story</h2>
+          <p class="text-slate-300 mt-4 leading-relaxed">Byte&Berry is a Zambian-based software studio specializing in custom digital solutions for educational institutions and SMEs. Our solutions blend user-friendly design with robust backends to help clients digitize operations, improve efficiency, and reduce costs.</p>
+        </div>
+      </section>
+      <section class="mt-12 px-4 sm:px-6 max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+        <div class="bg-bb-card rounded-2xl p-8 reveal">
+          <h3 class="text-xl font-bold">Our Mission</h3>
+          <p class="text-slate-300 mt-2">Empower organizations with affordable, high-quality tools that solve local challenges and drive sustainable growth.</p>
+        </div>
+        <div class="bg-bb-card rounded-2xl p-8 reveal">
+          <h3 class="text-xl font-bold">Our Vision</h3>
+          <p class="text-slate-300 mt-2">Be the trusted technology partner for SMEs and schools across Africa, known for innovation and reliability.</p>
+        </div>
+      </section>
+      <section class="mt-16 px-4 sm:px-6 max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold text-center mb-8">Why Choose Byte&Berry?</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+          <div class="text-center card bg-bb-card rounded-2xl p-6">
+            <div class="w-16 h-16 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400"><i data-feather="map-pin" class="w-8 h-8"></i></div>
+            <h3 class="mt-4 font-semibold">Local Expertise</h3>
+            <p class="text-slate-400 text-sm mt-1">We understand African markets and users.</p>
+          </div>
+          <div class="text-center card bg-bb-card rounded-2xl p-6">
+            <div class="w-16 h-16 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400"><i data-feather="dollar-sign" class="w-8 h-8"></i></div>
+            <h3 class="mt-4 font-semibold">Cost-Effective</h3>
+            <p class="text-slate-400 text-sm mt-1">Priced for startups and SMEs.</p>
+          </div>
+          <div class="text-center card bg-bb-card rounded-2xl p-6">
+            <div class="w-16 h-16 rounded-full bg-violet-500/10 flex items-center justify-center mx-auto text-violet-400"><i data-feather="users" class="w-8 h-8"></i></div>
+            <h3 class="mt-4 font-semibold">Client-Centric</h3>
+            <p class="text-slate-400 text-sm mt-1">We co-create to match exact needs.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-services">
+    <div class="page-content">
+      <section class="pt-24 pb-4 px-4 sm:px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">Services & Pricing</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">Transparent, flexible pricing for solutions that scale with your business.</p>
+      </section>
+
+      <!-- Currency Toggle -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 flex items-center justify-center gap-3">
+        <span class="text-sm text-slate-400">Currency:</span>
+        <div class="inline-flex rounded-lg border border-white/10 overflow-hidden" role="tablist" aria-label="Currency switch">
+          <button id="cur-zmw" class="px-3 py-1.5 text-sm bg-white/10" role="tab" aria-selected="true">ZMW</button>
+          <button id="cur-usd" class="px-3 py-1.5 text-sm" role="tab" aria-selected="false">USD</button>
+        </div>
+      </div>
+
+      <section class="mt-8 px-4 sm:px-6 max-w-7xl mx-auto grid lg:grid-cols-3 gap-6">
+        <!-- Web Development -->
+        <div class="card bg-bb-card rounded-2xl p-8 reveal">
+          <i data-feather="layout" class="w-8 h-8 text-violet-400 mb-4"></i>
+          <h3 class="text-xl font-bold">Web Development</h3>
+          <p class="text-slate-400 mt-2 text-sm">Responsive, fast, secure websites—from landing pages to portals.</p>
+          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="6000" data-usd="250">K6,000</span>+</div>
+          <ul class="text-sm mt-4 space-y-2 text-slate-400">
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>3–5 Pages</li>
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Contact Form & SEO</li>
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Mobile-First Design</li>
+          </ul>
+        </div>
+        <!-- App Development -->
+        <div class="card bg-bb-card rounded-2xl p-8 border-2 border-violet-500 shadow-glow reveal">
+          <i data-feather="smartphone" class="w-8 h-8 text-violet-400 mb-4"></i>
+          <h3 class="text-xl font-bold">Mobile App Development</h3>
+          <p class="text-slate-400 mt-2 text-sm">Native iOS & Android with clean UI/UX and offline capability.</p>
+          <div class="text-3xl font-extrabold mt-6"><span class="money" data-zmw="15000" data-usd="600">K15,000</span>+</div>
+          <ul class="text-sm mt-4 space-y-2 text-slate-400">
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>iOS & Android</li>
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>User Authentication</li>
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Push Notifications</li>
+          </ul>
+        </div>
+        <!-- Consultancy -->
+        <div class="card bg-bb-card rounded-2xl p-8 reveal">
+          <i data-feather="briefcase" class="w-8 h-8 text-violet-400 mb-4"></i>
+          <h3 class="text-xl font-bold">IT &amp; Digital Consultancy</h3>
+          <p class="text-slate-400 mt-2 text-sm">Tech stack advisory, project roadmapping, cloud & security reviews.</p>
+          <div class="text-3xl font-extrabold mt-6">Project-Based</div>
+           <ul class="text-sm mt-4 space-y-2 text-slate-400">
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Architecture & Planning</li>
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Digital Transformation Strategy</li>
+            <li class="flex items-center gap-2"><i data-feather="check" class="w-4 h-4 text-green-400"></i>Vendor Selection</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Interactive Estimator -->
+      <section class="mt-16 px-4 sm:px-6 max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold text-center">Quick Project Estimator</h2>
+        <div class="mt-8 bg-bb-card rounded-xl p-6 sm:p-8 reveal">
+          <p class="text-center text-slate-400 mb-6">Pick features for a rough estimate. We’ll refine after a call.</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+            <label class="flex items-center gap-2 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10"><input type="checkbox" class="est-check" value="auth" /> User Logins</label>
+            <label class="flex items-center gap-2 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10"><input type="checkbox" class="est-check" value="payments" /> Payments</label>
+            <label class="flex items-center gap-2 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10"><input type="checkbox" class="est-check" value="chat" /> Real-time Chat</label>
+            <label class="flex items-center gap-2 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10"><input type="checkbox" class="est-check" value="dash" /> Admin Dashboard</label>
+            <label class="flex items-center gap-2 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10"><input type="checkbox" class="est-check" value="ai" /> AI Features</label>
+            <label class="flex items-center gap-2 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10"><input type="checkbox" class="est-check" value="offline" /> Offline Mode</label>
+          </div>
+          <div class="mt-6 flex items-center gap-4">
+            <label class="text-sm text-slate-400">Complexity</label>
+            <input id="est-complexity" type="range" min="1" max="3" step="1" value="2" class="w-full" />
+            <span id="est-complexity-label" class="text-sm text-slate-300 w-16 text-right">Medium</span>
+          </div>
+          <div id="estimate-output" class="mt-4 text-center text-lg font-semibold text-slate-200 h-6"></div>
+          <div class="text-center mt-4 flex flex-col gap-2">
+            <a href="#contact" class="btn btn-primary px-5 py-2.5 rounded-lg font-semibold">Get Exact Quote</a>
+            <button id="ai-estimate-btn" class="btn btn-secondary px-5 py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2 mx-auto" type="button">
+              <i data-feather="cpu"></i> Ask AI for Estimate
+            </button>
+            <div id="ai-estimate-response" class="mt-2 text-slate-300 text-sm min-h-[2em]"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add-ons & Costs -->
+      <section class="mt-16 px-4 sm:px-6 max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold text-center">Additional Services & Costs</h2>
+        <div class="mt-8 grid md:grid-cols-2 gap-6 reveal">
+          <div class="bg-bb-card rounded-xl p-6">
+            <h4 class="font-semibold">Payment Gateway Integration</h4>
+            <p class="text-slate-400 text-sm mt-1">Integrate local mobile money (MTN, Airtel) and card payments (e.g., Stripe). <span class="font-bold">Pricing is quote-based.</span></p>
+          </div>
+          <div class="bg-bb-card rounded-xl p-6">
+            <h4 class="font-semibold">Hosting & Maintenance</h4>
+            <p class="text-slate-400 text-sm mt-1"><strong>Website Hosting:</strong> K500/month. <br/><strong>App Maintenance:</strong> Covers Play Store ($25 one-time) & App Store ($99/yr) plus WhatsApp Business line upkeep. <span class="font-bold">From K4,000/yr.</span></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
+  
+  <template id="template-portfolio">
+    <div class="page-content">
+      <section class="pt-24 pb-6 px-4 sm:px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">Our Work</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">We build solutions that deliver real value.</p>
+      </section>
+
+      <!-- Filters -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center gap-2 justify-center">
+        <button class="filter-btn btn-secondary px-3 py-1.5 rounded-lg text-sm" data-filter="all">All</button>
+        <button class="filter-btn btn-secondary px-3 py-1.5 rounded-lg text-sm" data-filter="education">Education</button>
+        <button class="filter-btn btn-secondary px-3 py-1.5 rounded-lg text-sm" data-filter="sme">SME</button>
+        <button class="filter-btn btn-secondary px-3 py-1.5 rounded-lg text-sm" data-filter="fintech">Fintech</button>
+      </div>
+
+      <section class="mt-6 px-4 sm:px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+        <!-- Case Study 1 -->
+        <div class="case card bg-bb-card rounded-2xl overflow-hidden reveal" data-tags="education">
+          <img loading="lazy" src="https://placehold.co/600x400/1e293b/a855f7?text=Edu-Portal" alt="Education Portal Project" class="w-full h-64 object-cover" />
+          <div class="p-6">
+            <span class="text-sm font-semibold text-violet-400 uppercase">Education</span>
+            <h3 class="text-xl font-bold mt-2">College Admissions Portal</h3>
+            <p class="text-slate-400 mt-2 text-sm">Digitized enrollment, reduced paperwork, improved data accuracy.</p>
+          </div>
+        </div>
+        <!-- Case Study 2 -->
+        <div class="case card bg-bb-card rounded-2xl overflow-hidden reveal" data-tags="sme fintech">
+          <img loading="lazy" src="https://placehold.co/600x400/1e293b/22d3ee?text=SME+Dashboard" alt="SME Dashboard Project" class="w-full h-64 object-cover" />
+          <div class="p-6">
+            <span class="text-sm font-semibold text-cyan-400 uppercase">SME Finance</span>
+            <h3 class="text-xl font-bold mt-2">Financial Dashboard for Retailers</h3>
+            <p class="text-slate-400 mt-2 text-sm">Real-time sales and inventory tracking across stores.</p>
+          </div>
+        </div>
+        <div class="md:col-span-2 text-center py-8">
+          <p class="text-slate-400">More case studies coming soon.</p>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-faq">
+    <div class="page-content">
+      <section class="pt-24 pb-6 px-4 sm:px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">FAQ</h1>
+        <p class="text-slate-300 mt-2 max-w-3xl mx-auto">Quick answers about our services, pricing, and process.</p>
+      </section>
+      <section class="px-4 sm:px-6 max-w-4xl mx-auto">
+        <div class="space-y-3" id="faq-list">
+          <!-- FAQ items injected by JS -->
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-contact">
+    <div class="page-content">
+      <section class="pt-24 pb-6 px-4 sm:px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold">Let's Build Together</h1>
+        <p class="text-slate-300 mt-3 max-w-3xl mx-auto">Tell us about your project. We'll provide a clear, no-obligation quote.</p>
+      </section>
+      <section class="mt-8 px-4 sm:px-6 max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-lg font-semibold">Contact Details</h3>
+            <div class="mt-2 space-y-3 text-slate-300">
+              <a href="mailto:hello@byteandberry.com" class="flex items-center gap-3 hover:text-white"><i data-feather="mail"></i> hello@byteandberry.com</a>
+              <a href="tel:0760580949" class="flex items-center gap-3 hover:text-white"><i data-feather="phone"></i> 0760 580 949</a>
+              <a href="https://wa.me/260760580949?text=Hi%20Byte%26Berry%2C%20I%27d%20like%20a%20quote" class="flex items-center gap-3 hover:text-white" target="_blank" rel="noopener"><i data-feather="message-circle"></i> WhatsApp</a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold">Location</h3>
+            <p class="mt-2 text-slate-300">Lusaka, Zambia</p>
+          </div>
+          <div class="bg-bb-card rounded-xl p-4">
+            <p class="text-sm text-slate-400">Prefer a call? Book a free 15-min consult.</p>
+            <button id="open-booking" class="btn btn-secondary px-3 py-2 rounded-lg text-sm mt-2">Open Booking Modal</button>
+          </div>
+        </div>
+        <form id="contact-form" class="bg-bb-card rounded-2xl p-6 sm:p-8" novalidate>
+          <div class="grid gap-4">
+            <input name="name" placeholder="Full Name" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required />
+            <input name="email" placeholder="Email Address" type="email" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required />
+            <input name="subject" placeholder="Subject" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required />
+            <textarea name="message" rows="5" placeholder="Tell us about your project..." class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full" required></textarea>
+          </div>
+          <button class="btn btn-primary px-5 py-2.5 rounded-xl font-semibold mt-4 w-full">Send Message</button>
+          <p id="contact-form-success" class="hidden text-green-400 text-center mt-3 text-sm">Message sent! We’ll get back to you soon.</p>
+          <p id="contact-form-error" class="hidden text-red-400 text-center mt-3 text-sm">Please check your inputs and try again.</p>
+        </form>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-legal">
+    <div class="page-content">
+      <section class="pt-24 px-4 sm:px-6 text-center">
+        <h1 id="legal-title" class="text-4xl md:text-5xl font-extrabold">Legal</h1>
+      </section>
+      <section class="mt-12 px-4 sm:px-6 max-w-4xl mx-auto">
+        <article id="legal-content" class="prose prose-invert max-w-none"></article>
+      </section>
+    </div>
+  </template>
+
+  <template id="template-404">
+    <div class="page-content">
+      <section class="py-28 text-center">
+        <h1 class="text-7xl font-extrabold text-violet-400">404</h1>
+        <p class="mt-3 text-slate-300">This page doesn't exist.</p>
+        <a href="#home" class="inline-flex btn btn-primary px-5 py-2 rounded-xl font-semibold mt-6">Go Home</a>
+      </section>
+    </div>
+  </template>
+
+  <!-- Booking Modal -->
+  <dialog id="booking-modal" class="backdrop:bg-black/70 rounded-xl max-w-xl w-[92%]">
+    <form method="dialog" class="bg-bb-card border border-white/10 rounded-xl p-6">
+      <div class="flex items-center justify-between">
+        <h3 class="font-semibold">Book a Consultation</h3>
+        <button aria-label="Close" class="p-2 rounded-lg hover:bg-white/5"><i data-feather="x"></i></button>
+      </div>
+      <p class="text-sm text-slate-400 mt-2">Pick a preferred time and share a brief agenda.</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <input type="date" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required />
+        <input type="time" class="bg-transparent border border-white/10 rounded-lg px-3 py-2" required />
+        <input type="text" placeholder="Your Name" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 sm:col-span-2" required />
+        <textarea rows="3" placeholder="Agenda / Notes" class="bg-transparent border border-white/10 rounded-lg px-3 py-2 sm:col-span-2"></textarea>
+      </div>
+      <div class="mt-4 flex justify-end gap-2">
+        <button class="btn btn-secondary px-4 py-2 rounded-lg">Cancel</button>
+        <button class="btn btn-primary px-4 py-2 rounded-lg">Request</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    feather.replace();
+    const main = document.getElementById('main-content');
+    const mobileBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const year = document.getElementById('current-year');
+    const themeToggle = document.getElementById('theme-toggle');
+    const bookingModal = document.getElementById('booking-modal');
+    const newsletter = document.getElementById('newsletter');
+
+    /* ========= DeepSeek wiring (testing) ========= */
+    const DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions";
+    const DEEPSEEK_API_KEY = "sk-68f9e315ff7b498d813d602e3226ea70"; // TEST ONLY
+    const DEEPSEEK_MODEL  = "deepseek-chat";
+
+    async function callDeepSeek(messages, opts = {}) {
+      const body = {
+        model: opts.model || DEEPSEEK_MODEL,
+        messages,
+        temperature: opts.temperature ?? 0.3,
+        max_tokens: opts.max_tokens ?? 300
+      };
+      const res = await fetch(DEEPSEEK_API_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${DEEPSEEK_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        const errText = await res.text().catch(()=>"");
+        throw new Error(`DeepSeek error ${res.status}: ${errText}`);
+      }
+      const data = await res.json();
+      return data?.choices?.[0]?.message?.content?.trim() || "";
+    }
+    /* ============================================= */
+
+    year.textContent = new Date().getFullYear();
+
+    // ---- Theme toggle (persist) ----
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('bb-theme');
+    const setTheme = (val) => {
+      const dark = val === 'dark';
+      document.documentElement.classList.toggle('dark', dark);
+      document.body.dataset.theme = dark ? 'dark' : 'light';
+      localStorage.setItem('bb-theme', dark ? 'dark' : 'light');
+      themeToggle.innerHTML = '';
+      const icon = document.createElement('i');
+      icon.setAttribute('data-feather', dark ? 'sun' : 'moon');
+      themeToggle.appendChild(icon);
+      feather.replace();
+    };
+    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+    themeToggle.addEventListener('click', () => setTheme(document.body.dataset.theme === 'dark' ? 'light' : 'dark'));
+
+    // ---- Simple SPA Router ----
+    const routes = { 
+      'home':'template-home',
+      'about':'template-about',
+      'services':'template-services',
+      'portfolio':'template-portfolio',
+      'faq':'template-faq',
+      'contact':'template-contact',
+      'legal-privacy':'template-legal',
+      'legal-terms':'template-legal',
+      '404':'template-404' 
+    };
+
+    // FIXED: Clone from <template>.content
+    function navigate(hash){
+      main.classList.add('page-transition-out');
+      setTimeout(()=>{
+        const page = (hash.substring(1) || 'home').split('?')[0];
+        const tplId = routes[page] || routes['404'];
+        const tpl = document.getElementById(tplId);
+
+        main.innerHTML = '';
+        if (tpl && tpl.content) {
+          main.appendChild(tpl.content.cloneNode(true));
+        } else if (tpl) {
+          main.innerHTML = tpl.innerHTML; // fallback
+        } else {
+          main.textContent = 'Page not found.';
+        }
+
+        if(page.startsWith('legal')) loadLegal(page);
+        if(page === 'services') initEstimator();
+        if(page === 'portfolio') initPortfolioFilters();
+        if(page === 'contact') initContact();
+        if(page === 'faq') initFAQ();
+
+        revealInit();
+        main.classList.remove('page-transition-out');
+        main.classList.add('page-transition-in');
+        setTimeout(()=> main.classList.remove('page-transition-in'), 250);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        feather.replace();
+      }, 160);
+    }
+
+    window.addEventListener('hashchange', ()=> navigate(location.hash));
+    navigate(location.hash || '#home');
+
+    // nav links + close mobile
+    document.body.addEventListener('click', (e)=>{
+      const anchor = e.target.closest('a[href^="#"]');
+      if(anchor){
+        const targetHash = anchor.getAttribute('href');
+        if (location.hash !== targetHash) location.hash = targetHash;
+        if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+      }
+    });
+
+    // Mobile menu toggle
+    mobileBtn?.addEventListener('click', ()=> {
+      mobileMenu?.classList.toggle('hidden');
+      const expanded = mobileMenu?.classList.contains('hidden') ? 'false' : 'true';
+      mobileBtn.setAttribute('aria-expanded', expanded);
+    });
+
+    // Newsletter (dummy)
+    newsletter?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.reset();
+      document.getElementById('newsletter-ok')?.classList.remove('hidden');
+      setTimeout(()=> document.getElementById('newsletter-ok')?.classList.add('hidden'), 4000);
+    });
+
+    // Booking modal
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'open-booking') {
+        bookingModal.showModal();
+      }
+    });
+
+    // ---- Legal Content Loader ----
+    function loadLegal(page){
+      const title = document.getElementById('legal-title'); 
+      const content = document.getElementById('legal-content');
+      if (!title || !content) return;
+      const legalTexts = {
+        'legal-privacy': { 
+          title: 'Privacy Policy', 
+          text: `<h3>1. Information We Collect</h3><p>We collect information you provide directly to us through contact forms, such as your name, email address, and project details. We also use minimal analytics to understand website traffic.</p><h3>2. How We Use Information</h3><p>Your information is used to respond to your inquiries, provide quotes, deliver our services, and improve our website experience.</p><h3>3. Information Sharing</h3><p>We do not sell your personal data. Your information is kept confidential and is only shared with third parties when necessary to provide our services (e.g., payment processors) or when legally required.</p>` 
+        },
+        'legal-terms': { 
+          title: 'Terms of Service', 
+          text: `<h3>1. Agreement to Terms</h3><p>By using our services, you agree to be bound by these Terms of Service.</p><h3>2. Scope of Services</h3><p>Byte&Berry provides custom software development, web development, and consultancy services as outlined in individual project proposals and statements of work (SOW).</p><h3>3. Payments</h3><p>Payment terms will be specified in the project proposal. Typically, projects require an upfront deposit, with milestone payments and a final payment upon completion.</p><h3>4. Limitation of Liability</h3><p>Our liability for any claims arising from our services is limited to the total fees paid for the specific project in question.</p>` 
+        },
+      };
+      const data = legalTexts[page];
+      if (data) { title.textContent = data.title; content.innerHTML = data.text; }
+    }
+
+    // ---- Estimator Logic (with AI) ----
+    function initEstimator() {
+      try {
+        const checks = Array.from(document.querySelectorAll('.est-check'));
+        const output = document.getElementById('estimate-output');
+        const range = document.getElementById('est-complexity');
+        const rangeLabel = document.getElementById('est-complexity-label');
+        const curZMW = document.getElementById('cur-zmw');
+        const curUSD = document.getElementById('cur-usd');
+        const moneyEls = Array.from(document.querySelectorAll('.money'));
+        const aiBtn = document.getElementById('ai-estimate-btn');
+        const aiResp = document.getElementById('ai-estimate-response');
+
+        if (!output || !range || !rangeLabel || !curZMW || !curUSD || moneyEls.length === 0) {
+          console.error('Estimator: Missing DOM elements');
+          return;
+        }
+
+        const complexityNames = {1: 'Basic', 2: 'Medium', 3: 'Advanced'};
+
+        // Currency toggle logic
+        const setCurrency = (usd) => {
+          moneyEls.forEach(el => {
+            const zw = +el.dataset.zmw; const us = +el.dataset.usd;
+            el.textContent = usd ? `$${us.toLocaleString()}` : `K${zw.toLocaleString()}`;
+          });
+          curUSD.classList.toggle('bg-white/10', usd);
+          curZMW.classList.toggle('bg-white/10', !usd);
+          curUSD.setAttribute('aria-selected', usd);
+          curZMW.setAttribute('aria-selected', !usd);
+          calculate();
+        };
+        curZMW?.addEventListener('click', ()=> setCurrency(false));
+        curUSD?.addEventListener('click', ()=> setCurrency(true));
+        setCurrency(false);
+
+        // Manual estimate calculation
+        function calculate() {
+          if (!output) return;
+          const base = 15000; // base in ZMW
+          let feature = 0;
+          const opts = checks.filter(c=>c.checked).map(c=>c.value);
+          if (opts.includes('payments')) feature += 5000;
+          if (opts.includes('auth')) feature += 3000;
+          if (opts.includes('chat')) feature += 4000;
+          if (opts.includes('dash')) feature += 4500;
+          if (opts.includes('ai')) feature += 6000;
+          if (opts.includes('offline')) feature += 3500;
+          const complexity = +range.value; // multiplier
+          rangeLabel.textContent = complexityNames[complexity];
+          const subtotal = (base + feature) * (1 + (complexity-1)*0.25);
+          const low = Math.round(subtotal * 0.9);
+          const high = Math.round(subtotal * 1.2);
+          const isUSD = curUSD.classList.contains('bg-white/10');
+          const format = (n)=> isUSD ? `$${Math.round(n/24).toLocaleString()}` : `K${n.toLocaleString()}`; // rough FX 1 USD ~ K24
+          output.textContent = `Estimated Range: ${format(low)} – ${format(high)}`;
+        }
+        checks.forEach(box => box.addEventListener('change', calculate));
+        range?.addEventListener('input', calculate);
+        calculate();
+
+        // AI Estimate Button Logic (DeepSeek)
+        if (aiBtn && aiResp) {
+          aiBtn.onclick = async () => {
+            aiBtn.disabled = true;
+            aiBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> Thinking...';
+            aiResp.textContent = '';
+            const features = checks.filter(c=>c.checked).map(c=>c.parentElement.textContent.trim());
+            const complexity = complexityNames[range.value];
+            const currency = curUSD.classList.contains('bg-white/10') ? 'USD' : 'ZMW';
+            const system = `You are Byte&Berry Copilot. Keep answers concise (2–3 sentences), include a rough price band in ${currency}, and invite users to request a quote.`;
+            const user = `Selected features: ${features.length ? features.join(', ') : 'none'}. Complexity: ${complexity}. Currency: ${currency}. Provide an estimate and quick advice.`;
+
+            try {
+              const text = await callDeepSeek([
+                { role: "system", content: system },
+                { role: "user", content: user }
+              ], { max_tokens: 220 });
+              aiResp.textContent = text || "Sorry, couldn't get an AI estimate.";
+            } catch (e) {
+              aiResp.textContent = "Sorry, there was an error connecting to the AI.";
+              console.error(e);
+            } finally {
+              aiBtn.disabled = false;
+              aiBtn.innerHTML = '<i data-feather="cpu"></i> Ask AI for Estimate';
+              feather.replace();
+            }
+          };
+        }
+      } catch (e) {
+        console.error('Estimator error:', e);
+      }
+    }
+
+    // ---- Portfolio filters ----
+    function initPortfolioFilters(){
+      const btns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.case');
+      btns.forEach(b=> b.addEventListener('click', ()=>{
+        const f = b.dataset.filter;
+        cards.forEach(c=>{
+          const tags = c.dataset.tags || '';
+          const show = f==='all' || tags.includes(f);
+          c.classList.toggle('hidden', !show);
+        });
+        btns.forEach(x=> x.classList.remove('bg-white/10'));
+        b.classList.add('bg-white/10');
+      }));
+      btns[0]?.click();
+    }
+
+    // ---- Contact form validation ----
+    function initContact(){
+      const form = document.getElementById('contact-form');
+      const ok = document.getElementById('contact-form-success');
+      const err = document.getElementById('contact-form-error');
+      const openBooking = document.getElementById('open-booking');
+      openBooking?.addEventListener('click', ()=> bookingModal.showModal());
+      form?.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const data = new FormData(form);
+        const valid = ['name','email','subject','message'].every(k=> data.get(k)?.toString().trim().length);
+        if (!valid || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.get('email'))) {
+          err?.classList.remove('hidden');
+          setTimeout(()=> err?.classList.add('hidden'), 4000);
+          return;
+        }
+        form.reset();
+        ok?.classList.remove('hidden');
+        setTimeout(()=> ok?.classList.add('hidden'), 4000);
+      });
+    }
+
+    // ---- Reveal on scroll ----
+    function revealInit(){
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) return els.forEach(el=> el.classList.remove('reveal'));
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if (e.isIntersecting){
+            e.target.animate([{opacity:0, transform:'translateY(12px)'},{opacity:1, transform:'translateY(0)'}], {duration:420, easing:'cubic-bezier(.22,1,.36,1)'});
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.12});
+      els.forEach(el=> io.observe(el));
+    }
+
+    // ---- AI Chat Drawer (DeepSeek) ----
+    initChat();
+    function initChat() {
+      const chatBubble = document.getElementById('chat-bubble');
+      const chatDrawer = document.getElementById('chat-drawer');
+      const drawerClose = document.getElementById('drawer-close');
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+      const chatStream = document.getElementById('chat-stream');
+      const quickPrompts = document.querySelectorAll('.quick-prompt');
+      if (!chatBubble || !chatDrawer || !drawerClose || !chatInput || !chatSend || !chatStream) return;
+      chatBubble.addEventListener('click', () => chatDrawer.classList.add('open'));
+      drawerClose.addEventListener('click', () => chatDrawer.classList.remove('open'));
+
+      const handleSend = () => {
+        const query = chatInput.value.trim();
+        if (!query) return;
+        sendMessage(query);
+        chatInput.value = '';
+      };
+      chatSend.addEventListener('click', handleSend);
+      chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+      quickPrompts.forEach(btn => btn.addEventListener('click', () => sendMessage(btn.dataset.prompt)));
+
+      async function sendMessage(query) {
+        pushMessage('user', query);
+        const thinkingMessage = pushMessage('assistant', 'Thinking…');
+
+        const systemPrompt = `Identity & Voice
+You are Byte&Berry Co-Pilot, the official assistant for Byte&Berry, a Zambian software company.
+Your style: friendly, human-like, short and clear by default. Expand only if the user asks.
+
+Mission
+
+Quickly understand what the client needs.
+
+Suggest the right solution with confidence.
+
+Make it easy for them to choose Byte&Berry.
+
+Always push toward action: a WhatsApp call or contact exchange.
+
+Services
+
+Websites & Web Apps (corporate, eCommerce, dashboards)
+
+Mobile Apps (Android/iOS)
+
+Enterprise Software (HR, POS, ERP, school systems)
+
+AI Tools (chatbots, automation, analytics)
+
+Consultancy & Integrations (payments, WhatsApp, APIs)
+
+Hosting, Deployment & Maintenance
+
+Pricing (USD + ZMW)
+
+Websites: $300–$1,000+ (≈ K7,500–K25,000+)
+
+Apps: $1,000–$3,000+ (≈ K25,000–K75,000+)
+
+Systems: $2,000–$10,000+ (≈ K50,000–K250,000+)
+
+Publishing: Google $25 (≈ K625), Apple $99/yr (≈ K2,475)
+
+Maintenance: monthly, tailored
+
+Build Approach
+
+Apps: FlutterFlow + Firebase (Auth, DB, Storage, Functions, Analytics).
+
+Websites: HTML, CSS, JavaScript (fast, clean, SEO-ready).
+
+Process: Scope → Design → Build → Test → Launch → Support.
+
+Sales Style
+
+Keep replies short, natural, and persuasive.
+
+Use everyday language, not robotic sales talk.
+
+Suggest extra features (payments, chat, notifications, analytics).
+
+Create urgency when useful (faster launch, market edge).
+
+Always end with a next step:
+
+“Want me to send you a quick quote?”
+
+“Shall we set up a WhatsApp call at +260 760580949?”
+
+Guardrails
+
+Don’t mention founders unless asked.
+
+Never reveal API keys or backend details.
+
+Always show prices in USD and ZMW.
+
+Respect privacy, but stay confident and persistent.`;
+
+        try {
+          const text = await callDeepSeek([
+            { role: "system", content: systemPrompt },
+            { role: "user", content: query }
+          ], { max_tokens: 260 });
+
+          updateMessage(thinkingMessage, text || "Thanks! We'll follow up shortly.");
+        } catch (error) {
+          updateMessage(thinkingMessage, "Apologies, I'm having trouble right now. Please try again in a moment.");
+          console.error(error);
+        }
+      }
+
+      function escapeHtml(str) { return str.replace(/[&<>"']/g, (m)=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m])); }
+      function pushMessage(role, text) {
+        const el = document.createElement('div');
+        el.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+        const bubbleClass = role === 'user' ? 'bg-violet-600 text-white' : 'bg-bb-card border border-white/10';
+        el.innerHTML = `<div class="max-w-[85%] ${bubbleClass} px-3 py-2 rounded-xl text-sm">${escapeHtml(text)}</div>`;
+        chatStream.appendChild(el);
+        chatStream.scrollTop = chatStream.scrollHeight;
+        return el;
+      }
+      function updateMessage(el, text) { el.querySelector('div').innerHTML = escapeHtml(text); chatStream.scrollTop = chatStream.scrollHeight; }
+    }
+
+    // ---- FAQ Data + JSON-LD ----
+    function initFAQ(){
+      const faqs = [
+        { q: 'How long does a typical website take?', a: 'Simple sites take 1–2 weeks. Larger portals or apps take 4–8 weeks depending on scope.' },
+        { q: 'Do you integrate mobile money?', a: 'Yes. We integrate MTN/Airtel mobile money and card payments where available.' },
+        { q: 'Do you provide maintenance?', a: 'Yes. Website hosting is K500/month. App maintenance starts from K4,000/year.' },
+        { q: 'Can you work with our existing systems?', a: 'Usually yes. We can integrate with most modern APIs and data sources.' }
+      ];
+      const container = document.getElementById('faq-list');
+      container.innerHTML = '';
+      faqs.forEach((f)=>{
+        const item = document.createElement('details');
+        item.className = 'bg-bb-card border border-white/10 rounded-lg p-4';
+        item.innerHTML = `<summary class="cursor-pointer select-none font-medium">${f.q}</summary><div class="mt-2 text-slate-400 text-sm">${f.a}</div>`;
+        container.appendChild(item);
+      });
+      const jsonld = {"@context":"https://schema.org","@type":"FAQPage","mainEntity": faqs.map(f=> ({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a}}))};
+      document.getElementById('faq-jsonld').textContent = JSON.stringify(jsonld);
+    }
+
+    // ---- Tiny analytics (no cookies) ----
+    try {
+      const key = 'bb-visit';
+      if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, '1');
+      }
+    } catch {}
+  });
+  </script>
+</body>
+</html>
+
