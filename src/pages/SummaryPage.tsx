@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai'
 import { Suspense } from 'react'
 import { PricingSummaryPanel } from '@/components/pricing/PricingSummaryPanel'
 import { PricingBottomSheet } from '@/components/pricing/PricingBottomSheet'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { orderSummaryAtom } from '@/store/order-store'
 import { ArrowRight, ArrowLeft } from 'lucide-react'
@@ -163,6 +163,20 @@ export function SummaryPage() {
                   {orderSummary.customizations.hostingType === 'website' ? 'Website Hosting' : 'App Maintenance'}:{' '}
                   {orderSummary.customizations.hosting}
                 </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {orderSummary.projectDescription && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Project Description</CardTitle>
+                <CardDescription>Your project requirements and goals</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                  {orderSummary.projectDescription}
+                </p>
               </CardContent>
             </Card>
           )}

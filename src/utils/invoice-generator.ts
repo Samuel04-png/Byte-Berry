@@ -2,8 +2,9 @@ import jsPDF from 'jspdf'
 import { Order } from '@/types/order'
 import { CalculatedPrice } from '@/types/pricing'
 import { PRICING_DATA } from '@/data/pricing-data'
+import { generateDetailedInvoiceDescription } from '@/services/gemini-service'
 
-export function generateInvoice(order: Order, price: CalculatedPrice): void {
+export async function generateInvoice(order: Order, price: CalculatedPrice): Promise<void> {
   const doc = new jsPDF()
   const pageWidth = doc.internal.pageSize.getWidth()
   const margin = 20
@@ -111,13 +112,49 @@ export function generateInvoice(order: Order, price: CalculatedPrice): void {
   doc.line(margin, yPos, pageWidth - margin, yPos)
   yPos += 5
 
-  // Base Package
-  doc.setFont('helvetica', 'normal')
-  doc.text('Base Package', margin, yPos)
-  doc.text(`K${price.breakdown.base.zmw.toLocaleString()}`, pageWidth - margin - 40, yPos, { align: 'right' })
-  yPos += 7
+  // Generate detailed descriptions using AI
+  let baseDescription = 'Base Package - Complete development service including design, development, testing, and deployment'
+  let hostingDescription = ''
+  
+  try {
+    const aiDescription = await generateDetailedInvoiceDescription(order, price)
+    // The AI returns a comprehensive description, use it for the base package
+    if (aiDescription && aiDescription.trim().length > 0) {
+      // Extract the base package description (usually the first paragraph)
+      const lines = aiDescription.split('\n').filter(line => line.trim().length > 0)
+      if (lines.length > 0) {
+        baseDescription = lines[0].trim()
+        // If there are more lines, use them for additional context
+        if (lines.length > 1 && lines[1].includes('hosting') || lines[1].includes('Hosting')) {
+          hostingDescription = lines[1].trim()
+        }
+      } else {
+        baseDescription = aiDescription.trim()
+      }
+    }
+  } catch (error) {
+    console.error('Error generating AI descriptions, using basic descriptions:', error)
+  }
 
-  // Add-ons
+  // Base Package with detailed description
+  doc.setFont('helvetica', 'normal')
+  const baseLines = doc.splitTextToSize(baseDescription, contentWidth - 50)
+  baseLines.forEach((line: string, index: number) => {
+    if (index === 0) {
+      doc.text(line, margin, yPos)
+    } else {
+      doc.text(line, margin + 5, yPos)
+    }
+    yPos += 5
+    if (yPos > 250) {
+      doc.addPage()
+      yPos = margin + 20
+    }
+  })
+  doc.text(`K${price.breakdown.base.zmw.toLocaleString()}`, pageWidth - margin - 40, yPos - (baseLines.length * 5), { align: 'right' })
+  yPos += 2
+
+  // Add-ons with detailed descriptions
   if (order.customizations.addOns && order.customizations.addOns.length > 0) {
     order.customizations.addOns.forEach((addOn) => {
       const addOnData = PRICING_DATA.addOns[addOn as keyof typeof PRICING_DATA.addOns]
@@ -126,23 +163,45 @@ export function generateInvoice(order: Order, price: CalculatedPrice): void {
           ? addOnData.priceZmw 
           : addOnData.priceZmw.min || 0
         const formatted = addOn.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
-        doc.text(`${formatted}`, margin, yPos)
-        doc.text(`K${priceZmw.toLocaleString()}`, pageWidth - margin - 40, yPos, { align: 'right' })
-        yPos += 7
-        if (yPos > 240) {
-          doc.addPage()
-          yPos = margin + 20
-        }
+        const addOnDescription = `${formatted} - Additional feature enhancement`
+        const addOnLines = doc.splitTextToSize(addOnDescription, contentWidth - 50)
+        addOnLines.forEach((line: string, index: number) => {
+          if (index === 0) {
+            doc.text(line, margin, yPos)
+          } else {
+            doc.text(line, margin + 5, yPos)
+          }
+          yPos += 5
+          if (yPos > 250) {
+            doc.addPage()
+            yPos = margin + 20
+          }
+        })
+        doc.text(`K${priceZmw.toLocaleString()}`, pageWidth - margin - 40, yPos - (addOnLines.length * 5), { align: 'right' })
+        yPos += 2
       }
     })
   }
 
-  // Hosting
+  // Hosting with detailed description
   if (price.breakdown.hosting.zmw > 0) {
     const hostingType = order.customizations.hostingType === 'website' ? 'Website Hosting' : 'App Maintenance'
-    doc.text(`${hostingType} (Monthly)`, margin, yPos)
-    doc.text(`K${price.breakdown.hosting.zmw.toLocaleString()}`, pageWidth - margin - 40, yPos, { align: 'right' })
-    yPos += 7
+    const hostingDesc = hostingDescription || `${hostingType} (Monthly) - Includes server maintenance, security updates, backups, and technical support`
+    const hostingLines = doc.splitTextToSize(hostingDesc, contentWidth - 50)
+    hostingLines.forEach((line: string, index: number) => {
+      if (index === 0) {
+        doc.text(line, margin, yPos)
+      } else {
+        doc.text(line, margin + 5, yPos)
+      }
+      yPos += 5
+      if (yPos > 250) {
+        doc.addPage()
+        yPos = margin + 20
+      }
+    })
+    doc.text(`K${price.breakdown.hosting.zmw.toLocaleString()}`, pageWidth - margin - 40, yPos - (hostingLines.length * 5), { align: 'right' })
+    yPos += 2
   }
 
   yPos += 5

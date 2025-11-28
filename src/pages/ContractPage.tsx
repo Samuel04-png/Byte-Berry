@@ -30,6 +30,7 @@ export function ContractPage() {
       serviceType: orderSummary.serviceType,
       package: orderSummary.packageType || 'default',
       customizations: orderSummary.customizations,
+      projectDescription: orderSummary.projectDescription || undefined,
       totalPrice: {
         zmw: price.totalZmw,
         usd: price.totalUsd,

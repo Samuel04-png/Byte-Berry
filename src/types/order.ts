@@ -16,6 +16,7 @@ export interface Order {
   serviceType: ServiceType;
   package: string;
   customizations: Customizations;
+  projectDescription?: string;
   totalPrice: {
     zmw: number;
     usd: number;

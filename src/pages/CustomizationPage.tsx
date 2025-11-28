@@ -1,14 +1,15 @@
 import { useAtom } from 'jotai'
 import { useNavigate } from 'react-router-dom'
-import { selectedServiceAtom, customizationsAtom } from '@/store/order-store'
+import { selectedServiceAtom, customizationsAtom, projectDescriptionAtom } from '@/store/order-store'
 import { FeatureToggle } from '@/components/customization/FeatureToggle'
 import { HostingSelector } from '@/components/customization/HostingSelector'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { PRICING_DATA } from '@/data/pricing-data'
-import { ArrowRight, ArrowLeft } from 'lucide-react'
+import { ArrowRight, ArrowLeft, Sparkles } from 'lucide-react'
 import {
   Bot,
   BarChart3,
@@ -164,6 +165,7 @@ const appHostingOptions = [
 export function CustomizationPage() {
   const [selectedService] = useAtom(selectedServiceAtom)
   const [customizations, setCustomizations] = useAtom(customizationsAtom)
+  const [projectDescription, setProjectDescription] = useAtom(projectDescriptionAtom)
   const navigate = useNavigate()
 
   const handleAddOnToggle = (addOnId: string, checked: boolean) => {
@@ -237,24 +239,55 @@ export function CustomizationPage() {
   ]
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Customize Your Solution</h1>
-        <p className="text-lg text-muted-foreground">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 px-4 sm:px-6">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Customize Your Solution</h1>
+        <p className="text-base sm:text-lg text-muted-foreground px-2">
           Select features and options to tailor your service
         </p>
       </div>
 
+      {/* Project Description Section */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-primary/3 to-transparent shadow-sm">
+        <CardHeader className="pb-3 sm:pb-6">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+            <CardTitle className="text-base sm:text-lg md:text-xl text-primary">Describe Your Project</CardTitle>
+          </div>
+          <CardDescription className="text-xs sm:text-sm mt-2">
+            Help our Byte&Berry Co-pilot understand your needs better. Describe what you want to build, your goals, target audience, and any specific requirements. This helps us provide accurate pricing and generate detailed contracts.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="pt-0 sm:pt-0">
+          <div className="space-y-2">
+            <Label htmlFor="project-description" className="text-sm sm:text-base text-foreground font-medium">
+              Project Description
+            </Label>
+            <Textarea
+              id="project-description"
+              placeholder="E.g., I need a website for my restaurant with online ordering, menu display, customer reviews, and integration with delivery services. The site should be mobile-friendly and support multiple payment methods. Target audience is local customers aged 25-45..."
+              value={projectDescription}
+              onChange={(e) => setProjectDescription(e.target.value)}
+              rows={5}
+              className="resize-none border-primary/25 focus:border-primary focus:ring-primary/20 transition-colors text-sm sm:text-base min-h-[100px]"
+            />
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              The more details you provide, the better we can understand your needs and provide accurate pricing and detailed documentation.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Website-specific: Pages */}
       {isWebsite && (
         <Card>
-          <CardHeader>
-            <CardTitle>Pages</CardTitle>
-            <CardDescription>Number of pages for your website</CardDescription>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-lg sm:text-xl">Pages</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Number of pages for your website</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Label htmlFor="pages">Number of Pages</Label>
+              <Label htmlFor="pages" className="text-sm sm:text-base">Number of Pages</Label>
               <Input
                 id="pages"
                 type="number"
@@ -262,6 +295,7 @@ export function CustomizationPage() {
                 value={customizations.pages || ''}
                 onChange={(e) => handlePagesChange(e.target.value)}
                 placeholder="Enter number of pages"
+                className="text-sm sm:text-base min-h-[44px]"
               />
             </div>
           </CardContent>
@@ -271,18 +305,18 @@ export function CustomizationPage() {
       {/* Mobile App-specific: Platform Selection */}
       {isMobileApp && (
         <Card>
-          <CardHeader>
-            <CardTitle>Platform</CardTitle>
-            <CardDescription>Select the platforms for your mobile app</CardDescription>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-lg sm:text-xl">Platform</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Select the platforms for your mobile app</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Label htmlFor="platform">Target Platforms</Label>
+              <Label htmlFor="platform" className="text-sm sm:text-base">Target Platforms</Label>
               <Select
                 value={customizations.platform || 'both'}
                 onValueChange={handlePlatformChange}
               >
-                <SelectTrigger id="platform">
+                <SelectTrigger id="platform" className="min-h-[44px] text-sm sm:text-base">
                   <SelectValue placeholder="Select platform" />
                 </SelectTrigger>
                 <SelectContent>
@@ -299,9 +333,9 @@ export function CustomizationPage() {
       {/* Enterprise-specific: Modules */}
       {isEnterprise && (
         <Card>
-          <CardHeader>
-            <CardTitle>System Modules</CardTitle>
-            <CardDescription>Select the modules you need for your enterprise system</CardDescription>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-lg sm:text-xl">System Modules</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Select the modules you need for your enterprise system</CardDescription>
           </CardHeader>
           <CardContent className="space-y-0">
             {enterpriseModules.map((module) => {
@@ -324,13 +358,13 @@ export function CustomizationPage() {
       {/* Enterprise-specific: Number of Users */}
       {isEnterprise && (
         <Card>
-          <CardHeader>
-            <CardTitle>Number of Users</CardTitle>
-            <CardDescription>Expected number of users for the system</CardDescription>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-lg sm:text-xl">Number of Users</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Expected number of users for the system</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Label htmlFor="users">Number of Users</Label>
+              <Label htmlFor="users" className="text-sm sm:text-base">Number of Users</Label>
               <Input
                 id="users"
                 type="number"
@@ -338,6 +372,7 @@ export function CustomizationPage() {
                 value={customizations.numberOfUsers || ''}
                 onChange={(e) => handleUsersChange(e.target.value)}
                 placeholder="Enter number of users"
+                className="text-sm sm:text-base min-h-[44px]"
               />
             </div>
           </CardContent>
@@ -346,9 +381,9 @@ export function CustomizationPage() {
 
       {/* Add-on Features - Service-specific */}
       <Card>
-        <CardHeader>
-          <CardTitle>Add-on Features</CardTitle>
-          <CardDescription>Enhance your solution with additional features</CardDescription>
+        <CardHeader className="pb-3 sm:pb-6">
+          <CardTitle className="text-lg sm:text-xl">Add-on Features</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">Enhance your solution with additional features</CardDescription>
         </CardHeader>
         <CardContent className="space-y-0">
           {relevantAddOns.map((addOn) => {
@@ -375,9 +410,9 @@ export function CustomizationPage() {
       {/* Hosting & Maintenance - for Website and Mobile App */}
       {(isWebsite || isMobileApp) && (
         <Card>
-          <CardHeader>
-            <CardTitle>Hosting & Maintenance</CardTitle>
-            <CardDescription>Choose a hosting or maintenance plan</CardDescription>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-lg sm:text-xl">Hosting & Maintenance</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Choose a hosting or maintenance plan</CardDescription>
           </CardHeader>
           <CardContent>
             <HostingSelector
@@ -390,12 +425,20 @@ export function CustomizationPage() {
         </Card>
       )}
 
-      <div className="flex justify-between pt-8">
-        <Button variant="outline" onClick={() => navigate('/')}>
+      <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 sm:pt-8 pb-4 sm:pb-0">
+        <Button 
+          variant="outline" 
+          onClick={() => navigate('/')}
+          className="w-full sm:w-auto order-2 sm:order-1 min-h-[44px]"
+        >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
-        <Button onClick={() => navigate('/summary')} size="lg">
+        <Button 
+          onClick={() => navigate('/summary')} 
+          size="lg"
+          className="w-full sm:w-auto order-1 sm:order-2 min-h-[44px]"
+        >
           Continue to Summary
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>

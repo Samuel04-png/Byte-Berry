@@ -1,41 +1,52 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 
 export function AppBar() {
   const [open, setOpen] = useState(false)
+  const location = useLocation()
 
   const menuItems = [
-    { label: 'About', href: 'https://byteandberry.com/#about' },
-    { label: 'Services & Pricing', href: 'https://byteandberry.com/#services' },
-    { label: 'Case Studies', href: 'https://byteandberry.com/#portfolio' },
-    { label: 'Contact', href: 'https://byteandberry.com/#contact' },
+    { label: 'About', path: '/about' },
+    { label: 'Services & Pricing', path: '/services' },
+    { label: 'Case Studies', path: '/case-studies' },
+    { label: 'Contact', path: '/contact' },
   ]
+
+  const isActive = (path: string) => {
+    if (path === '/case-studies') {
+      return location.pathname.startsWith('/case-studies')
+    }
+    return location.pathname === path
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold">
             <span className="text-foreground">Byte</span>
             <span className="text-[#A78BFA]">&</span>
             <span className="text-foreground">Berry</span>
           </span>
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-6">
           {menuItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              to={item.path}
+              className={`text-sm font-medium transition-colors ${
+                isActive(item.path)
+                  ? 'text-[#A78BFA]'
+                  : 'text-foreground hover:text-primary'
+              }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -52,16 +63,18 @@ export function AppBar() {
             </SheetHeader>
             <nav className="flex flex-col space-y-4 mt-6">
               {menuItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-base font-medium text-foreground hover:text-primary transition-colors"
+                  to={item.path}
+                  className={`text-base font-medium transition-colors ${
+                    isActive(item.path)
+                      ? 'text-[#A78BFA]'
+                      : 'text-foreground hover:text-primary'
+                  }`}
                   onClick={() => setOpen(false)}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </SheetContent>

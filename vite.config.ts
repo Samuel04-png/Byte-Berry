@@ -10,6 +10,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/byteandberry-selfservice-app/',
+  base: process.env.NODE_ENV === 'production' ? '/Byte-Berry/' : '/',
 })
 

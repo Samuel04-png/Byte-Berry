@@ -38,10 +38,10 @@ export function AIRecommendationWidget() {
       <CardHeader>
         <div className="flex items-center space-x-2">
           <Sparkles className="h-5 w-5 text-primary" />
-          <CardTitle>Get AI-Powered Recommendation</CardTitle>
+          <CardTitle>Byte&Berry Co-pilot</CardTitle>
         </div>
         <CardDescription>
-          Describe your business needs and we'll recommend the best package for you
+          Describe your business needs and our AI co-pilot will recommend the best package for you
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -76,7 +76,7 @@ export function AIRecommendationWidget() {
 
         {recommendation && (
           <Alert>
-            <AlertTitle>AI Recommendation</AlertTitle>
+            <AlertTitle>Byte&Berry Co-pilot Recommendation</AlertTitle>
             <AlertDescription className="mt-2 whitespace-pre-wrap">
               {recommendation}
             </AlertDescription>

@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { FileText, Receipt } from 'lucide-react'
+import { FileText, Receipt, Loader2 } from 'lucide-react'
 import { Order } from '@/types/order'
 import { CalculatedPrice } from '@/types/pricing'
 import { generateContract } from '@/utils/contract-generator'
@@ -22,11 +23,23 @@ export function PDFExportButton({
   variant = 'outline',
   size = 'default',
 }: PDFExportButtonProps) {
-  const handleExport = () => {
-    if (type === 'contract') {
-      generateContract(order, price, customTerms)
-    } else {
-      generateInvoice(order, price)
+  const [loading, setLoading] = useState(false)
+
+  const handleExport = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setLoading(true)
+    try {
+      if (type === 'contract') {
+        await generateContract(order, price, customTerms)
+      } else {
+        await generateInvoice(order, price)
+      }
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      alert('Failed to generate PDF. Please try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -35,13 +48,24 @@ export function PDFExportButton({
 
   return (
     <Button
+      type="button"
       onClick={handleExport}
       variant={variant}
       size={size}
       className="w-full"
+      disabled={loading}
     >
-      <Icon className="mr-2 h-4 w-4" />
-      {label}
+      {loading ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Generating...
+        </>
+      ) : (
+        <>
+          <Icon className="mr-2 h-4 w-4" />
+          {label}
+        </>
+      )}
     </Button>
   )
 }

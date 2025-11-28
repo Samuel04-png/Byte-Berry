@@ -8,6 +8,7 @@ import { calculatePrice } from '@/utils/price-calculator';
 // Base atoms
 export const selectedServiceAtom = atom<ServiceType | null>(null);
 export const selectedPackageAtom = atom<string | null>(null);
+export const projectDescriptionAtom = atom<string>('');
 export const customizationsAtom = atom<Customizations>({
   addOns: [],
 });
@@ -60,11 +61,13 @@ export const orderSummaryAtom = atom((get) => {
   const serviceType = get(selectedServiceAtom);
   const packageType = get(selectedPackageAtom);
   const customizations = get(customizationsAtom);
+  const projectDescription = get(projectDescriptionAtom);
 
   return {
     serviceType,
     packageType,
     customizations,
+    projectDescription,
   };
 });
 

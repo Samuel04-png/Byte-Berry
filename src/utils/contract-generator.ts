@@ -2,12 +2,13 @@ import jsPDF from 'jspdf'
 import { Order } from '@/types/order'
 import { CalculatedPrice } from '@/types/pricing'
 import { PRICING_DATA } from '@/data/pricing-data'
+import { generateDetailedContractTerms } from '@/services/gemini-service'
 
-export function generateContract(
+export async function generateContract(
   order: Order,
   price: CalculatedPrice,
   customTerms?: string
-): void {
+): Promise<void> {
   const doc = new jsPDF()
   const pageWidth = doc.internal.pageSize.getWidth()
   const margin = 20
@@ -151,7 +152,18 @@ export function generateContract(
 
   doc.setFontSize(10)
   doc.setFont('helvetica', 'normal')
-  const terms = customTerms || `This is a preliminary quote. Final pricing may vary based on specific requirements and project scope.
+  
+  // Generate detailed terms using AI if not provided
+  let terms = customTerms
+  if (!terms) {
+    try {
+      terms = await generateDetailedContractTerms(order, price)
+      // Add contact information at the end
+      terms += `\n\nFor questions or clarifications, please contact:\nEmail: hello@byteandberry.com\nPhone: 0760 580 949\nWhatsApp: https://wa.me/0760580949`
+    } catch (error) {
+      console.error('Error generating AI terms, using fallback:', error)
+      // Fallback to basic terms if AI fails
+      terms = `This is a preliminary quote. Final pricing may vary based on specific requirements and project scope.
 
 Payment Terms: 50% deposit required to begin work, 50% upon completion.
 
@@ -161,6 +173,8 @@ For questions or clarifications, please contact:
 Email: hello@byteandberry.com
 Phone: 0760 580 949
 WhatsApp: https://wa.me/0760580949`
+    }
+  }
 
   const splitTerms = doc.splitTextToSize(terms, contentWidth)
   splitTerms.forEach((line: string) => {

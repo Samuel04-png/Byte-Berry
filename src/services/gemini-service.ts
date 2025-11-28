@@ -16,12 +16,11 @@ export async function getServiceRecommendation(userDescription: string): Promise
         messages: [
           {
             role: 'system',
-            content: 'You are a Byte&Berry consultant helping clients choose the right service package. Provide brief, helpful recommendations.',
+            content: 'You are a Byte&Berry Co-pilot  helping clients choose the right service package. Provide brief, helpful recommendations be direct and have a sense of humor and also abit tiny bit funny.',
           },
           {
             role: 'user',
             content: `Client needs: ${userDescription}
-your name is Byte&Berry Co-pilot, you are a helpful assistant that helps clients choose the right service package.
 Available services and packages:
 
 WEBSITE DEVELOPMENT:
@@ -66,6 +65,148 @@ Based on the client's needs, recommend the most suitable SERVICE TYPE and PACKAG
 }
 
 /**
+ * Generate detailed contract terms and conditions using AI
+ */
+export async function generateDetailedContractTerms(
+  order: { serviceType: string; package?: string; customizations: { addOns?: string[]; pages?: number; platform?: string }; projectDescription?: string },
+  price: { totalZmw: number }
+): Promise<string> {
+  try {
+    const serviceName = order.serviceType === 'website' 
+      ? 'Website Development'
+      : order.serviceType === 'mobileApp'
+      ? 'Mobile App Development'
+      : order.serviceType === 'consultancy'
+      ? 'IT & Digital Consultancy'
+      : 'Enterprise Systems'
+
+    const response = await fetch(DEEPSEEK_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are Byte&Berry Co-pilot, a professional AI assistant helping generate detailed, comprehensive contract terms and conditions for software development projects. Create professional, legally sound, and detailed terms that cover all aspects of the project.',
+          },
+          {
+            role: 'user',
+            content: `Generate comprehensive, detailed terms and conditions for a ${serviceName} project with the following details:
+            
+Service: ${serviceName}
+Total Price: K${price.totalZmw.toLocaleString()}
+Package: ${order.package || 'Custom'}
+Features: ${order.customizations.addOns?.join(', ') || 'Standard features'}
+Pages: ${order.customizations.pages || 'N/A'}
+Platform: ${order.customizations.platform || 'N/A'}
+${order.projectDescription ? `\nProject Description: ${order.projectDescription}` : ''}
+
+Create detailed terms covering:
+1. Project Scope and Deliverables (be very specific about what will be delivered${order.projectDescription ? ' based on the project description provided' : ''})
+2. Payment Terms (50% deposit, 50% on completion - explain clearly)
+3. Timeline and Milestones (provide realistic timeline expectations based on project complexity)
+4. Revision and Change Policy (how many revisions, change request process)
+5. Intellectual Property Rights (who owns what)
+6. Support and Maintenance (post-launch support details)
+7. Warranty and Guarantees (what's covered, for how long)
+8. Termination Clause (what happens if either party wants to end the contract)
+9. Confidentiality and Data Protection
+10. Dispute Resolution
+
+${order.projectDescription ? `\nIMPORTANT: The client has provided the following project description: "${order.projectDescription}". Use this information extensively to make the Project Scope and Deliverables section highly specific and tailored to their actual needs. Reference specific features, goals, and requirements mentioned in the description.` : ''}
+
+Make it professional, comprehensive, and detailed. Use clear language that protects both parties.`,
+          },
+        ],
+        temperature: 0.5,
+        max_tokens: 1500,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
+
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || '';
+  } catch (error) {
+    console.error('Error generating contract terms:', error);
+    return '';
+  }
+}
+
+/**
+ * Generate detailed invoice description using AI
+ */
+export async function generateDetailedInvoiceDescription(
+  order: { serviceType: string; package?: string; customizations: { addOns?: string[]; pages?: number; platform?: string }; projectDescription?: string },
+  price: { breakdown: { base: { zmw: number }; hosting: { zmw: number } }; totalZmw: number }
+): Promise<string> {
+  try {
+    const serviceName = order.serviceType === 'website' 
+      ? 'Website Development'
+      : order.serviceType === 'mobileApp'
+      ? 'Mobile App Development'
+      : order.serviceType === 'consultancy'
+      ? 'IT & Digital Consultancy'
+      : 'Enterprise Systems'
+
+    const response = await fetch(DEEPSEEK_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are Byte&Berry Co-pilot, a professional AI assistant helping generate detailed, itemized invoice descriptions for software development services. Create clear, professional descriptions that explain what each line item includes.',
+          },
+          {
+            role: 'user',
+            content: `Generate detailed, itemized descriptions for an invoice for ${serviceName} with:
+            
+Service: ${serviceName}
+Package: ${order.package || 'Custom'}
+Base Price: K${price.breakdown.base.zmw.toLocaleString()}
+Add-ons: ${order.customizations.addOns?.join(', ') || 'None'}
+Hosting: ${price.breakdown.hosting.zmw > 0 ? `K${price.breakdown.hosting.zmw.toLocaleString()}/month` : 'Not included'}
+Total: K${price.totalZmw.toLocaleString()}
+${order.projectDescription ? `\nProject Description: ${order.projectDescription}` : ''}
+
+For each line item, create a detailed description (2-3 sentences) explaining:
+- What the service includes
+- Key features and deliverables
+- What the client will receive
+${order.projectDescription ? '- How it relates to the client\'s specific project needs' : ''}
+
+Make it professional, clear, and detailed so the client understands exactly what they're paying for. Use the project description to tailor the descriptions to the client's specific needs.`,
+          },
+        ],
+        temperature: 0.5,
+        max_tokens: 800,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
+
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || '';
+  } catch (error) {
+    console.error('Error generating invoice description:', error);
+    return '';
+  }
+}
+
+/**
  * Explain a service or feature
  */
 export async function explainService(serviceName: string, question: string): Promise<string> {
@@ -81,7 +222,7 @@ export async function explainService(serviceName: string, question: string): Pro
         messages: [
           {
             role: 'system',
-            content: 'You are a Byte&Berry consultant. Explain services clearly and concisely.',
+            content: 'You are a Byte&Berry Co-pilot . Explain services clearly and concisely.',
           },
           {
             role: 'user',
