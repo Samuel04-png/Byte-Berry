@@ -2,7 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ArrowLeft, ArrowRight, ExternalLink, Quote } from 'lucide-react'
-import { getCaseStudyById, getOtherCaseStudies, type CaseStudy } from '@/data/caseStudies'
+import { getCaseStudyById, getOtherCaseStudies } from '@/data/caseStudies'
 import { useState } from 'react'
 
 export function CaseStudyDetailPage() {
