@@ -73,9 +73,15 @@ export function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Particle Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute inset-0 particle-background"></div>
+      </div>
+      
+      <div className="relative z-10">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/10 py-20 md:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-br from-background/95 via-background/95 to-primary/10 py-20 md:py-32 backdrop-blur-sm">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
@@ -345,6 +351,7 @@ export function HomePage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   )
 }
