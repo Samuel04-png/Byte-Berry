@@ -19,7 +19,7 @@ export function SummaryPage() {
       <div className="max-w-7xl mx-auto flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="text-lg font-medium">Please select a service first</div>
-          <Button onClick={() => navigate('/')} className="mt-4">
+          <Button onClick={() => navigate('/services')} className="mt-4 shadow-lg">
             Go to Service Selection
           </Button>
         </div>
@@ -62,12 +62,14 @@ export function SummaryPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 space-y-8">
-          <div className="text-center lg:text-left space-y-4">
-            <h1 className="text-4xl font-bold">Review Your Order</h1>
-            <p className="text-lg text-muted-foreground">
+          <div className="text-center lg:text-left space-y-4 animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+              Review Your <span className="text-primary">Order</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground">
               Please review your selections and pricing before proceeding
             </p>
           </div>
@@ -181,14 +183,14 @@ export function SummaryPage() {
             </Card>
           )}
 
-          <div className="flex justify-between pt-8">
-            <Button variant="outline" onClick={() => navigate('/customize')}>
+          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <Button variant="outline" onClick={() => navigate('/customize')} className="shadow-md min-h-[50px]">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
-            <Button onClick={() => navigate('/contract')} size="lg">
+            <Button onClick={() => navigate('/contract')} size="lg" className="shadow-xl min-h-[50px]">
               Continue to Contract
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>

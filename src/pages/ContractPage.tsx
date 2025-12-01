@@ -48,7 +48,7 @@ export function ContractPage() {
       <div className="max-w-4xl mx-auto flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="text-lg font-medium">Please complete your order first</div>
-          <Button onClick={() => navigate('/summary')} className="mt-4">
+          <Button onClick={() => navigate('/summary')} className="mt-4 shadow-lg">
             Go to Summary
           </Button>
         </div>
@@ -67,10 +67,12 @@ export function ContractPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Contract & Invoice</h1>
-        <p className="text-lg text-muted-foreground">
+    <div className="max-w-4xl mx-auto space-y-10 px-4 sm:px-6 py-8 md:py-12">
+      <div className="text-center space-y-4 animate-fade-in">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+          Contract & <span className="text-primary">Invoice</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
           Review and download your contract and invoice, then proceed to place your order
         </p>
       </div>
@@ -140,22 +142,22 @@ export function ContractPage() {
         />
       </div>
 
-      <Card className="border-primary">
-        <CardContent className="pt-6">
-          <div className="text-center space-y-4">
-            <h2 className="text-2xl font-bold">Ready to Place Your Order?</h2>
-            <p className="text-muted-foreground">
+      <Card className="border-2 border-primary bg-gradient-to-br from-primary/5 via-primary/3 to-transparent shadow-lg">
+        <CardContent className="pt-8">
+          <div className="text-center space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h2 className="text-3xl md:text-4xl font-bold">Ready to Place Your Order?</h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
               Click below to continue on WhatsApp and finalize your order with our team
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <WhatsAppButton order={order} price={price} className="w-full md:w-auto" />
+              <WhatsAppButton order={order} price={price} className="w-full md:w-auto shadow-xl" />
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full md:w-auto"
+                className="w-full md:w-auto shadow-lg min-h-[56px]"
                 onClick={() => window.open(CALENDLY_URL, '_blank')}
               >
-                <Calendar className="mr-2 h-4 w-4" />
+                <Calendar className="mr-2 h-5 w-5" />
                 Book Discovery Call
               </Button>
             </div>
@@ -163,8 +165,8 @@ export function ContractPage() {
         </CardContent>
       </Card>
 
-      <div className="flex justify-start pt-4">
-        <Button variant="outline" onClick={() => navigate('/summary')}>
+      <div className="flex justify-start pt-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+        <Button variant="outline" onClick={() => navigate('/summary')} className="shadow-md min-h-[50px]">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Summary
         </Button>

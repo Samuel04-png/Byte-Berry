@@ -84,10 +84,12 @@ export function ServiceSelectionPage() {
   const packages = getPackagesForService()
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Select Your Service</h1>
-        <p className="text-lg text-muted-foreground">
+    <div className="max-w-7xl mx-auto space-y-12 py-8 md:py-16">
+      <div className="text-center space-y-4 animate-fade-in">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+          Select Your <span className="text-primary">Service</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
           Choose the type of digital solution that fits your needs
         </p>
       </div>
@@ -106,10 +108,12 @@ export function ServiceSelectionPage() {
       </div>
 
       {selectedService && packages.length > 0 && (
-        <div className="space-y-6 mt-12">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold">Choose Your Package</h2>
-            <p className="text-muted-foreground mt-2">
+        <div className="space-y-8 mt-16 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Choose Your <span className="text-primary">Package</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
               Select the package that best fits your needs
             </p>
           </div>
@@ -131,10 +135,10 @@ export function ServiceSelectionPage() {
       <AIRecommendationWidget />
 
       {selectedService && selectedPackage && (
-        <div className="flex justify-center pt-8">
-          <Button onClick={handleContinue} size="lg" className="min-w-[200px]">
+        <div className="flex justify-center pt-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <Button onClick={handleContinue} size="lg" className="min-w-[280px] shadow-xl">
             Continue to Customization
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
       )}

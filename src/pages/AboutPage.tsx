@@ -10,7 +10,7 @@ export function AboutPage() {
       {/* Hero Section */}
       <section className="text-center space-y-4 animate-fade-in px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          About <span className="text-[#A78BFA]">Byte&Berry</span>
+          About <span className="text-primary">Byte&Berry</span>
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
           We're developers and strategists building technology that empowers African businesses.
@@ -95,7 +95,7 @@ export function AboutPage() {
                     href="https://www.linkedin.com/in/simon-mulenga-307a63190/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[#A78BFA] hover:text-[#8B6FF2] transition-colors font-medium"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-semibold"
                   >
                     <Linkedin className="h-4 w-4" />
                     Connect on LinkedIn
@@ -147,7 +147,7 @@ export function AboutPage() {
                     href="https://www.linkedin.com/in/skamanga/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[#A78BFA] hover:text-[#8B6FF2] transition-colors font-medium"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-semibold"
                   >
                     <Linkedin className="h-4 w-4" />
                     Connect on LinkedIn
@@ -171,8 +171,8 @@ export function AboutPage() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-[#A78BFA]/10 rounded-lg">
-                  <Award className="h-6 w-6 text-[#A78BFA]" />
+                <div className="p-3 bg-primary/15 rounded-lg shadow-sm">
+                  <Award className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-2">PACRA Certified</h3>
@@ -229,7 +229,7 @@ export function AboutPage() {
           <Button 
             asChild 
             size="lg" 
-            className="w-full sm:w-auto bg-[#A78BFA] hover:bg-[#8B6FF2] text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/50 transition-all duration-200"
           >
             <Link to="/services" className="flex items-center gap-2">
               View Our Services
@@ -240,7 +240,7 @@ export function AboutPage() {
             asChild 
             variant="outline" 
             size="lg" 
-            className="w-full sm:w-auto border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+            className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 font-semibold"
           >
             <Link to="/contact" className="flex items-center gap-2">
               Get in Touch

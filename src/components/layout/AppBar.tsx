@@ -28,7 +28,7 @@ export function AppBar() {
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold">
             <span className="text-foreground">Byte</span>
-            <span className="text-[#A78BFA]">&</span>
+            <span className="text-primary">&</span>
             <span className="text-foreground">Berry</span>
           </span>
         </Link>
@@ -39,9 +39,9 @@ export function AppBar() {
             <Link
               key={item.label}
               to={item.path}
-              className={`text-sm font-medium transition-colors ${
+              className={`text-sm font-semibold transition-colors ${
                 isActive(item.path)
-                  ? 'text-[#A78BFA]'
+                  ? 'text-primary'
                   : 'text-foreground hover:text-primary'
               }`}
             >
@@ -66,9 +66,9 @@ export function AppBar() {
                 <Link
                   key={item.label}
                   to={item.path}
-                  className={`text-base font-medium transition-colors ${
+                  className={`text-base font-semibold transition-colors ${
                     isActive(item.path)
-                      ? 'text-[#A78BFA]'
+                      ? 'text-primary'
                       : 'text-foreground hover:text-primary'
                   }`}
                   onClick={() => setOpen(false)}

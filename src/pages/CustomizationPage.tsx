@@ -239,11 +239,13 @@ export function CustomizationPage() {
   ]
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 px-4 sm:px-6">
-      <div className="text-center space-y-3 sm:space-y-4">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Customize Your Solution</h1>
-        <p className="text-base sm:text-lg text-muted-foreground px-2">
-          Select features and options to tailor your service
+    <div className="max-w-4xl mx-auto space-y-8 sm:space-y-10 px-4 sm:px-6 py-8 md:py-12">
+      <div className="text-center space-y-4 animate-fade-in">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+          Customize Your <span className="text-primary">Solution</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+          Select features and options to tailor your service to your exact needs
         </p>
       </div>
 
@@ -425,11 +427,11 @@ export function CustomizationPage() {
         </Card>
       )}
 
-      <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 sm:pt-8 pb-4 sm:pb-0">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 pt-8 sm:pt-12 pb-4 sm:pb-0 animate-fade-in" style={{ animationDelay: '0.3s' }}>
         <Button 
           variant="outline" 
-          onClick={() => navigate('/')}
-          className="w-full sm:w-auto order-2 sm:order-1 min-h-[44px]"
+          onClick={() => navigate('/services')}
+          className="w-full sm:w-auto order-2 sm:order-1 min-h-[50px] shadow-md"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -437,10 +439,10 @@ export function CustomizationPage() {
         <Button 
           onClick={() => navigate('/summary')} 
           size="lg"
-          className="w-full sm:w-auto order-1 sm:order-2 min-h-[44px]"
+          className="w-full sm:w-auto order-1 sm:order-2 min-h-[50px] shadow-xl"
         >
           Continue to Summary
-          <ArrowRight className="ml-2 h-4 w-4" />
+          <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
       </div>
     </div>

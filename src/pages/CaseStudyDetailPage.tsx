@@ -119,7 +119,7 @@ export function CaseStudyDetailPage() {
                       : 'aspect-video'
                   } ${
                     selectedImageIndex === index 
-                      ? 'border-[#A78BFA] ring-2 ring-[#A78BFA]' 
+                      ? 'border-primary ring-2 ring-[primary]' 
                       : 'border-transparent hover:border-muted-foreground/50'
                   }`}
                 >
@@ -193,7 +193,7 @@ export function CaseStudyDetailPage() {
         <section className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
           <Card className="bg-muted/50">
             <CardContent className="pt-6">
-              <Quote className="h-8 w-8 text-[#A78BFA] mb-4" />
+              <Quote className="h-8 w-8 text-primary mb-4" />
               <blockquote className="text-lg italic text-foreground mb-4">
                 "{caseStudy.testimonial.quote}"
               </blockquote>
@@ -217,7 +217,7 @@ export function CaseStudyDetailPage() {
             <h3 className="text-xl font-bold">Project Investment</h3>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-[#A78BFA]">{caseStudy.price}</p>
+            <p className="text-3xl font-bold text-primary">{caseStudy.price}</p>
           </CardContent>
         </Card>
         <Card>
@@ -227,7 +227,7 @@ export function CaseStudyDetailPage() {
           <CardContent>
             <Button 
               asChild 
-              className="w-full bg-[#A78BFA] hover:bg-[#8B6FF2] text-white shadow-lg hover:shadow-xl transition-all duration-200"
+              className="w-full bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-200"
             >
               <a href={caseStudy.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                 Visit Live Site
@@ -275,7 +275,7 @@ export function CaseStudyDetailPage() {
                   )}
                 </div>
                 <CardHeader>
-                  <h3 className="text-xl font-bold group-hover:text-[#A78BFA] transition-colors">
+                  <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
                     {study.title}
                   </h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
@@ -286,7 +286,7 @@ export function CaseStudyDetailPage() {
                   <Button 
                     asChild 
                     variant="outline" 
-                    className="w-full border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200"
                   >
                     <Link to={`/case-studies/${study.id}`} className="flex items-center justify-center gap-2">
                       View Case Study
@@ -309,7 +309,7 @@ export function CaseStudyDetailPage() {
           <Button 
             asChild 
             size="lg"
-            className="w-full sm:w-auto bg-[#A78BFA] hover:bg-[#8B6FF2] text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-200"
           >
             <Link to="/services">View Our Services</Link>
           </Button>
@@ -317,7 +317,7 @@ export function CaseStudyDetailPage() {
             asChild 
             size="lg" 
             variant="outline"
-            className="w-full sm:w-auto border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+            className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200"
           >
             <Link to="/contact">Get in Touch</Link>
           </Button>

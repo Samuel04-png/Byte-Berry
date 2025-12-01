@@ -59,7 +59,7 @@ export function ServicesPage() {
       {/* Hero Section */}
       <section className="text-center space-y-4 animate-fade-in px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          Services & <span className="text-[#A78BFA]">Pricing</span>
+          Services & <span className="text-primary">Pricing</span>
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
           Transparent, flexible pricing for solutions that scale with your business.
@@ -92,18 +92,18 @@ export function ServicesPage() {
             </CardHeader>
             <CardContent className="flex-1 flex flex-col">
               <div className="mb-6">
-                <div className="text-3xl font-bold text-[#A78BFA] mb-4">{service.price}</div>
+                <div className="text-3xl font-bold text-primary mb-4">{service.price}</div>
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-2 text-sm">
-                      <Check className="h-4 w-4 text-[#A78BFA] flex-shrink-0" />
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <Button asChild className="mt-auto w-full">
-                <Link to="/">Get Started</Link>
+                <Link to="/services">Get Started</Link>
               </Button>
             </CardContent>
           </Card>
@@ -139,9 +139,9 @@ export function ServicesPage() {
           <Button 
             asChild 
             size="lg"
-            className="bg-[#A78BFA] hover:bg-[#8B6FF2] text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/50 transition-all duration-200"
           >
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/services" className="flex items-center gap-2">
               Use Project Estimator
               <ArrowRight className="h-4 w-4" />
             </Link>
@@ -158,7 +158,7 @@ export function ServicesPage() {
           asChild 
           size="lg" 
           variant="outline"
-          className="border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+          className="border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 font-semibold"
         >
           <Link to="/contact">Contact Us</Link>
         </Button>

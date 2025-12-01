@@ -10,7 +10,7 @@ export function CaseStudiesPage() {
       {/* Hero Section */}
       <section className="text-center space-y-4 animate-fade-in px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          Case <span className="text-[#A78BFA]">Studies</span>
+          Case <span className="text-primary">Studies</span>
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
           Explore our portfolio of successful projects and see how we've helped businesses grow.
@@ -56,7 +56,7 @@ export function CaseStudiesPage() {
               )}
             </div>
             <CardHeader>
-              <CardTitle className="text-xl group-hover:text-[#A78BFA] transition-colors">
+              <CardTitle className="text-xl group-hover:text-primary transition-colors">
                 {study.title}
               </CardTitle>
               <CardDescription className="line-clamp-2">
@@ -77,7 +77,7 @@ export function CaseStudiesPage() {
               <Button 
                 asChild 
                 variant="outline" 
-                className="w-full border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200 group-hover:shadow-md"
+                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 group-hover:shadow-md font-semibold"
               >
                 <Link to={`/case-studies/${study.id}`} className="flex items-center justify-center gap-2">
                   View Case Study
@@ -98,7 +98,7 @@ export function CaseStudiesPage() {
           <Button 
             asChild 
             size="lg"
-            className="w-full sm:w-auto bg-[#A78BFA] hover:bg-[#8B6FF2] text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/50 transition-all duration-200 font-semibold"
           >
             <Link to="/services" className="flex items-center gap-2">
               View Our Services
@@ -109,7 +109,7 @@ export function CaseStudiesPage() {
             asChild 
             size="lg" 
             variant="outline"
-            className="w-full sm:w-auto border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+            className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 font-semibold"
           >
             <Link to="/contact">Get in Touch</Link>
           </Button>

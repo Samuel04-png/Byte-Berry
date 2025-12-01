@@ -11,7 +11,7 @@ export function ContactPage() {
       {/* Hero Section */}
       <section className="text-center space-y-4 animate-fade-in px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          Get in <span className="text-[#A78BFA]">Touch</span>
+          Get in <span className="text-[primary]">Touch</span>
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
           Let's discuss your project and see how we can help bring your vision to life.
@@ -22,14 +22,14 @@ export function ContactPage() {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
-            <Mail className="h-8 w-8 text-[#A78BFA] mb-2" />
+            <Mail className="h-8 w-8 text-[primary] mb-2" />
             <CardTitle>Email Us</CardTitle>
             <CardDescription>Send us a message anytime</CardDescription>
           </CardHeader>
           <CardContent>
             <a 
               href="mailto:hello@byteandberry.com"
-              className="text-[#A78BFA] hover:underline font-medium"
+              className="text-[primary] hover:underline font-medium"
             >
               hello@byteandberry.com
             </a>
@@ -38,7 +38,7 @@ export function ContactPage() {
 
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
-            <Calendar className="h-8 w-8 text-[#A78BFA] mb-2" />
+            <Calendar className="h-8 w-8 text-[primary] mb-2" />
             <CardTitle>Book a Call</CardTitle>
             <CardDescription>Schedule a meeting with us</CardDescription>
           </CardHeader>
@@ -54,7 +54,7 @@ export function ContactPage() {
 
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
-            <MapPin className="h-8 w-8 text-[#A78BFA] mb-2" />
+            <MapPin className="h-8 w-8 text-[primary] mb-2" />
             <CardTitle>Location</CardTitle>
             <CardDescription>Based in Zambia</CardDescription>
           </CardHeader>
@@ -93,19 +93,19 @@ export function ContactPage() {
             </p>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-start gap-2">
-                <span className="text-[#A78BFA] mt-1">•</span>
+                <span className="text-[primary] mt-1">•</span>
                 <span>Your project goals and requirements</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[#A78BFA] mt-1">•</span>
+                <span className="text-[primary] mt-1">•</span>
                 <span>Timeline and budget considerations</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[#A78BFA] mt-1">•</span>
+                <span className="text-[primary] mt-1">•</span>
                 <span>Technical approach and recommendations</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[#A78BFA] mt-1">•</span>
+                <span className="text-[primary] mt-1">•</span>
                 <span>Next steps and project planning</span>
               </li>
             </ul>
@@ -138,7 +138,7 @@ export function ContactPage() {
             asChild 
             size="lg" 
             variant="outline"
-            className="w-full sm:w-auto border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+            className="w-full sm:w-auto border-2 border-[primary] text-[primary] hover:bg-[primary] hover:text-white transition-all duration-200"
           >
             <Link to="/services">View Services</Link>
           </Button>
@@ -146,7 +146,7 @@ export function ContactPage() {
             asChild 
             size="lg" 
             variant="outline"
-            className="w-full sm:w-auto border-2 border-[#A78BFA] text-[#A78BFA] hover:bg-[#A78BFA] hover:text-white transition-all duration-200"
+            className="w-full sm:w-auto border-2 border-[primary] text-[primary] hover:bg-[primary] hover:text-white transition-all duration-200"
           >
             <Link to="/case-studies">View Case Studies</Link>
           </Button>
