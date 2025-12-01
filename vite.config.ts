@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { copyFileSync } from 'fs'
+import { copyFileSync, writeFileSync, existsSync } from 'fs'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,11 +12,14 @@ export default defineConfig({
       closeBundle() {
         // Ensure .nojekyll is copied to dist
         try {
-          copyFileSync('public/.nojekyll', 'dist/.nojekyll')
+          if (existsSync('public/.nojekyll')) {
+            copyFileSync('public/.nojekyll', 'dist/.nojekyll')
+          } else {
+            writeFileSync('dist/.nojekyll', '')
+          }
         } catch (err) {
-          // File might not exist, create it
-          const fs = require('fs')
-          fs.writeFileSync('dist/.nojekyll', '')
+          // Fallback: create empty file
+          writeFileSync('dist/.nojekyll', '')
         }
       },
     },
