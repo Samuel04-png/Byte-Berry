@@ -6,27 +6,27 @@ import { getImagePath } from '@/utils/imageUtils'
 
 export function AboutPage() {
   return (
-    <div className="max-w-6xl mx-auto space-y-12 py-8 md:py-16">
+    <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12 py-6 sm:py-8 md:py-12 lg:py-16 px-4 sm:px-6">
       {/* Hero Section */}
-      <section className="text-center space-y-4 animate-fade-in px-4">
+      <section className="text-center space-y-3 sm:space-y-4 animate-fade-in">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
           About <span className="text-primary">Byte&Berry</span>
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto px-2">
           We're developers and strategists building technology that empowers African businesses.
         </p>
       </section>
 
       {/* Our Story */}
-      <section className="space-y-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-        <h2 className="text-3xl md:text-4xl font-bold">Our Story</h2>
+      <section className="space-y-4 sm:space-y-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Our Story</h2>
         <div className="prose prose-lg max-w-none">
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             Byte&Berry is a Zambian-based software studio specializing in custom digital solutions 
             for educational institutions and SMEs. Our solutions blend user-friendly design with robust 
             backends to help clients digitize operations, improve efficiency, and reduce costs.
           </p>
-          <p className="text-lg text-muted-foreground leading-relaxed mt-4">
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mt-4">
             We believe that every business, regardless of size, deserves access to professional 
             technology solutions. That's why we focus on creating affordable, high-quality tools that 
             solve local challenges and drive sustainable growth.
@@ -35,18 +35,18 @@ export function AboutPage() {
       </section>
 
       {/* Our Mission */}
-      <section className="space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-        <h2 className="text-3xl md:text-4xl font-bold">Our Mission</h2>
-        <p className="text-lg text-muted-foreground leading-relaxed">
+      <section className="space-y-4 sm:space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Our Mission</h2>
+        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
           Empower organizations with affordable, high-quality tools that solve local challenges 
           and drive sustainable growth.
         </p>
       </section>
 
       {/* Our Vision */}
-      <section className="space-y-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-        <h2 className="text-3xl md:text-4xl font-bold">Our Vision</h2>
-        <p className="text-lg text-muted-foreground leading-relaxed">
+      <section className="space-y-4 sm:space-y-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Our Vision</h2>
+        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
           Be the trusted technology partner for SMEs and schools across Africa, known for innovation 
           and reliability.
         </p>

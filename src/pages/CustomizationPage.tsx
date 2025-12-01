@@ -239,12 +239,12 @@ export function CustomizationPage() {
   ]
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 sm:space-y-10 px-4 sm:px-6 py-8 md:py-12">
-      <div className="text-center space-y-4 animate-fade-in">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 md:space-y-10 px-4 sm:px-6 py-6 sm:py-8 md:py-12">
+      <div className="text-center space-y-3 sm:space-y-4 animate-fade-in">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
           Customize Your <span className="text-primary">Solution</span>
         </h1>
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
           Select features and options to tailor your service to your exact needs
         </p>
       </div>

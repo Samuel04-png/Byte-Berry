@@ -6,19 +6,19 @@ import { caseStudies } from '@/data/caseStudies'
 
 export function CaseStudiesPage() {
   return (
-    <div className="max-w-7xl mx-auto space-y-12 py-8 md:py-16">
+    <div className="max-w-7xl mx-auto space-y-8 sm:space-y-12 py-6 sm:py-8 md:py-12 lg:py-16 px-4 sm:px-6">
       {/* Hero Section */}
-      <section className="text-center space-y-4 animate-fade-in px-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+      <section className="text-center space-y-3 sm:space-y-4 animate-fade-in">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
           Case <span className="text-primary">Studies</span>
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto px-2">
           Explore our portfolio of successful projects and see how we've helped businesses grow.
         </p>
       </section>
 
       {/* Case Studies Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
         {caseStudies.map((study, index) => (
           <Card 
             key={study.id} 

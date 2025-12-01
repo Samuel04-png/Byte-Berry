@@ -81,13 +81,13 @@ export function HomePage() {
       
       <div className="relative z-10">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-background/95 via-background/95 to-primary/10 py-20 md:py-32 backdrop-blur-sm">
+      <section className="relative overflow-hidden bg-gradient-to-br from-background/95 via-background/95 to-primary/10 py-12 sm:py-16 md:py-20 lg:py-32 backdrop-blur-sm">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 border-2 border-primary/30 text-sm font-semibold text-primary mb-4 shadow-sm">
-              <Sparkles className="h-4 w-4" />
-              <span>PACRA Certified • Trusted by 50+ Businesses</span>
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/15 border-2 border-primary/30 text-xs sm:text-sm font-semibold text-primary mb-2 sm:mb-4 shadow-sm">
+              <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="whitespace-nowrap">PACRA Certified • Trusted by 50+ Businesses</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
@@ -97,12 +97,12 @@ export function HomePage() {
               </span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2">
               We build custom websites, mobile apps, and enterprise systems that help African businesses 
               digitize operations, improve efficiency, and scale sustainably.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2 sm:pt-4 px-4">
               <Button 
                 asChild 
                 size="lg" 
@@ -127,7 +127,7 @@ export function HomePage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 mt-12 border-t">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-12 mt-8 sm:mt-12 border-t px-4">
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-primary">50+</div>
                 <div className="text-sm text-muted-foreground mt-1">Projects Delivered</div>
@@ -150,18 +150,18 @@ export function HomePage() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12 animate-fade-in">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 animate-fade-in">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
               Our <span className="text-primary">Services</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Comprehensive digital solutions tailored to your business needs
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {services.map((service, index) => {
               const Icon = service.icon
               return (
@@ -206,18 +206,18 @@ export function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12 animate-fade-in">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 animate-fade-in">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
               Why Choose <span className="text-primary">Byte&Berry</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               We combine technical expertise with business acumen to deliver exceptional results
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {features.map((feature, index) => {
               const Icon = feature.icon
               return (
@@ -243,18 +243,18 @@ export function HomePage() {
       </section>
 
       {/* Featured Case Studies */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12 animate-fade-in">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 animate-fade-in">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
               Featured <span className="text-primary">Projects</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               See how we've helped businesses transform their digital presence
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {featuredCaseStudies.map((study, index) => (
               <Card 
                 key={study.id} 
@@ -316,16 +316,16 @@ export function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-8 animate-fade-in">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold px-2">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground px-2">
               Let's discuss how we can help you achieve your digital goals. Get started with a free consultation.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2 sm:pt-4 px-4">
               <Button 
                 asChild 
                 size="lg" 

@@ -84,17 +84,17 @@ export function ServiceSelectionPage() {
   const packages = getPackagesForService()
 
   return (
-    <div className="max-w-7xl mx-auto space-y-12 py-8 md:py-16">
-      <div className="text-center space-y-4 animate-fade-in">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+    <div className="max-w-7xl mx-auto space-y-8 md:space-y-12 py-6 md:py-8 lg:py-16 px-4 sm:px-6">
+      <div className="text-center space-y-3 md:space-y-4 animate-fade-in">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
           Select Your <span className="text-primary">Service</span>
         </h1>
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
           Choose the type of digital solution that fits your needs
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {services.map((service) => (
           <ServiceCard
             key={service.id}
@@ -118,7 +118,7 @@ export function ServiceSelectionPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {packages.map((pkg) => (
               <PackageCard
                 key={pkg.id}
@@ -135,8 +135,8 @@ export function ServiceSelectionPage() {
       <AIRecommendationWidget />
 
       {selectedService && selectedPackage && (
-        <div className="flex justify-center pt-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          <Button onClick={handleContinue} size="lg" className="min-w-[280px] shadow-xl">
+        <div className="flex justify-center pt-12 animate-fade-in px-4" style={{ animationDelay: '0.3s' }}>
+          <Button onClick={handleContinue} size="lg" className="w-full sm:w-auto min-w-0 sm:min-w-[280px] shadow-xl">
             Continue to Customization
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

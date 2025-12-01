@@ -24,9 +24,9 @@ export function AppBar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold">
+      <div className="container mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center space-x-1 sm:space-x-2">
+          <span className="text-xl sm:text-2xl font-bold">
             <span className="text-foreground">Byte</span>
             <span className="text-primary">&</span>
             <span className="text-foreground">Berry</span>

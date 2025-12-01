@@ -62,8 +62,8 @@ export function SummaryPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
-      <div className="flex flex-col lg:flex-row gap-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12">
+      <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
         <div className="flex-1 space-y-8">
           <div className="text-center lg:text-left space-y-4 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
