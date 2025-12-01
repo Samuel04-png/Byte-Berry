@@ -23,6 +23,16 @@ export default defineConfig({
           writeFileSync('dist/.nojekyll', '')
           console.log('✓ .nojekyll file created (fallback)')
         }
+        
+        // Ensure 404.html is copied to dist for SPA routing on GitHub Pages
+        try {
+          if (existsSync('public/404.html')) {
+            copyFileSync('public/404.html', 'dist/404.html')
+            console.log('✓ 404.html file copied to dist/')
+          }
+        } catch (err) {
+          console.warn('⚠ Could not copy 404.html:', err)
+        }
       },
     },
   ],
