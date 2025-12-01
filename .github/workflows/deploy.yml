@@ -35,10 +35,18 @@ jobs:
       - name: Build web
         run: npm run build
       
-      - name: Create .nojekyll file
+      - name: Verify .nojekyll file
         run: |
-          echo "" > dist/.nojekyll
-          ls -la dist/.nojekyll || echo ".nojekyll file created"
+          if [ -f dist/.nojekyll ]; then
+            echo "✓ .nojekyll file exists"
+            cat dist/.nojekyll
+          else
+            echo "✗ .nojekyll file missing, creating it..."
+            touch dist/.nojekyll
+            echo "✓ Created .nojekyll file"
+          fi
+          echo "Verifying file:"
+          ls -la dist/.nojekyll
       
       - name: Setup Pages
         uses: actions/configure-pages@v4

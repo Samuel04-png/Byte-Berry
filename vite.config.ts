@@ -10,16 +10,18 @@ export default defineConfig({
     {
       name: 'copy-nojekyll',
       closeBundle() {
-        // Ensure .nojekyll is copied to dist
+        // Ensure .nojekyll is copied to dist (required for GitHub Pages)
         try {
           if (existsSync('public/.nojekyll')) {
             copyFileSync('public/.nojekyll', 'dist/.nojekyll')
           } else {
             writeFileSync('dist/.nojekyll', '')
           }
+          console.log('✓ .nojekyll file created in dist/')
         } catch (err) {
           // Fallback: create empty file
           writeFileSync('dist/.nojekyll', '')
+          console.log('✓ .nojekyll file created (fallback)')
         }
       },
     },
@@ -29,7 +31,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: process.env.NODE_ENV === 'production' ? '/' : '/',
+  base: '/',
   build: {
     rollupOptions: {
       output: {
