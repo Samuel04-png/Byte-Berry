@@ -48,6 +48,13 @@ jobs:
           echo "Verifying file:"
           ls -la dist/.nojekyll
       
+      - name: Verify JavaScript files have .js extension
+        run: |
+          echo "Checking JavaScript files in dist/assets:"
+          find dist/assets -name "*.js" -type f | head -5
+          echo "Total JS files:"
+          find dist/assets -name "*.js" -type f | wc -l
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       

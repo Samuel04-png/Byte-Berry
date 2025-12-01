@@ -5,7 +5,7 @@ import { selectedServiceAtom, selectedPackageAtom } from '@/store/order-store'
 import { cn } from '@/lib/utils'
 
 const steps = [
-  { id: 1, name: 'Service Selection', path: '/' },
+  { id: 1, name: 'Service Selection', path: '/services' },
   { id: 2, name: 'Feature Customization', path: '/customize' },
   { id: 3, name: 'Pricing Summary', path: '/summary' },
   { id: 4, name: 'Contract & Invoice', path: '/contract' },

@@ -8,7 +8,7 @@ interface LayoutProps {
   children: ReactNode
 }
 
-const serviceFlowPaths = ['/', '/customize', '/summary', '/contract']
+const serviceFlowPaths = ['/services', '/customize', '/summary', '/contract']
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation()

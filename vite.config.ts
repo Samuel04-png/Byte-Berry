@@ -35,11 +35,29 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Ensure proper file extensions
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
+        // Ensure proper file extensions for GitHub Pages
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.')
+          const ext = info[info.length - 1]
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+            return `assets/[name]-[hash][extname]`
+          }
+          if (/woff2?|eot|ttf|otf/i.test(ext)) {
+            return `assets/[name]-[hash][extname]`
+          }
+          return `assets/[name]-[hash][extname]`
+        },
       },
+    },
+    // Ensure assets are properly handled
+    assetsInlineLimit: 4096,
+  },
+  // Server configuration for development
+  server: {
+    headers: {
+      'Content-Type': 'application/javascript; charset=utf-8',
     },
   },
 })
