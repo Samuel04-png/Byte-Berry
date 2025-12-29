@@ -51,7 +51,7 @@ export function PackageCard({ package: pkg, selected, onSelect, serviceType }: P
           />
           {pkg.pages && (
             <div className="text-sm text-muted-foreground">
-              Pages: {pkg.pages.min} - {pkg.pages.max === 999 ? 'Unlimited' : pkg.pages.max}
+              {pkg.pages.max === 999 ? 'Custom Scope' : `Pages: ${pkg.pages.min} - ${pkg.pages.max}`}
             </div>
           )}
           <div className="space-y-2">

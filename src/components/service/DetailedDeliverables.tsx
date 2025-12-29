@@ -50,7 +50,7 @@ const deliverablesByService: Record<ServiceType, Record<string, string[]>> = {
       'Comprehensive training',
     ],
     premium: [
-      'Unlimited pages',
+      'Custom scope (pages as needed)',
       'Custom web application',
       'Full e-commerce solution',
       'Payment gateway integration',
