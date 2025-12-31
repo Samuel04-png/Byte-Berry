@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { ArrowRight, Linkedin, Facebook, Award, ExternalLink } from 'lucide-react'
+import { ArrowRight, Linkedin, Facebook, Award, ExternalLink, Sparkles, Code } from 'lucide-react'
 import { getImagePath } from '@/utils/imageUtils'
 
 export function AboutPage() {
@@ -18,38 +18,89 @@ export function AboutPage() {
       </section>
 
       {/* Our Story */}
-      <section className="space-y-4 sm:space-y-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Our Story</h2>
-        <div className="prose prose-lg max-w-none">
+      <section className="space-y-6 sm:space-y-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">The Byte & Berry Story</h2>
+        <article className="space-y-6">
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Byte&Berry is a Zambian-based software studio specializing in custom digital solutions 
-            for educational institutions and SMEs. Our solutions blend user-friendly design with robust 
-            backends to help clients digitize operations, improve efficiency, and reduce costs.
+            Byte & Berry is a modern digital solutions studio committed to empowering businesses with their growth, smart operations, and meaningful communication with their customers.
           </p>
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mt-4">
-            We believe that every business, regardless of size, deserves access to professional 
-            technology solutions. That's why we focus on creating affordable, high-quality tools that 
-            solve local challenges and drive sustainable growth.
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            {/* Berry - Creative Side */}
+            <div className="relative p-6 rounded-lg border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-primary/15 rounded-lg">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-primary">Berry</h3>
+              </div>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                The <span className="font-semibold text-foreground">human touch</span> and <span className="font-semibold text-foreground">storytelling</span> that brings creativity, empathy, and meaningful connections to every project.
+              </p>
+            </div>
+
+            {/* Byte - Technical Side */}
+            <div className="relative p-6 rounded-lg border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-primary/15 rounded-lg">
+                  <Code className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-primary">Byte</h3>
+              </div>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                The <span className="font-semibold text-foreground">intelligent software</span> engineering that delivers powerful, reliable, and high-performance digital solutions.
+              </p>
+            </div>
+          </div>
+
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            We combine creative inspiration with technology, the "Berry" of human touch and storytelling with the "Byte" of intelligent software engineering, into forging digital products that are both a feast to the eyes and of high functionality. We work with entrepreneurs, startups, institutions, and established brands to turn ideas into powerful tools. Whether it's a website, portal, mobile app, or business system.
           </p>
+        </article>
+      </section>
+
+      {/* Vision & Mission */}
+      <section className="space-y-6 sm:space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Vision & Mission</h2>
+          <p className="text-muted-foreground mt-2">Our philosophy and commitment</p>
         </div>
-      </section>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {/* Vision Card */}
+          <Card className="h-full hover:shadow-lg transition-shadow border-2 border-primary/10">
+            <CardContent className="p-6 md:p-8">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-primary/15 rounded-lg">
+                    <Sparkles className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Our Vision</h3>
+                </div>
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  To become Zambia's leading digital solutions provider, delivering innovative software and technology services that empower businesses, institutions, and individuals to grow, automate, and thrive.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Our Mission */}
-      <section className="space-y-4 sm:space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Our Mission</h2>
-        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          Empower organizations with affordable, high-quality tools that solve local challenges 
-          and drive sustainable growth.
-        </p>
-      </section>
-
-      {/* Our Vision */}
-      <section className="space-y-4 sm:space-y-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Our Vision</h2>
-        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          Be the trusted technology partner for SMEs and schools across Africa, known for innovation 
-          and reliability.
-        </p>
+          {/* Mission Card */}
+          <Card className="h-full hover:shadow-lg transition-shadow border-2 border-primary/10">
+            <CardContent className="p-6 md:p-8">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-primary/15 rounded-lg">
+                    <Award className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Our Mission</h3>
+                </div>
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  To design and develop reliable, user‑friendly, and high‑quality digital products including websites, mobile apps, and enterprise systems while maintaining a strong focus on client satisfaction, innovation, and long‑term partnerships.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       {/* Founders Section */}
@@ -85,10 +136,7 @@ export function AboutPage() {
                   <p className="text-sm text-muted-foreground">Co-founder & Marketing Manager</p>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
-                  I am a Business Administration graduate with a specialization in Economics, passionate about building innovative and practical technology solutions for real-world business challenges. My background gives me a strong foundation in financial management, business strategy, and market analysis, which I apply to develop impactful digital tools for SMEs and organizations.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  With a focus on efficiency, cost reduction, and data-driven decision-making, I work at the intersection of business and technology to create solutions that drive sustainable growth and empower organizations across Africa.
+                  Simon Mulenga is a Business Administration graduate specializing in Economics, passionate about developing innovative and practical technology solutions for real-world business challenges. His background provides a strong foundation in financial management, business strategy, and market analysis skills he applies to help shape digital tools that support SMEs and organizations across Africa. Simon works at the intersection of business and technology, with a focus on efficiency, cost reduction, and data-driven decision-making.
                 </p>
                 <div className="pt-2">
                   <a
@@ -128,19 +176,10 @@ export function AboutPage() {
               <div className="space-y-3">
                 <div>
                   <h3 className="text-2xl font-bold">Samuel Kamanga</h3>
-                  <p className="text-sm text-muted-foreground">Co-founder & CTO</p>
+                  <p className="text-sm text-muted-foreground">Co-Founder & Chief Technology Officer (CTO)</p>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
-                  Samuel Kamanga is a visionary entrepreneur, developer, and creative technologist based in Lusaka, Zambia. At just 21 years old, he has already made significant strides in building innovative digital products and platforms that blend functionality, design, and user experience.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Samuel is the founder behind projects such as Aether, a smart AI business co-pilot, Pushr, a community-driven delivery platform, and Byte & Berry, a hub for app development and creative solutions. His work focuses on leveraging technology to solve real-world problems, streamline business operations, and empower small businesses and creators.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Driven by ambition and a desire to create meaningful impact, Samuel combines technical expertise with a keen eye for design and user experience. He is passionate about building products that not only perform but also delight users with clean, modern, and intuitive interfaces.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Beyond technology, Samuel is motivated by a long-term vision: to build scalable businesses that generate substantial economic value while fostering innovation, creativity, and opportunity across Africa and beyond.
+                  Samuel Kamanga is a forward-thinking entrepreneur, developer, and creative technologist based in Lusaka, Zambia. Despite his young age, he has played a key role in building modern digital platforms and products that combine strong technical engineering with clean, intuitive design. As Co-Founder and CTO at Byte&Berry, Samuel focuses on translating ideas into powerful, user-centered digital solutions. His work emphasizes building technology that solves real problems, streamlines business operations, and enables entrepreneurs to thrive.
                 </p>
                 <div className="pt-2">
                   <a
