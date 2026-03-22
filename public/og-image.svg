@@ -1,0 +1,41 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <g opacity="0.12">
+    <path d="M0 120H1200" stroke="#F8FAFC"/>
+    <path d="M0 240H1200" stroke="#F8FAFC"/>
+    <path d="M0 360H1200" stroke="#F8FAFC"/>
+    <path d="M0 480H1200" stroke="#F8FAFC"/>
+    <path d="M160 0V630" stroke="#F8FAFC"/>
+    <path d="M320 0V630" stroke="#F8FAFC"/>
+    <path d="M480 0V630" stroke="#F8FAFC"/>
+    <path d="M640 0V630" stroke="#F8FAFC"/>
+    <path d="M800 0V630" stroke="#F8FAFC"/>
+    <path d="M960 0V630" stroke="#F8FAFC"/>
+  </g>
+  <rect x="80" y="80" width="140" height="140" rx="18" fill="url(#paint0_linear_11_10)"/>
+  <path d="M123 118H171C186.464 118 199 130.536 199 146C199 161.464 186.464 174 171 174H123V118Z" fill="#F8FAFC"/>
+  <path d="M101 118H123V196H101V118Z" fill="#F8FAFC"/>
+  <path d="M101 196H171C186.464 196 199 183.464 199 168C199 152.536 186.464 140 171 140H101V196Z" fill="#0A0A0A"/>
+  <text fill="#F8FAFC" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="5.28px">
+    <tspan x="280" y="168">LUSAKA'S DIGITAL GROWTH PARTNER</tspan>
+  </text>
+  <text fill="#F8FAFC" font-family="Arial, sans-serif" font-size="84" font-weight="700">
+    <tspan x="280" y="292">Your business is</tspan>
+  </text>
+  <text fill="#1A7FD4" font-family="Arial, sans-serif" font-size="84" font-weight="700">
+    <tspan x="280" y="392">visible online.</tspan>
+  </text>
+  <text fill="#64748B" font-family="Arial, sans-serif" font-size="28" font-weight="400">
+    <tspan x="280" y="470">Websites, apps, and AI systems for Zambian businesses. Live in 6 weeks.</tspan>
+  </text>
+  <rect x="280" y="514" width="250" height="56" fill="#1A7FD4"/>
+  <text fill="#F8FAFC" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2.16px">
+    <tspan x="332" y="549">WHATSAPP US NOW</tspan>
+  </text>
+  <defs>
+    <linearGradient id="paint0_linear_11_10" x1="80" y1="80" x2="220" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A7FD4"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+</svg>

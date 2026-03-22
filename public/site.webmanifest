@@ -1,6 +1,6 @@
 {
-  "name": "Byte&Berry - Self-Service Portal",
-  "short_name": "Byte&Berry",
+  "name": "Byte & Berry",
+  "short_name": "Byte & Berry",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -23,8 +23,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#8B5CF6",
-  "background_color": "#ffffff",
+  "theme_color": "#0A0A0A",
+  "background_color": "#0A0A0A",
   "display": "standalone"
 }
 
