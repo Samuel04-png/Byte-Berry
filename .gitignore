@@ -10,9 +10,12 @@ lerna-debug.log*
 node_modules
 node_modules_corrupt
 .next
+out
 dist
 dist-ssr
 *.local
+temp-home.html
+public/casestudy/Byte&Berry_Projects/
 
 # Editor directories and files
 .vscode/*
