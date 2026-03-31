@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PageReveal, Reveal } from '@/components/site/reveal'
 import { ArrowRightIcon } from '@/components/site/icons'
+import {
+  getProjectPreviewImage,
+  isStudioProject,
+  ProjectPreview,
+} from '@/components/site/project-preview'
 import { Button } from '@/components/ui/Button'
 import { getProjectBySlug, getRelatedProjects, projects, siteConfig } from '@/data/site-data'
 
@@ -50,6 +54,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   const whatsappHref = `https://wa.me/${siteConfig.whatsappApiNumber}?text=${encodeURIComponent(
     `Hi Byte & Berry, I want to build something like ${project.name}.`,
   )}`
+  const usesStudioMockups = isStudioProject(project)
 
   return (
     <PageReveal>
@@ -82,14 +87,16 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
           <Reveal>
             <div className="bb-panel overflow-hidden">
-              <div className="relative aspect-[16/9] bg-bb-surface">
-                <Image
+              <div
+                className={`relative bg-bb-surface ${usesStudioMockups ? 'aspect-[12/7]' : 'aspect-[16/9]'}`}
+              >
+                <ProjectPreview
                   alt={project.heroAlt}
-                  className="object-cover"
-                  fill
                   priority
+                  project={project}
                   sizes="100vw"
-                  src={project.heroImage}
+                  src={getProjectPreviewImage(project)}
+                  studioPaddingClassName="p-6 sm:p-8 lg:p-10"
                 />
               </div>
             </div>
@@ -153,13 +160,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               {project.gallery.map((image, index) => (
                 <Reveal key={image.src} delay={index * 0.06}>
                   <div className="bb-panel overflow-hidden">
-                    <div className="relative aspect-[4/3] bg-bb-surface">
-                      <Image
+                    <div
+                      className={`relative bg-bb-surface ${usesStudioMockups ? 'aspect-[12/7]' : 'aspect-[4/3]'}`}
+                    >
+                      <ProjectPreview
                         alt={image.alt}
-                        className="object-cover"
-                        fill
+                        project={project}
                         sizes="(max-width: 768px) 100vw, 33vw"
                         src={image.src}
+                        studioPaddingClassName="p-4 md:p-6"
                       />
                     </div>
                   </div>
@@ -185,13 +194,18 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               {related.map((item, index) => (
                 <Reveal key={item.slug} delay={index * 0.05}>
                   <Link className="group block overflow-hidden bb-panel" href={`/work/${item.slug}`}>
-                    <div className="relative aspect-[4/3] overflow-hidden bg-bb-surface">
-                      <Image
+                    <div
+                      className={`relative overflow-hidden bg-bb-surface ${
+                        isStudioProject(item) ? 'aspect-[12/7]' : 'aspect-[4/3]'
+                      }`}
+                    >
+                      <ProjectPreview
                         alt={item.heroAlt}
-                        className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                        fill
+                        imageClassName="group-hover:scale-[1.04]"
+                        project={item}
                         sizes="(max-width: 768px) 100vw, 33vw"
                         src={item.heroImage}
+                        studioPaddingClassName="p-4 md:p-5"
                       />
                     </div>
                     <div className="space-y-3 p-5">

@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Project } from '@/data/site-data'
+import {
+  getProjectPreviewImage,
+  isStudioProject,
+  ProjectPreview,
+} from '@/components/site/project-preview'
 
 const widthByType = {
   web_desktop: '460px',
@@ -157,7 +162,26 @@ function PhoneFrame({
   )
 }
 
+function StudioMockup({ project }: { project: Project }) {
+  return (
+    <div className="relative h-[400px] overflow-hidden rounded-t-[8px] border border-bb-ink-20 bg-white shadow-bb-panel md:h-[480px]">
+      <ProjectPreview
+        alt={project.imageAlt}
+        imageClassName="md:group-hover:scale-[1.03]"
+        project={project}
+        sizes="(max-width: 767px) 100vw, 520px"
+        src={getProjectPreviewImage(project)}
+        studioPaddingClassName="p-4 md:p-6"
+      />
+    </div>
+  )
+}
+
 function renderMockup(project: Project) {
+  if (isStudioProject(project)) {
+    return <StudioMockup project={project} />
+  }
+
   const desktopImage = isRealImage(project.desktopImage)
     ? project.desktopImage
     : isRealImage(project.image)

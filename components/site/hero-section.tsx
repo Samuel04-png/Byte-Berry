@@ -1,11 +1,11 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { heroSlides, productNames, siteConfig } from '@/data/site-data'
 import { WhatsAppIcon } from '@/components/site/icons'
+import { getProjectPreviewImage, ProjectPreview } from '@/components/site/project-preview'
 import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 
 export function HeroSection() {
@@ -88,29 +88,45 @@ export function HeroSection() {
           >
             <div className="mx-auto w-full max-w-[620px] max-md:max-w-none">
               <div
-                className="bb-browser-frame overflow-hidden md:[transform:perspective(1200px)_rotateY(-3deg)]"
-                style={reduceMotion ? { transform: 'none' } : { transformOrigin: 'left center' }}
+                className="relative overflow-hidden rounded-[28px] border border-bb-ink-20 bg-white shadow-[0_28px_90px_rgba(15,15,26,0.16)]"
+                style={
+                  reduceMotion
+                    ? { transform: 'none' }
+                    : {
+                        transform: 'perspective(1200px) rotateY(-3deg)',
+                        transformOrigin: 'left center',
+                      }
+                }
               >
-                <div className="bb-browser-topbar">
-                  <span className="bb-browser-dot" />
-                  <span className="bb-browser-dot" />
-                  <span className="bb-browser-dot" />
-                  <span className="bb-browser-url" />
-                </div>
-                <div className="relative aspect-[14/10] overflow-hidden bg-bb-surface">
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.28), transparent 55%)' }}
+                />
+                <div className="relative aspect-[12/7] overflow-hidden bg-bb-surface">
                   {heroSlides.map((project, index) => (
                     <div
                       key={project.slug}
                       className="absolute inset-0 transition-opacity duration-500"
                       style={{ transitionDuration: '600ms', opacity: activeIndex === index ? 1 : 0 }}
                     >
-                      <Image
+                      <div
+                        className="absolute left-5 top-5 z-10 inline-flex rounded-full border px-3 py-1 text-[11px] font-medium backdrop-blur-md"
+                        style={{
+                          backgroundColor: 'rgba(255,255,255,0.78)',
+                          borderColor: `${project.accent.solid}33`,
+                          color: project.accent.solid,
+                        }}
+                      >
+                        {project.category}
+                      </div>
+                      <ProjectPreview
                         alt={project.imageAlt}
-                        className="object-cover"
-                        fill
+                        imageClassName="scale-[1.01]"
                         priority={index === 0}
+                        project={project}
                         sizes="(max-width: 768px) 100vw, 48vw"
-                        src={project.image ?? project.heroImage}
+                        src={getProjectPreviewImage(project)}
+                        studioPaddingClassName="p-6 md:p-10"
                       />
                     </div>
                   ))}

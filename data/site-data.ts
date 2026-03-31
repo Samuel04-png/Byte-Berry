@@ -45,6 +45,7 @@ export type Project = {
   desktopImage?: string | null
   mobileImage?: string | null
   dashboardImage?: string | null
+  imagePresentation?: 'screen' | 'studio'
   heroImage: string
   heroAlt: string
   image: string | null
@@ -54,6 +55,24 @@ export type Project = {
     alt: string
   }>
 }
+
+const studioMockups = {
+  kimbalert: {
+    hero: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Kimbalert/10.png',
+    mobile: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Kimbalert/4.png',
+    gallery: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Kimbalert/3.png',
+  },
+  pharmaLink: {
+    hero: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-PharmaLink/4.png',
+    mobile: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-PharmaLink/5.png',
+    gallery: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-PharmaLink/7.png',
+  },
+  sharkCarHire: {
+    hero: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Sharkcarhire/9.png',
+    mobile: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Sharkcarhire/4.png',
+    gallery: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Sharkcarhire/2.png',
+  },
+} as const
 
 export const projects: Project[] = [
   {
@@ -109,12 +128,18 @@ export const projects: Project[] = [
       solid: '#1A7FD4',
       soft: 'rgba(26, 127, 212, 0.12)',
     },
-    desktopImage: null,
-    heroImage: '/og-image.svg',
-    heroAlt: 'Shark Car Hire project preview',
-    image: null,
-    imageAlt: 'Shark Car Hire project preview',
-    gallery: [],
+    desktopImage: studioMockups.sharkCarHire.hero,
+    mobileImage: studioMockups.sharkCarHire.mobile,
+    imagePresentation: 'studio',
+    heroImage: studioMockups.sharkCarHire.hero,
+    heroAlt: 'Shark Car Hire laptop booking mockup',
+    image: studioMockups.sharkCarHire.hero,
+    imageAlt: 'Shark Car Hire laptop booking mockup',
+    gallery: [
+      { src: studioMockups.sharkCarHire.hero, alt: 'Shark Car Hire desktop booking mockup' },
+      { src: studioMockups.sharkCarHire.mobile, alt: 'Shark Car Hire mobile booking mockup' },
+      { src: studioMockups.sharkCarHire.gallery, alt: 'Shark Car Hire mobile screen collage' },
+    ],
   },
   {
     slug: 'pushr',
@@ -175,16 +200,17 @@ export const projects: Project[] = [
       solid: '#F97316',
       soft: 'rgba(249, 115, 22, 0.14)',
     },
-    desktopImage: '/optimized/projects/kimbalert-admin.webp',
-    mobileImage: '/optimized/projects/kimbalert-mobile.webp',
-    heroImage: '/optimized/projects/kimbalert-landing.webp',
-    heroAlt: 'KimbAlert Africa website screenshot',
-    image: '/optimized/projects/kimbalert-landing.webp',
-    imageAlt: 'KimbAlert Africa website screenshot',
+    desktopImage: studioMockups.kimbalert.hero,
+    mobileImage: studioMockups.kimbalert.mobile,
+    imagePresentation: 'studio',
+    heroImage: studioMockups.kimbalert.hero,
+    heroAlt: 'KimbAlert Africa laptop homepage mockup',
+    image: studioMockups.kimbalert.hero,
+    imageAlt: 'KimbAlert Africa laptop homepage mockup',
     gallery: [
-      { src: '/optimized/projects/kimbalert-landing.webp', alt: 'KimbAlert Africa landing page' },
-      { src: '/optimized/projects/kimbalert-admin.webp', alt: 'KimbAlert Africa admin dashboard' },
-      { src: '/optimized/projects/kimbalert-mobile.webp', alt: 'KimbAlert Africa mobile interface' },
+      { src: studioMockups.kimbalert.hero, alt: 'KimbAlert Africa laptop homepage mockup' },
+      { src: studioMockups.kimbalert.mobile, alt: 'KimbAlert Africa handheld mobile mockup' },
+      { src: studioMockups.kimbalert.gallery, alt: 'KimbAlert Africa multi-screen mobile mockup' },
     ],
   },
   {
@@ -312,15 +338,17 @@ export const projects: Project[] = [
       solid: '#EC4899',
       soft: 'rgba(236, 72, 153, 0.14)',
     },
-    dashboardImage: '/optimized/projects/pharmalink-dashboard.webp',
-    heroImage: '/optimized/projects/pharmalink-hero.webp',
-    heroAlt: 'Pharma Link platform screenshot',
-    image: '/optimized/projects/pharmalink-hero.webp',
-    imageAlt: 'Pharma Link platform screenshot',
+    dashboardImage: studioMockups.pharmaLink.hero,
+    mobileImage: studioMockups.pharmaLink.mobile,
+    imagePresentation: 'studio',
+    heroImage: studioMockups.pharmaLink.hero,
+    heroAlt: 'Pharma Link mobile product mockup collage',
+    image: studioMockups.pharmaLink.hero,
+    imageAlt: 'Pharma Link mobile product mockup collage',
     gallery: [
-      { src: '/optimized/projects/pharmalink-hero.webp', alt: 'Pharma Link homepage' },
-      { src: '/optimized/projects/pharmalink-dashboard.webp', alt: 'Pharma Link dashboard' },
-      { src: '/optimized/projects/pharmalink-detail.webp', alt: 'Pharma Link detail interface' },
+      { src: studioMockups.pharmaLink.hero, alt: 'Pharma Link mobile product mockup collage' },
+      { src: studioMockups.pharmaLink.mobile, alt: 'Pharma Link handheld medication tracker mockup' },
+      { src: studioMockups.pharmaLink.gallery, alt: 'Pharma Link dual-screen product mockup' },
     ],
   },
   {
@@ -396,10 +424,9 @@ export const projects: Project[] = [
 ]
 
 export const heroSlides = [
-  projects.find((project) => project.slug === 'pushr'),
   projects.find((project) => project.slug === 'kimbalert-africa'),
-  projects.find((project) => project.slug === 'tengaloans'),
-  projects.find((project) => project.slug === 'nexusflow'),
+  projects.find((project) => project.slug === 'pharma-link'),
+  projects.find((project) => project.slug === 'shark-car-hire'),
 ].filter(Boolean) as Project[]
 
 export const workProjects = projects
