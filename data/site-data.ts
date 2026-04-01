@@ -58,19 +58,19 @@ export type Project = {
 
 const studioMockups = {
   kimbalert: {
-    hero: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Kimbalert/10.png',
-    mobile: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Kimbalert/4.png',
-    gallery: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Kimbalert/3.png',
+    hero: '/studio-mockups/kimbalert/hero.png',
+    mobile: '/studio-mockups/kimbalert/mobile.png',
+    gallery: '/studio-mockups/kimbalert/gallery.png',
   },
   pharmaLink: {
-    hero: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-PharmaLink/4.png',
-    mobile: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-PharmaLink/5.png',
-    gallery: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-PharmaLink/7.png',
+    hero: '/studio-mockups/pharma-link/hero.png',
+    mobile: '/studio-mockups/pharma-link/mobile.png',
+    gallery: '/studio-mockups/pharma-link/gallery.png',
   },
   sharkCarHire: {
-    hero: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Sharkcarhire/9.png',
-    mobile: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Sharkcarhire/4.png',
-    gallery: '/casestudy/Byte&Berry_Projects/Heromockups/Byte&Berry-Sharkcarhire/2.png',
+    hero: '/studio-mockups/shark-car-hire/hero.png',
+    mobile: '/studio-mockups/shark-car-hire/mobile.png',
+    gallery: '/studio-mockups/shark-car-hire/gallery.png',
   },
 } as const
 
