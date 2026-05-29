@@ -7,9 +7,10 @@ export const siteConfig = {
   email: 'hello@byteandberry.com',
   whatsappNumber: '076 0580949',
   whatsappApiNumber: '260760580949',
-  whatsappHref: 'https://wa.me/260760580949?text=Hi+Byte+%26+Berry',
+  whatsappHref:
+    'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%20would%20like%20a%20free%20quote%20for%20my%20business.%20I%20need%20help%20with%3A%20%5Bwebsite%20%2F%20app%20%2F%20business%20system%20%2F%20AI%20automation%5D.',
   whatsappFloatingHref:
-    'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%27m%20interested%20in%20your%20services',
+    'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%20would%20like%20a%20free%20quote%20for%20my%20business.%20I%20need%20help%20with%3A%20%5Bwebsite%20%2F%20app%20%2F%20business%20system%20%2F%20AI%20automation%5D.',
   location: 'Lusaka, Zambia',
   tagline: 'Building the digital backbone of Zambia.',
   socials: {
@@ -359,7 +360,7 @@ export const projects: Project[] = [
     location: 'Zambia',
     year: '2025',
     projectType: 'web_desktop',
-    domain: 'zambiawildlife.byteandberry.com',
+    domain: 'Project preview',
     summary:
       'A booking-oriented tourism experience designed to turn safari interest into stronger enquiries and higher-value trips.',
     description:
@@ -393,7 +394,7 @@ export const projects: Project[] = [
     location: 'Zambia',
     year: '2025',
     projectType: 'dual_platform',
-    domain: 'aeitherposts.byteandberry.com',
+    domain: 'Project preview',
     summary:
       'A creator-friendly scheduling and content operations tool built for cleaner planning and publishing workflows.',
     description:
@@ -486,20 +487,83 @@ export const services = [
   },
 ] as const
 
+export const offerPackages = [
+  {
+    eyebrow: 'Website Launch',
+    title: 'Website Launch Package',
+    bestFor: 'For SMEs that need to look credible online and generate clearer enquiries.',
+    price: 'From ZMW 5,000',
+    includes: ['Mobile-responsive website', 'WhatsApp CTA + contact path', 'Basic SEO and metadata', 'Launch support'],
+    cta: 'Get Website Quote',
+  },
+  {
+    eyebrow: 'Business System',
+    title: 'Business System Package',
+    bestFor: 'For teams stuck with Excel, WhatsApp, scattered records, and manual reports.',
+    price: 'From ZMW 8,000',
+    includes: ['Custom dashboard', 'Admin panel and user roles', 'Reports and exports', 'Workflow or booking tracking'],
+    cta: 'Discuss Your Workflow',
+  },
+  {
+    eyebrow: 'AI Automation',
+    title: 'AI Automation Package',
+    bestFor: 'For businesses wasting time on repetitive follow-ups, reports, and admin work.',
+    price: 'From ZMW 8,000',
+    includes: ['Lead capture automation', 'FAQ/customer response planning', 'Document or report automation', 'Safe-use training'],
+    cta: 'Explore Automation',
+  },
+  {
+    eyebrow: 'Mobile App',
+    title: 'Mobile App Build Package',
+    bestFor: 'For products and services that need a mobile-first customer experience.',
+    price: 'From ZMW 15,000',
+    includes: ['Feature planning', 'UI/UX direction', 'Backend/API integration', 'Testing and launch support'],
+    cta: 'Plan Your App',
+  },
+] as const
+
+export const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery',
+    description: 'We understand your business, customers, current workflow, and the result you need.',
+  },
+  {
+    number: '02',
+    title: 'Strategy',
+    description: 'We define the simplest solution: website, app, system, automation, or a combination.',
+  },
+  {
+    number: '03',
+    title: 'Design',
+    description: 'We create the interface and user journey for your customers, staff, or operators.',
+  },
+  {
+    number: '04',
+    title: 'Build',
+    description: 'We develop, connect core features, test the experience, and tighten the details.',
+  },
+  {
+    number: '05',
+    title: 'Launch',
+    description: 'We help you go live, review the system, and hand over with clear next steps.',
+  },
+] as const
+
 export const painPoints = [
-  "Your competitors are getting bookings online. You're still waiting by the phone.",
-  "Clients can't find you on Google because your website doesn't exist or doesn't work.",
-  "You're losing sales after hours because there's no automated system to capture them.",
-  "You tried to get a website built. It took 6 months, cost a fortune, and still doesn't work properly.",
-  "You know you need to go digital, but you don't know who to trust.",
+  'Your business looks less professional online than the work you actually do.',
+  'Customers cannot clearly find your services, prices, proof, or next step.',
+  'Bookings, payments, customer details, and follow-ups are scattered across WhatsApp, Excel, and paper.',
+  'Reports take too long because too much of the business is still manual.',
+  'You are losing leads because follow-up depends on memory instead of a system.',
 ]
 
 export const solutionPoints = [
-  'A fully working website, live in 6 weeks, tested, fast, and mobile-first.',
-  'Payment processing integration so you can get paid online.',
-  'An AI system that qualifies leads and follows up automatically, 24/7.',
-  'One team, one price, no surprises. Samuel builds it. Simon handles everything else.',
-  "We've done it for delivery platforms, lenders, safety products, and growth-focused Zambian businesses.",
+  'A professional website that makes your business easier to find, trust, and contact.',
+  'Clear offers, proof, and WhatsApp quote paths built around real buyer problems.',
+  'Custom systems that centralize bookings, customer records, reports, and operations.',
+  'Payment-ready platforms and mobile-friendly experiences for modern customers.',
+  'AI automation opportunities that reduce repetitive admin, responses, and reporting.',
 ]
 
 export const proofStats = [

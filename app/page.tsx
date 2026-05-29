@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { HeroSection } from '@/components/site/hero-section'
+import { ContactFormSection } from '@/components/site/contact-form-section'
+import { PackagesSection } from '@/components/site/packages-section'
 import { PainSolutionSection } from '@/components/site/pain-solution-section'
+import { ProcessSection } from '@/components/site/process-section'
 import { ProofSection } from '@/components/site/proof-section'
 import { ServicesSection } from '@/components/site/services-section'
 import { WhatsAppCTASection } from '@/components/site/whatsapp-cta-section'
@@ -55,10 +58,13 @@ export default function HomePage() {
 
       <main className="bb-page">
         <HeroSection />
-        <WorkSection />
         <PainSolutionSection />
         <ServicesSection />
+        <WorkSection />
+        <PackagesSection />
+        <ProcessSection />
         <ProofSection />
+        <ContactFormSection />
         <WhatsAppCTASection />
       </main>
     </>

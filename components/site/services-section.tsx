@@ -26,7 +26,7 @@ export function ServicesSection() {
           <div className="space-y-4">
             <p className="bb-label">Services</p>
             <h2 className="bb-title">
-              We build <em>systems</em> that make growth easier.
+              We build digital systems that make your business easier to <em>trust</em>, contact, and operate.
             </h2>
           </div>
           <p className="max-w-[24rem] text-sm leading-7 text-bb-ink-50">
@@ -110,7 +110,7 @@ export function ServicesSection() {
                   target="_blank"
                   variant="secondary"
                 >
-                  See website pricing
+                  Get Website Quote
                 </Button>
               </div>
             </div>

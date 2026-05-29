@@ -40,19 +40,23 @@ export function HeroSection() {
               Lusaka
               <span aria-hidden="true">&nbsp;&middot;&nbsp;</span>
               Zambia
+              <span aria-hidden="true">&nbsp;&middot;&nbsp;</span>
+              Websites · Apps · AI Systems
             </p>
 
             <div className="space-y-3">
               <h1 className="bb-display text-bb-ink">
                 <span className="block">Your business</span>
                 <span className="block">deserves to be</span>
-                <span className="block text-[1.3em] italic leading-[0.82] text-bb-purple">seen.</span>
+                <span className="block text-[1.08em] italic leading-[0.82] text-bb-purple">seen, trusted,</span>
+                <span className="block">and easier to run.</span>
               </h1>
             </div>
 
-            <p className="bb-copy bb-copy-muted max-w-[460px]">
-              We build websites, apps, and AI systems for Zambian businesses. Fast,
-              mobile-ready, and live in 6 weeks.
+            <p className="bb-copy bb-copy-muted max-w-[560px]">
+              Byte &amp; Berry builds professional websites, mobile apps,
+              payment-ready platforms, and AI-powered business systems for
+              Zambian companies that want to grow without messy manual work.
             </p>
 
             <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
@@ -63,7 +67,7 @@ export function HeroSection() {
                 target="_blank"
                 variant="primary"
               >
-                WhatsApp Us Now
+                Get a Free Quote on WhatsApp
               </Button>
               <Button href="#work" variant="secondary">
                 See our work

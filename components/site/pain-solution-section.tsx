@@ -24,7 +24,7 @@ export function PainSolutionSection() {
             <div className="relative z-10 space-y-4">
               <p className="bb-label bb-label-dark">The Pain</p>
               <h2 className="font-serif text-[clamp(36px,4vw,40px)] leading-[0.98] tracking-[-0.04em] text-bb-paper">
-                Sound familiar?
+                Your business is growing, but your systems are slowing you down.
               </h2>
             </div>
 
@@ -55,7 +55,7 @@ export function PainSolutionSection() {
             <div className="relative z-10 space-y-4">
               <p className="bb-label bb-label-dark">The Shift</p>
               <h2 className="font-serif text-[clamp(36px,4vw,40px)] leading-[0.98] tracking-[-0.04em] text-bb-paper">
-                Here&apos;s what changes.
+                We build digital systems that make your business easier to trust, contact, and operate.
               </h2>
             </div>
 
@@ -75,11 +75,11 @@ export function PainSolutionSection() {
 
         <motion.div className="space-y-6 text-center" variants={fadeUp}>
           <p className="font-serif text-[clamp(40px,5vw,48px)] italic leading-[0.96] tracking-[-0.04em] text-bb-paper">
-            Ready to be found?
+            Ready to build something your business can grow with?
           </p>
           <div className="flex justify-center">
             <Button href={siteConfig.whatsappHref} rel="noreferrer" target="_blank" variant="primary">
-              WhatsApp Us Now
+              Get a Free Quote on WhatsApp
             </Button>
           </div>
           <p className="text-sm text-bb-paper-60">
