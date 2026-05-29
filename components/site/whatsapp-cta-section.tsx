@@ -22,11 +22,11 @@ export function WhatsAppCTASection() {
               Ready To Start?
             </p>
             <h2 className="font-serif text-[clamp(46px,7vw,64px)] leading-[0.95] tracking-[-0.045em] text-white">
-              <span className="block">Let&apos;s build something</span>
-              <span className="block italic">together.</span>
+              <span className="block">Ready to build something</span>
+              <span className="block italic">your business can grow with?</span>
             </h2>
             <p className="mx-auto max-w-[28rem] text-base leading-8 text-white/70">
-              WhatsApp us. We reply same day.
+              Tell us what you are trying to build. We&apos;ll help you understand the best path and what it will take to bring it to life.
             </p>
           </div>
 
@@ -39,7 +39,7 @@ export function WhatsAppCTASection() {
               target="_blank"
               variant="inverted"
             >
-              Start on WhatsApp
+              Get a Free Quote on WhatsApp
             </Button>
             <Button
               href={`mailto:${siteConfig.email}`}
