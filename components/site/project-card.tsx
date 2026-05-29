@@ -8,10 +8,10 @@ import {
 } from '@/components/site/project-preview'
 
 const widthByType = {
-  web_desktop: '460px',
-  mobile_app: '340px',
-  saas_platform: '520px',
-  dual_platform: '480px',
+  web_desktop: '520px',
+  mobile_app: '380px',
+  saas_platform: '540px',
+  dual_platform: '560px',
 } as const
 
 function isRealImage(src?: string | null) {
@@ -20,14 +20,14 @@ function isRealImage(src?: string | null) {
 
 function BrowserChrome({ domain }: { domain: string }) {
   return (
-    <div className="relative flex h-8 items-center bg-[#F1F0EF] px-4">
-      <div className="flex items-center gap-2">
-        <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
-        <span className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
-        <span className="h-3 w-3 rounded-full bg-[#28CA41]" />
+    <div className="relative flex h-9 items-center border-b border-black/5 bg-white/90 px-4 backdrop-blur">
+      <div className="flex items-center gap-1.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#FFBD2E] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#28CA41] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]" />
       </div>
 
-      <div className="absolute left-1/2 top-1/2 flex h-[18px] w-[40%] min-w-[160px] -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-[4px] bg-[#E8E7E5] px-2 text-[10px] text-[#7B7A78] max-sm:min-w-[130px]">
+      <div className="absolute left-1/2 top-1/2 flex h-5 w-[46%] min-w-[180px] -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-1.5 rounded-full border border-black/5 bg-[#F4F3F1] px-3 text-[10px] font-medium text-[#6F6D69] shadow-inner max-sm:min-w-[140px]">
         <svg aria-hidden="true" className="h-2.5 w-2.5 shrink-0" fill="none" viewBox="0 0 24 24">
           <path
             d="M7 10V8a5 5 0 1 1 10 0v2M7 10h10v8H7z"
@@ -46,30 +46,59 @@ function BrowserChrome({ domain }: { domain: string }) {
 function WebFallback({ project }: { project: Project }) {
   return (
     <div
-      className="flex h-full w-full flex-col justify-between p-6"
+      className="relative flex h-full w-full flex-col overflow-hidden p-5"
       style={{
-        background: `linear-gradient(180deg, ${project.accent.soft}, rgba(255,255,255,0.88))`,
+        background: `radial-gradient(circle at 18% 12%, ${project.accent.solid}24, transparent 28%), linear-gradient(135deg, #fffaf2 0%, ${project.accent.soft} 52%, #ffffff 100%)`,
       }}
     >
-      <div className="grid gap-3">
-        <span className="h-2.5 w-16" style={{ backgroundColor: project.accent.solid }} />
-        <div className="grid gap-2">
-          <div className="h-10 rounded-[4px] bg-white/90 shadow-[0_1px_3px_rgba(15,15,26,0.06)]" />
-          <div className="grid grid-cols-[1.3fr_0.7fr] gap-2">
-            <div className="h-32 rounded-[4px] bg-white/85 shadow-[0_1px_3px_rgba(15,15,26,0.06)]" />
-            <div className="grid gap-2">
-              <div className="h-[62px] rounded-[4px] bg-white/85 shadow-[0_1px_3px_rgba(15,15,26,0.06)]" />
-              <div className="h-[62px] rounded-[4px] bg-white/85 shadow-[0_1px_3px_rgba(15,15,26,0.06)]" />
+      <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/60 blur-2xl" />
+      <div className="absolute bottom-8 right-6 h-20 w-36 rounded-full bg-black/10 blur-2xl" />
+
+      <div className="relative rounded-[16px] border border-white/80 bg-white/[0.92] p-4 shadow-[0_24px_70px_rgba(15,15,26,0.14),0_6px_18px_rgba(15,15,26,0.08)] backdrop-blur">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="h-7 w-7 rounded-full" style={{ backgroundColor: `${project.accent.solid}22` }} />
+            <div className="grid gap-1">
+              <span className="h-2 w-20 rounded-full bg-bb-ink/70" />
+              <span className="h-1.5 w-14 rounded-full bg-bb-ink/15" />
+            </div>
+          </div>
+          <span className="rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white" style={{ backgroundColor: project.accent.solid }}>
+            Premium
+          </span>
+        </div>
+
+        <div className="grid grid-cols-[1.08fr_0.92fr] gap-4">
+          <div className="flex min-h-[172px] flex-col justify-end rounded-[14px] p-4 text-white shadow-inner" style={{ background: `linear-gradient(145deg, ${project.accent.solid}, #15131f)` }}>
+            <span className="mb-3 h-1.5 w-12 rounded-full bg-white/50" />
+            <p className="font-serif text-[34px] leading-[0.9] tracking-[-0.06em]">{project.name}</p>
+            <p className="mt-3 max-w-[10rem] text-[11px] leading-4 text-white/72">Luxury digital storefront with a stronger buyer journey.</p>
+          </div>
+
+          <div className="grid gap-3">
+            <div className="rounded-[14px] border border-bb-ink/10 bg-[#F8F4EC] p-3">
+              <div className="mb-3 aspect-[4/3] rounded-[10px]" style={{ background: `linear-gradient(135deg, ${project.accent.soft}, rgba(15,15,26,0.08))` }} />
+              <div className="grid gap-1.5">
+                <span className="h-2 rounded-full bg-bb-ink/16" />
+                <span className="h-2 w-2/3 rounded-full bg-bb-ink/10" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="h-16 rounded-[12px] bg-white shadow-[0_10px_28px_rgba(15,15,26,0.08)]" />
+              <div className="h-16 rounded-[12px] bg-white shadow-[0_10px_28px_rgba(15,15,26,0.08)]" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[15rem]">
-        <p className="font-serif text-[32px] leading-[0.96] tracking-[-0.05em] text-bb-ink">
-          {project.name}
-        </p>
-        <p className="mt-2 text-sm text-bb-ink-50">{project.label}</p>
+      <div className="relative mt-auto flex items-end justify-between pt-5">
+        <div>
+          <p className="font-serif text-[30px] leading-none tracking-[-0.05em] text-bb-ink">{project.name}</p>
+          <p className="mt-1.5 text-sm text-bb-ink-50">{project.label}</p>
+        </div>
+        <span className="rounded-full border border-bb-ink/10 bg-white/80 px-3 py-1 text-[11px] font-semibold" style={{ color: project.accent.solid }}>
+          Concept system
+        </span>
       </div>
     </div>
   )
@@ -77,28 +106,55 @@ function WebFallback({ project }: { project: Project }) {
 
 function DashboardFallback({ project }: { project: Project }) {
   return (
-    <div className="h-full rounded-[10px] bg-white p-5 shadow-[0_20px_60px_rgba(15,15,26,0.12),0_4px_16px_rgba(15,15,26,0.06)]">
-      <div className="grid h-full gap-4">
-        <div className="flex items-center justify-between">
-          <div className="grid gap-2">
-            <span className="h-2.5 w-14 rounded-full" style={{ backgroundColor: project.accent.solid }} />
-            <span className="h-3 w-28 rounded-full bg-[rgba(15,15,26,0.08)]" />
-          </div>
-          <span className="h-8 w-24 rounded-full" style={{ backgroundColor: `${project.accent.solid}18` }} />
-        </div>
-
-        <div className="grid flex-1 grid-cols-[0.95fr_0.7fr] gap-4">
-          <div className="grid gap-3">
-            <div className="h-32 rounded-[8px]" style={{ backgroundColor: `${project.accent.solid}14` }} />
-            <div className="grid grid-cols-3 gap-3">
-              <div className="rounded-[8px] bg-[rgba(15,15,26,0.05)]" />
-              <div className="rounded-[8px] bg-[rgba(15,15,26,0.05)]" />
-              <div className="rounded-[8px] bg-[rgba(15,15,26,0.05)]" />
+    <div className="relative h-full overflow-hidden rounded-[18px] border border-white/80 bg-white p-5 shadow-[0_24px_70px_rgba(15,15,26,0.16),0_8px_24px_rgba(15,15,26,0.08)]">
+      <div className="absolute inset-x-0 top-0 h-20" style={{ background: `linear-gradient(90deg, ${project.accent.solid}18, transparent)` }} />
+      <div className="relative grid h-full grid-rows-[auto_1fr] gap-5">
+        <div className="flex items-center justify-between rounded-[14px] border border-bb-ink/10 bg-bb-surface/80 p-3">
+          <div className="flex items-center gap-3">
+            <span className="h-9 w-9 rounded-[12px]" style={{ backgroundColor: `${project.accent.solid}22` }} />
+            <div className="grid gap-1.5">
+              <span className="h-2.5 w-28 rounded-full bg-bb-ink/70" />
+              <span className="h-2 w-20 rounded-full bg-bb-ink/12" />
             </div>
           </div>
-          <div className="grid gap-3">
-            <div className="rounded-[8px] bg-[rgba(15,15,26,0.05)]" />
-            <div className="rounded-[8px] bg-[rgba(15,15,26,0.05)]" />
+          <span className="rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white" style={{ backgroundColor: project.accent.solid }}>
+            Live ops
+          </span>
+        </div>
+
+        <div className="grid min-h-0 grid-cols-[0.95fr_1.05fr] gap-4">
+          <div className="grid gap-4">
+            <div className="rounded-[16px] p-4 text-white" style={{ background: `linear-gradient(145deg, ${project.accent.solid}, #171525)` }}>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-white/62">Overview</p>
+              <p className="mt-5 text-4xl font-semibold tracking-[-0.08em]">84%</p>
+              <div className="mt-5 h-2 rounded-full bg-white/18">
+                <div className="h-full w-[72%] rounded-full bg-white" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-[14px] border border-bb-ink/10 bg-bb-surface p-3">
+                <span className="block h-2 w-10 rounded-full" style={{ backgroundColor: project.accent.solid }} />
+                <span className="mt-8 block h-2 rounded-full bg-bb-ink/12" />
+              </div>
+              <div className="rounded-[14px] border border-bb-ink/10 bg-bb-surface p-3">
+                <span className="block h-2 w-12 rounded-full bg-bb-ink/18" />
+                <span className="mt-8 block h-2 rounded-full bg-bb-ink/12" />
+              </div>
+            </div>
+          </div>
+          <div className="rounded-[16px] border border-bb-ink/10 bg-bb-surface p-4">
+            <div className="mb-4 flex items-center justify-between">
+              <span className="h-2.5 w-24 rounded-full bg-bb-ink/70" />
+              <span className="h-6 w-16 rounded-full" style={{ backgroundColor: `${project.accent.solid}18` }} />
+            </div>
+            <div className="grid gap-2.5">
+              {[0, 1, 2, 3, 4].map((row) => (
+                <div key={row} className="grid grid-cols-[1fr_54px] items-center gap-3 rounded-[10px] bg-white px-3 py-2 shadow-[0_6px_18px_rgba(15,15,26,0.04)]">
+                  <span className="h-2 rounded-full bg-bb-ink/12" />
+                  <span className="h-5 rounded-full" style={{ backgroundColor: row % 2 ? 'rgba(15,15,26,0.08)' : `${project.accent.solid}20` }} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -164,14 +220,20 @@ function PhoneFrame({
 
 function StudioMockup({ project }: { project: Project }) {
   return (
-    <div className="relative h-[400px] overflow-hidden rounded-t-[8px] border border-bb-ink-20 bg-white shadow-bb-panel md:h-[480px]">
+    <div
+      className="relative h-[420px] overflow-hidden rounded-t-[22px] border border-black/5 bg-white shadow-[0_30px_90px_rgba(15,15,26,0.16),0_10px_28px_rgba(15,15,26,0.08)] md:h-[500px]"
+      style={{ background: `linear-gradient(135deg, #ffffff 0%, ${project.accent.soft} 55%, #f8fafc 100%)` }}
+    >
+      <div className="absolute -right-20 -top-20 h-52 w-52 rounded-full opacity-70 blur-3xl" style={{ backgroundColor: project.accent.solid }} />
+      <div className="absolute bottom-8 left-1/2 h-24 w-[72%] -translate-x-1/2 rounded-full bg-black/14 blur-3xl" />
       <ProjectPreview
         alt={project.imageAlt}
-        imageClassName="md:group-hover:scale-[1.03]"
+        className="relative"
+        imageClassName="scale-[1.08] object-contain transition-transform duration-500 ease-out md:group-hover:scale-[1.12]"
         project={project}
-        sizes="(max-width: 767px) 100vw, 520px"
+        sizes="(max-width: 767px) 100vw, 560px"
         src={getProjectPreviewImage(project)}
-        studioPaddingClassName="p-4 md:p-6"
+        studioPaddingClassName="p-3 md:p-5"
       />
     </div>
   )
@@ -202,9 +264,9 @@ function renderMockup(project: Project) {
 
   if (project.projectType === 'web_desktop') {
     return (
-      <div className="h-[400px] overflow-hidden rounded-t-[8px] border border-bb-ink-20 bg-white shadow-bb-panel md:h-[480px]">
+      <div className="h-[420px] overflow-hidden rounded-t-[22px] border border-black/5 bg-white shadow-[0_30px_90px_rgba(15,15,26,0.16),0_10px_28px_rgba(15,15,26,0.08)] md:h-[500px]">
         <BrowserChrome domain={project.domain} />
-        <div className="relative h-[calc(100%-32px)] overflow-hidden bg-bb-surface">
+        <div className="relative h-[calc(100%-36px)] overflow-hidden bg-bb-surface">
           {desktopImage ? (
             <Image
               alt={project.imageAlt}
@@ -225,7 +287,7 @@ function renderMockup(project: Project) {
   if (project.projectType === 'mobile_app') {
     return (
       <div
-        className="relative flex h-[400px] items-center justify-center overflow-hidden rounded-t-[8px] border border-bb-ink-20 shadow-bb-panel md:h-[480px]"
+        className="relative flex h-[420px] items-center justify-center overflow-hidden rounded-t-[22px] border border-black/5 shadow-[0_30px_90px_rgba(15,15,26,0.16),0_10px_28px_rgba(15,15,26,0.08)] md:h-[500px]"
         style={{ backgroundColor: `${project.accent.solid}14` }}
       >
         <div className="absolute bottom-4 left-1/2 flex max-w-[90%] -translate-x-1/2 flex-wrap justify-center gap-2 min-[390px]:hidden">
@@ -263,7 +325,7 @@ function renderMockup(project: Project) {
 
   if (project.projectType === 'dual_platform') {
     return (
-      <div className="relative h-[400px] overflow-hidden rounded-t-[8px] border border-white/10 bg-[#1A1A1A] shadow-bb-panel md:h-[480px]">
+      <div className="relative h-[420px] overflow-hidden rounded-t-[22px] border border-white/10 bg-[#1A1A1A] shadow-[0_30px_90px_rgba(15,15,26,0.22),0_10px_28px_rgba(15,15,26,0.12)] md:h-[500px]">
         <div
           className="absolute inset-0 opacity-70"
           style={{
@@ -281,9 +343,9 @@ function renderMockup(project: Project) {
             />
           </div>
 
-          <div className="absolute bottom-8 right-4 left-[34%] top-10 overflow-hidden rounded-[8px] border border-white/10 bg-white/5 transition-transform duration-300 ease-out md:left-[32%] md:right-6 md:top-12 md:[transform:perspective(1000px)_rotateY(-6deg)] md:group-hover:translate-x-1.5">
+            <div className="absolute bottom-8 right-4 left-[34%] top-10 overflow-hidden rounded-[16px] border border-white/10 bg-white/5 shadow-[0_24px_70px_rgba(0,0,0,0.28)] transition-transform duration-300 ease-out md:left-[32%] md:right-6 md:top-12 md:[transform:perspective(1000px)_rotateY(-6deg)] md:group-hover:translate-x-1.5">
             <BrowserChrome domain={project.domain} />
-            <div className="relative h-[calc(100%-32px)] overflow-hidden bg-bb-surface">
+            <div className="relative h-[calc(100%-36px)] overflow-hidden bg-bb-surface">
               {desktopImage ? (
                 <Image
                   alt={project.imageAlt}
@@ -316,7 +378,7 @@ function renderMockup(project: Project) {
 
   return (
     <div
-      className="relative h-[400px] overflow-hidden rounded-t-[8px] border border-bb-ink-20 shadow-bb-panel md:h-[480px]"
+      className="relative h-[420px] overflow-hidden rounded-t-[22px] border border-black/5 shadow-[0_30px_90px_rgba(15,15,26,0.16),0_10px_28px_rgba(15,15,26,0.08)] md:h-[500px]"
       style={{
         backgroundColor: '#ffffff',
         backgroundImage: `linear-gradient(${project.accent.solid}1A 1px, transparent 1px), linear-gradient(90deg, ${project.accent.solid}1A 1px, transparent 1px)`,
@@ -378,13 +440,13 @@ export function ProjectCard({ project }: { project: Project }) {
       {renderMockup(project)}
 
       <div
-        className="border border-t-0 border-bb-ink-20 bg-white px-5 py-4 shadow-bb-soft"
-        style={{ borderLeft: `3px solid ${project.accent.solid}` }}
+        className="rounded-b-[22px] border border-t-0 border-black/5 bg-white px-6 py-5 shadow-[0_18px_46px_rgba(15,15,26,0.10)] transition-colors duration-300 group-hover:bg-[#fffdf8]"
+        style={{ borderLeft: `4px solid ${project.accent.solid}` }}
       >
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-[18px] font-semibold tracking-[-0.02em] text-bb-ink">{project.name}</h3>
+          <h3 className="text-[20px] font-semibold tracking-[-0.03em] text-bb-ink">{project.name}</h3>
           <span
-            className="inline-flex shrink-0 rounded-full px-3 py-1 text-[11px] font-medium"
+            className="inline-flex shrink-0 rounded-full px-3 py-1.5 text-[11px] font-semibold"
             style={{
               backgroundColor: project.accent.soft,
               color: project.accent.solid,
@@ -394,9 +456,9 @@ export function ProjectCard({ project }: { project: Project }) {
           </span>
         </div>
 
-        <p className="mt-3 text-[13px] leading-6 text-bb-ink-50">{project.label}</p>
+        <p className="mt-3 max-w-[28rem] text-[14px] leading-6 text-bb-ink-50">{project.label}</p>
 
-        <span className="mt-3 inline-flex items-center gap-2 text-[13px] font-medium text-bb-purple">
+        <span className="mt-4 inline-flex items-center gap-2 text-[14px] font-semibold text-bb-purple transition-transform duration-300 group-hover:translate-x-1">
           View project
           <span aria-hidden="true">→</span>
         </span>
