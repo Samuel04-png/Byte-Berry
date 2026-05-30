@@ -598,7 +598,12 @@ export const productCards = [
     image: '/optimized/projects/tengaloans-overview.webp',
     alt: 'TengaLoans product dashboard',
     href: 'https://tengaloans.com',
-    ctaLabel: 'Visit tengaloans.com',
+    demoHref:
+      'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%20want%20a%20TengaLoans%20demo%20for%20my%20lending%20business.',
+    ctaLabel: 'Book TengaLoans Demo',
+    shortPitch: 'For microfinance teams, loan officers, SACCOs, and lending desks.',
+    outcomes: ['Repayment visibility', 'Borrower records', 'Officer follow-ups'],
+    workflow: ['Applications', 'Approval', 'Repayments', 'Arrears', 'Reports'],
   },
   {
     id: 'zedbooks',
@@ -607,7 +612,12 @@ export const productCards = [
       'Accounting automation for Zambian teams that want cleaner records, repeatable workflows, and less admin drag.',
     price: 'From ZMW 2,000/mo',
     href: 'https://zedbooks.byteandberry.com',
-    ctaLabel: 'Visit zedbooks.byteandberry.com',
+    demoHref:
+      'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%20want%20a%20ZedBooks%20demo%20for%20my%20business%20accounts.',
+    ctaLabel: 'Book ZedBooks Demo',
+    shortPitch: 'For SMEs that need invoices, expenses, records, and monthly clarity.',
+    outcomes: ['Cleaner records', 'Faster invoices', 'Monthly reporting'],
+    workflow: ['Invoices', 'Expenses', 'Customers', 'Payments', 'Reports'],
   },
 ] as const
 
