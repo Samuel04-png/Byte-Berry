@@ -4,6 +4,7 @@ import { ContactFormSection } from '@/components/site/contact-form-section'
 import { PackagesSection } from '@/components/site/packages-section'
 import { PainSolutionSection } from '@/components/site/pain-solution-section'
 import { ProcessSection } from '@/components/site/process-section'
+import { ProductsSection } from '@/components/site/products-section'
 import { ProofSection } from '@/components/site/proof-section'
 import { ServicesSection } from '@/components/site/services-section'
 import { WhatsAppCTASection } from '@/components/site/whatsapp-cta-section'
@@ -60,6 +61,7 @@ export default function HomePage() {
         <HeroSection />
         <PainSolutionSection />
         <ServicesSection />
+        <ProductsSection />
         <WorkSection />
         <PackagesSection />
         <ProcessSection />
