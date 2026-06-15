@@ -3,16 +3,16 @@ export const siteConfig = {
   shortName: 'Byte & Berry',
   url: 'https://byteandberry.com',
   description:
-    'We build websites, apps, and AI systems for Zambian businesses. Live in 6 weeks. Payment processing integration. Based in Lusaka.',
+    'We build websites, apps, and AI automation for businesses that are ready to grow. Live in 6 weeks. Payment processing integration. Based in Lusaka, serving clients across Africa and beyond.',
   email: 'hello@byteandberry.com',
-  whatsappNumber: '076 0580949',
+  whatsappNumber: '+260 76 0580949',
   whatsappApiNumber: '260760580949',
   whatsappHref:
     'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%20would%20like%20a%20free%20quote%20for%20my%20business.%20I%20need%20help%20with%3A%20%5Bwebsite%20%2F%20app%20%2F%20business%20system%20%2F%20AI%20automation%5D.',
   whatsappFloatingHref:
     'https://wa.me/260760580949?text=Hi%20Byte%20%26%20Berry%2C%20I%20would%20like%20a%20free%20quote%20for%20my%20business.%20I%20need%20help%20with%3A%20%5Bwebsite%20%2F%20app%20%2F%20business%20system%20%2F%20AI%20automation%5D.',
   location: 'Lusaka, Zambia',
-  tagline: 'Building the digital backbone of Zambia.',
+  tagline: 'Digital systems that move your business forward.',
   socials: {
     instagram: 'https://www.instagram.com/byteandberry/',
     linkedin: 'https://www.linkedin.com/company/byte-berry/about/',
@@ -86,9 +86,9 @@ export const projects: Project[] = [
     projectType: 'web_desktop',
     domain: 'tailoredmanor.byteandberry.com',
     summary:
-      'A premium digital storefront concept for a Lusaka furniture brand, built to make products feel luxurious and spatially real online.',
+      'A premium digital storefront concept for a furniture brand, built to make products feel luxurious and spatially real online.',
     description:
-      'Tailored Manor represents the kind of premium digital experience Byte & Berry is building for Zambian retail brands: strong visual storytelling, confident positioning, and tools that help customers imagine a purchase before they visit the showroom.',
+      'Tailored Manor represents the kind of premium digital experience Byte & Berry builds for retail brands: strong visual storytelling, confident positioning, and tools that help customers imagine a purchase before they visit the showroom.',
     story:
       'Tailored Manor is framed as a digital flagship for a high-touch furniture business. The experience focuses on atmosphere, space, and premium presentation so the brand feels established before a customer ever steps into the store.',
     services: ['Luxury web design', 'Furniture storytelling', 'Room visualiser planning'],
@@ -99,12 +99,17 @@ export const projects: Project[] = [
       solid: '#B8935A',
       soft: 'rgba(184, 147, 90, 0.14)',
     },
-    desktopImage: null,
-    heroImage: '/og-image.svg',
-    heroAlt: 'Tailored Manor project preview',
-    image: null,
-    imageAlt: 'Tailored Manor project preview',
-    gallery: [],
+    desktopImage: '/optimized/projects/tailored-manor-hero.webp',
+    imagePresentation: 'screen',
+    heroImage: '/optimized/projects/tailored-manor-hero.webp',
+    heroAlt: 'Tailored Manor bespoke furniture studio website on desktop',
+    image: '/optimized/projects/tailored-manor-hero.webp',
+    imageAlt: 'Tailored Manor bespoke furniture studio website',
+    gallery: [
+      { src: '/optimized/projects/tailored-manor-hero.webp', alt: 'Tailored Manor hero section with bespoke furniture branding' },
+      { src: '/optimized/projects/tailored-manor-collection.webp', alt: 'Tailored Manor product collection and gallery section' },
+      { src: '/optimized/projects/tailored-manor-materials.webp', alt: 'Tailored Manor Zambian hardwood materials section' },
+    ],
   },
   {
     slug: 'shark-car-hire',
@@ -161,7 +166,7 @@ export const projects: Project[] = [
     timeline: '6 weeks',
     outcome:
       'A sharper, more operational delivery product that helps customers trust the platform and helps the business communicate speed more clearly.',
-    featurePills: ['Live in Lusaka', 'Payment processing', 'iOS + Android'],
+    featurePills: ['Live in production', 'Payment processing', 'iOS + Android'],
     accent: {
       solid: '#22C55E',
       soft: 'rgba(34, 197, 94, 0.12)',
@@ -224,9 +229,9 @@ export const projects: Project[] = [
     projectType: 'saas_platform',
     domain: 'zedbooks.byteandberry.com',
     summary:
-      'An accounting automation product for Zambian teams that need cleaner records, smoother workflows, and less admin drag.',
+      'An accounting automation product for teams that need cleaner records, smoother workflows, and less admin drag.',
     description:
-      'ZedBooks is positioned as a practical operations product rather than a generic finance dashboard. The focus is on clarity, repeatability, and a product story that feels grounded in the day-to-day realities of local businesses.',
+      'ZedBooks is positioned as a practical operations product rather than a generic finance dashboard. The focus is on clarity, repeatability, and a product story that feels grounded in the day-to-day realities of growing businesses.',
     story:
       'ZedBooks is about making accounting feel less heavy for teams that need simple systems and stronger consistency. The product direction prioritizes clarity, useful structure, and an interface that feels practical from the first screen.',
     services: ['SaaS positioning', 'Finance workflow UI', 'Operations storytelling'],
@@ -238,12 +243,18 @@ export const projects: Project[] = [
       solid: '#6366F1',
       soft: 'rgba(99, 102, 241, 0.14)',
     },
-    dashboardImage: null,
-    heroImage: '/og-image.svg',
-    heroAlt: 'ZedBooks product preview',
-    image: null,
-    imageAlt: 'ZedBooks product preview',
-    gallery: [],
+    desktopImage: '/optimized/projects/zedbooks-hero.webp',
+    imagePresentation: 'screen',
+    dashboardImage: '/optimized/projects/zedbooks-features.webp',
+    heroImage: '/optimized/projects/zedbooks-hero.webp',
+    heroAlt: 'ZedBooks NGO accounting suite website hero section',
+    image: '/optimized/projects/zedbooks-hero.webp',
+    imageAlt: 'ZedBooks NGO accounting suite website',
+    gallery: [
+      { src: '/optimized/projects/zedbooks-hero.webp', alt: 'ZedBooks hero section with NGO accounting dashboard mockup' },
+      { src: '/optimized/projects/zedbooks-features.webp', alt: 'ZedBooks features and payroll management section' },
+      { src: '/optimized/projects/zedbooks-compliance.webp', alt: 'ZedBooks compliance and ZRA integration section' },
+    ],
   },
   {
     slug: 'tengaloans',
@@ -449,7 +460,7 @@ export const services = [
     key: 'mobile-applications',
     number: '02',
     title: 'Mobile Applications',
-    description: 'Cross-platform mobile experiences designed for Zambian users, devices, and network realities.',
+    description: 'Cross-platform mobile experiences designed for real-world users, devices, and network conditions.',
     price: 'From ZMW 15,000',
   },
   {
@@ -482,7 +493,7 @@ export const services = [
     key: 'saas-products',
     number: '06',
     title: 'SaaS Products',
-    description: 'Deployable software like TengaLoans and ZedBooks built for local operators.',
+    description: 'Deployable software like TengaLoans and ZedBooks built for growing operators.',
     price: 'ZMW 2,000/mo',
   },
 ] as const
@@ -570,7 +581,7 @@ export const proofStats = [
   { value: 10, suffix: '+', label: 'Projects delivered' },
   { value: 6, suffix: '', label: 'Weeks average delivery' },
   { value: 2, suffix: '', label: 'Live SaaS products' },
-  { value: 100, suffix: '%', label: 'Zambian-built' },
+  { value: 100, suffix: '%', label: 'Team-led, not outsourced' },
 ]
 
 export const founders = [
@@ -609,7 +620,7 @@ export const productCards = [
     id: 'zedbooks',
     title: 'ZedBooks',
     description:
-      'Accounting automation for Zambian teams that want cleaner records, repeatable workflows, and less admin drag.',
+      'Accounting automation for teams that want cleaner records, repeatable workflows, and less admin drag.',
     price: 'From ZMW 2,000/mo',
     href: 'https://zedbooks.byteandberry.com',
     demoHref:

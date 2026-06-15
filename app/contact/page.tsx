@@ -6,7 +6,7 @@ import { siteConfig } from '@/data/site-data'
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Contact Byte & Berry in Lusaka, Zambia on WhatsApp or email to start your website, app, or AI automation project.',
+    'Contact Byte & Berry on WhatsApp or email to start your website, app, or AI automation project. Based in Lusaka, serving clients worldwide.',
   alternates: {
     canonical: '/contact',
   },

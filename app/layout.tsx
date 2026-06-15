@@ -25,15 +25,17 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'Byte & Berry | Web Development & AI Automation - Lusaka, Zambia',
+    default: 'Byte & Berry | Websites, Apps & AI Automation — Built for Growth',
     template: '%s | Byte & Berry',
   },
   description: siteConfig.description,
   keywords: [
-    'web development Zambia',
-    'website design Lusaka',
-    'app development Zambia',
-    'AI automation Lusaka',
+    'web development',
+    'website design',
+    'app development',
+    'AI automation',
+    'business systems',
+    'software development Africa',
   ],
   applicationName: siteConfig.name,
   alternates: {
@@ -41,11 +43,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_ZM',
+    locale: 'en_GB',
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: 'Byte & Berry | Built in Zambia',
-    description: 'Zambian software company with 10+ projects and 6-week delivery.',
+    title: 'Byte & Berry | Digital Systems That Move Your Business Forward',
+    description: 'We build websites, apps, and AI automation. 10+ projects delivered. 6-week turnaround.',
     images: [
       {
         url: '/og-image.svg',
@@ -57,8 +59,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Byte & Berry | Built in Zambia',
-    description: 'Zambian software company with 10+ projects and 6-week delivery.',
+    title: 'Byte & Berry | Digital Systems That Move Your Business Forward',
+    description: 'We build websites, apps, and AI automation. 10+ projects delivered. 6-week turnaround.',
     images: ['/og-image.svg'],
   },
   icons: {

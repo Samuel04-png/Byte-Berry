@@ -7,7 +7,7 @@ import { WorkSection } from '@/components/site/work-section'
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Explore Byte & Berry case studies across lending, delivery, safety tech, automation, and tourism platforms built in Zambia.',
+    'Explore Byte & Berry case studies across lending, delivery, safety tech, automation, and tourism platforms.',
   alternates: {
     canonical: '/work',
   },
@@ -20,7 +20,7 @@ export default function WorkPage() {
         <div className="bb-shell space-y-6">
           <p className="bb-label">Selected Work</p>
           <h1 className="bb-title max-w-[56rem]">
-            Real products for businesses in <em>Lusaka</em>, Kitwe, Ndola, and beyond.
+            Real products for businesses across <em>Africa</em> and beyond.
           </h1>
           <p className="max-w-3xl text-[17px] leading-8 text-bb-ink-50">
             This is the proof layer of the business. If you want to know whether we can

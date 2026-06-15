@@ -76,9 +76,9 @@ export function ProofSection() {
 
           <div className="relative z-10 space-y-5">
             <p className="font-serif text-[clamp(28px,3.2vw,38px)] italic leading-[1.45] tracking-[-0.03em] text-bb-ink">
-              We walked into Tailored Manor, a luxury furniture store in Lusaka,
-              pitched them the same afternoon, and built them a room visualiser that
-              no furniture store in Zambia has ever had. That&apos;s the kind of work
+              We identified a gap in the accounting software market, designed ZedBooks
+              in six weeks, and turned it into a live SaaS product that businesses
+              are paying for every month. That&apos;s the kind of work
               we do.
             </p>
             <p className="text-sm font-medium uppercase tracking-[0.08em] text-bb-ink-50">

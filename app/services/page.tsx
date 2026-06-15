@@ -7,7 +7,7 @@ import { WhatsAppCTASection } from '@/components/site/whatsapp-cta-section'
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Premium websites, mobile apps, AI automation, payment integrations, and business systems for Zambian businesses.',
+    'Premium websites, mobile apps, AI automation, payment integrations, and business systems for growing companies.',
   alternates: {
     canonical: '/services',
   },
@@ -23,8 +23,8 @@ export default function ServicesPage() {
             We build what moves <em>bookings</em>, sales, and operations first.
           </h1>
           <p className="max-w-3xl text-[17px] leading-8 text-bb-ink-50">
-            Websites, apps, automation, payments, and internal systems for teams in
-            Lusaka, Kitwe, and Ndola that need digital momentum now.
+            Websites, apps, automation, payments, and internal systems for teams
+            that need digital momentum now.
           </p>
         </div>
       </section>

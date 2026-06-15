@@ -12,7 +12,7 @@ import { WorkSection } from '@/components/site/work-section'
 import { siteConfig } from '@/data/site-data'
 
 export const metadata: Metadata = {
-  title: 'Byte & Berry | Web Development & AI Automation - Lusaka, Zambia',
+  title: 'Byte & Berry | Websites, Apps & AI Automation — Built for Growth',
   description: siteConfig.description,
   alternates: {
     canonical: '/',
@@ -37,9 +37,9 @@ export default function HomePage() {
       {
         '@type': 'ContactPoint',
         contactType: 'sales',
-        telephone: '+260760580949',
+        telephone: '+260****0949',
         email: siteConfig.email,
-        areaServed: 'ZM',
+        areaServed: ['ZA', 'KE', 'NG', 'GH', 'AE', 'GB', 'US', 'ZM'],
         availableLanguage: ['en'],
       },
     ],

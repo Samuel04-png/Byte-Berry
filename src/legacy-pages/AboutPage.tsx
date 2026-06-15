@@ -78,7 +78,7 @@ export function AboutPage() {
                   <h3 className="text-2xl font-bold">Our Vision</h3>
                 </div>
                 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                  To become Zambia's leading digital solutions provider, delivering innovative software and technology services that empower businesses, institutions, and individuals to grow, automate, and thrive.
+                  To become a leading digital solutions provider across Africa and beyond, delivering innovative software and technology services that empower businesses, institutions, and individuals to grow, automate, and thrive.
                 </p>
               </div>
             </CardContent>
@@ -133,7 +133,7 @@ export function AboutPage() {
               <div className="space-y-3">
                 <div>
                   <h3 className="text-2xl font-bold">Simon Mulenga</h3>
-                  <p className="text-sm text-muted-foreground">Co-founder & Marketing Manager</p>
+                  <p className="text-sm text-muted-foreground">Growth Lead & Co-Founder</p>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
                   Simon Mulenga is a Business Administration graduate specializing in Economics, passionate about developing innovative and practical technology solutions for real-world business challenges. His background provides a strong foundation in financial management, business strategy, and market analysis skills he applies to help shape digital tools that support SMEs and organizations across Africa. Simon works at the intersection of business and technology, with a focus on efficiency, cost reduction, and data-driven decision-making.

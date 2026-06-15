@@ -8,8 +8,8 @@ import { fadeUp, staggerContainer } from '@/lib/animations'
 const fields = [
   { label: 'Name', name: 'name', placeholder: 'Your name', type: 'text' },
   { label: 'Business name', name: 'business', placeholder: 'Company or project name', type: 'text' },
-  { label: 'Phone / WhatsApp', name: 'phone', placeholder: '+260 ...', type: 'tel' },
-  { label: 'Budget range', name: 'budget', placeholder: 'Example: ZMW 5,000 - 15,000', type: 'text' },
+  { label: 'Phone / WhatsApp', name: 'phone', placeholder: 'Your WhatsApp number with country code', type: 'tel' },
+  { label: 'Budget range', name: 'budget', placeholder: 'Example: USD 500 — 1,500 (or your currency)', type: 'text' },
 ] as const
 
 export function ContactFormSection() {

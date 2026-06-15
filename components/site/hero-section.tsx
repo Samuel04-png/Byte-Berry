@@ -37,11 +37,9 @@ export function HeroSection() {
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="bb-kicker">
-              Lusaka
+              Websites · Apps · AI Systems · Payment Integration
               <span aria-hidden="true">&nbsp;&middot;&nbsp;</span>
-              Zambia
-              <span aria-hidden="true">&nbsp;&middot;&nbsp;</span>
-              Websites · Apps · AI Systems
+              Based in Lusaka
             </p>
 
             <div className="space-y-3">
@@ -56,7 +54,7 @@ export function HeroSection() {
             <p className="bb-copy bb-copy-muted max-w-[560px]">
               Byte &amp; Berry builds professional websites, mobile apps,
               payment-ready platforms, and AI-powered business systems for
-              Zambian companies that want to grow without messy manual work.
+              companies that want to grow without messy manual work.
             </p>
 
             <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
