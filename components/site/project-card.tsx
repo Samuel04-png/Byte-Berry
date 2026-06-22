@@ -194,6 +194,7 @@ function PhoneFrame({
             alt={imageAlt}
             className="object-cover object-top"
             fill
+            loading="eager"
             sizes={small ? '(max-width: 767px) 140px, 160px' : '(max-width: 767px) 180px, 220px'}
             src={imageSrc as string}
           />
@@ -272,6 +273,7 @@ function renderMockup(project: Project) {
               alt={project.imageAlt}
               className="object-cover object-top transition-transform ease-in-out will-change-transform md:group-hover:-translate-y-[15%]"
               fill
+              loading="eager"
               sizes="(max-width: 767px) 100vw, 460px"
               src={desktopImage}
               style={{ transitionDuration: '3000ms' }}
@@ -351,6 +353,7 @@ function renderMockup(project: Project) {
                   alt={project.imageAlt}
                   className="object-cover object-top"
                   fill
+                  loading="eager"
                   sizes="(max-width: 767px) 100vw, 320px"
                   src={desktopImage}
                 />
@@ -415,6 +418,7 @@ function renderMockup(project: Project) {
                   alt={project.imageAlt}
                   className="object-cover object-top"
                   fill
+                  loading="eager"
                   sizes="(max-width: 767px) 100vw, 520px"
                   src={dashboardImage}
                 />

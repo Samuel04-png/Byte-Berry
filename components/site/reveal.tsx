@@ -12,7 +12,7 @@ type RevealProps = PropsWithChildren<{
 
 const easing = [0.16, 1, 0.3, 1] as const
 
-export function Reveal({ children, className, delay = 0, y = 32 }: RevealProps) {
+export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const reduceMotion = usePrefersReducedMotion()
 
   if (reduceMotion) {
@@ -22,7 +22,7 @@ export function Reveal({ children, className, delay = 0, y = 32 }: RevealProps) 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
+      initial={{ opacity: 1, y: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease: easing, delay }}
@@ -42,7 +42,7 @@ export function PageReveal({ children, className }: PropsWithChildren<{ classNam
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: easing }}
     >

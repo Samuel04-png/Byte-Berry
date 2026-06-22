@@ -1,5 +1,6 @@
 'use client'
 
+import type { FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { siteConfig } from '@/data/site-data'
@@ -13,6 +14,30 @@ const fields = [
 ] as const
 
 export function ContactFormSection() {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const value = (name: string) => String(formData.get(name) || '').trim()
+    const message = [
+      'Hi Byte & Berry, I would like a quote for my business.',
+      '',
+      `Name: ${value('name') || 'Not provided'}`,
+      `Business: ${value('business') || 'Not provided'}`,
+      `Phone / WhatsApp: ${value('phone') || 'Not provided'}`,
+      `Budget: ${value('budget') || 'Not provided'}`,
+      `Project type: ${value('project_type') || 'Not sure yet'}`,
+      '',
+      `Project message: ${value('message') || 'Not provided'}`,
+    ].join('\n')
+
+    window.open(
+      `https://wa.me/${siteConfig.whatsappApiNumber}?text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noopener,noreferrer',
+    )
+  }
+
   return (
     <motion.section
       className="bb-section bb-warm-section"
@@ -42,10 +67,8 @@ export function ContactFormSection() {
         </motion.div>
 
         <motion.form
-          action={`mailto:${siteConfig.email}`}
           className="bb-panel grid gap-5 p-6 md:grid-cols-2 md:p-8"
-          encType="text/plain"
-          method="post"
+          onSubmit={handleSubmit}
           variants={fadeUp}
         >
           {fields.map((field) => (
@@ -55,6 +78,7 @@ export function ContactFormSection() {
                 className="min-h-[48px] w-full rounded-[8px] border border-bb-ink-20 bg-white px-4 text-sm font-normal text-bb-ink outline-none transition focus:border-bb-purple"
                 name={field.name}
                 placeholder={field.placeholder}
+                required={field.name === 'name' || field.name === 'phone'}
                 type={field.type}
               />
             </label>
@@ -66,6 +90,7 @@ export function ContactFormSection() {
               className="min-h-[48px] w-full rounded-[8px] border border-bb-ink-20 bg-white px-4 text-sm font-normal text-bb-ink outline-none transition focus:border-bb-purple"
               defaultValue=""
               name="project_type"
+              required
             >
               <option disabled value="">
                 Select one
@@ -89,7 +114,7 @@ export function ContactFormSection() {
 
           <div className="flex flex-col gap-3 md:col-span-2 md:flex-row md:items-center md:justify-between">
             <p className="text-xs leading-6 text-bb-ink-50">
-              This opens your email app with the brief. For fastest replies, WhatsApp is still recommended.
+              This opens WhatsApp with your brief already filled in, so nothing gets lost.
             </p>
             <button className="bb-button bb-button-primary justify-center" type="submit">
               Request a Quote

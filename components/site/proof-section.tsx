@@ -94,6 +94,7 @@ export function ProofSection() {
                     alt={founder.alt}
                     className="object-cover"
                     fill
+                    loading="eager"
                     sizes="56px"
                     src={founder.image}
                   />

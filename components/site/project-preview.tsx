@@ -63,6 +63,7 @@ export function ProjectPreview({
           imageClassName,
         )}
         fill
+        loading={priority ? undefined : 'eager'}
         priority={priority}
         sizes={sizes}
         src={src}

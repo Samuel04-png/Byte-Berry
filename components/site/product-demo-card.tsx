@@ -38,6 +38,7 @@ function ProductMockup({ product, variant = 'light' }: Pick<Props, 'product' | '
           alt={product.alt}
           className="object-cover transition duration-500 group-hover:scale-[1.03]"
           fill
+          loading="eager"
           sizes="(max-width: 768px) 100vw, 50vw"
           src={product.image}
         />
